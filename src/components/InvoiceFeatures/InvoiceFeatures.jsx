@@ -3,9 +3,9 @@ import { DocumentTextIcon, ClockIcon, CalculatorIcon } from '@heroicons/react/24
 
 const InvoiceFeatures = () => {
   return (
-    <div className="px-4 py-16 bg-gradient-to-br from-gray-50 to-white">
+    <div className="px-4 py-24 bg-gradient-to-br from-gray-50 to-white">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4 text-black">
             Why Use Our Invoice Generator?
           </h2>
@@ -14,8 +14,8 @@ const InvoiceFeatures = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="group p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+        <div className="grid md:grid-cols-3 gap-12">
+          <div className="group p-8 rounded-2xl bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
             <div className="mb-4 p-3 rounded-lg bg-emerald-50 w-fit group-hover:bg-emerald-100 transition-colors">
               <DocumentTextIcon className="w-6 h-6 text-emerald-600" />
             </div>
@@ -27,7 +27,7 @@ const InvoiceFeatures = () => {
             </p>
           </div>
 
-          <div className="group p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+          <div className="group p-8 rounded-2xl bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
             <div className="mb-4 p-3 rounded-lg bg-emerald-50 w-fit group-hover:bg-emerald-100 transition-colors">
               <ClockIcon className="w-6 h-6 text-emerald-600" />
             </div>
@@ -39,7 +39,7 @@ const InvoiceFeatures = () => {
             </p>
           </div>
 
-          <div className="group p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+          <div className="group p-8 rounded-2xl bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
             <div className="mb-4 p-3 rounded-lg bg-emerald-50 w-fit group-hover:bg-emerald-100 transition-colors">
               <CalculatorIcon className="w-6 h-6 text-emerald-600" />
             </div>
