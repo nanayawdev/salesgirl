@@ -141,7 +141,6 @@ const Navbar = () => {
               </button>
             </div>
           </div>
-          <div className="mt-2 border-b border-gray-200 dark:border-border-dark" />
         </div>
 
         {/* Mobile Menu */}
