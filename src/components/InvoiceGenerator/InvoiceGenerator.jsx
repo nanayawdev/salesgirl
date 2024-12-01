@@ -227,61 +227,6 @@ const InvoiceGenerator = () => {
           </div>
         </section>
 
-        {/* Additional Details */}
-        <section className="mb-8 bg-white/10 p-6 rounded-lg shadow-sm">
-          <h2 className="text-xl font-semibold mb-4">Additional Details</h2>
-          <div className="grid grid-cols-2 gap-8">
-            <div>
-              <label className="block mb-1">Notes</label>
-              <textarea
-                value={invoiceData.notes}
-                onChange={(e) => setInvoiceData({...invoiceData, notes: e.target.value})}
-                className="w-full p-2 border rounded bg-white/5"
-                rows="4"
-                placeholder="Any additional notes for the client..."
-              />
-            </div>
-            <div>
-              <label className="block mb-1">Terms & Conditions</label>
-              <textarea
-                value={invoiceData.terms}
-                onChange={(e) => setInvoiceData({...invoiceData, terms: e.target.value})}
-                className="w-full p-2 border rounded bg-white/5"
-                rows="4"
-                placeholder="Payment terms and conditions..."
-              />
-            </div>
-          </div>
-
-          {/* Tax Settings */}
-          <div className="mt-6">
-            <label className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                checked={invoiceData.enableTax}
-                onChange={(e) => setInvoiceData({...invoiceData, enableTax: e.target.checked})}
-                className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
-              />
-              <span>Enable Tax</span>
-            </label>
-            
-            {invoiceData.enableTax && (
-              <div className="mt-2">
-                <label className="block mb-1">Tax Rate (%)</label>
-                <input
-                  type="number"
-                  value={invoiceData.taxRate}
-                  onChange={(e) => setInvoiceData({...invoiceData, taxRate: parseFloat(e.target.value) || 0})}
-                  className="w-32 p-2 border rounded bg-white/5"
-                  min="0"
-                  max="100"
-                  step="0.1"
-                />
-              </div>
-            )}
-          </div>
-        </section>
-
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-4">Items</h2>
           
@@ -350,13 +295,40 @@ const InvoiceGenerator = () => {
             </div>
           ))}
 
-          {/* Totals Section */}
+          {/* Totals Section with Tax */}
           <div className="border-t mt-4 pt-4">
             <div className="flex justify-end">
               <div className="w-64 space-y-2">
                 <div className="flex justify-between">
                   <span>Subtotal:</span>
                   <span>${calculateSubtotal().toFixed(2)}</span>
+                </div>
+                
+                <div className="py-2">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      checked={invoiceData.enableTax}
+                      onChange={(e) => setInvoiceData({...invoiceData, enableTax: e.target.checked})}
+                      className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
+                    />
+                    <span>Enable Tax</span>
+                  </label>
+                  
+                  {invoiceData.enableTax && (
+                    <div className="mt-2">
+                      <label className="block mb-1">Tax Rate (%)</label>
+                      <input
+                        type="number"
+                        value={invoiceData.taxRate}
+                        onChange={(e) => setInvoiceData({...invoiceData, taxRate: parseFloat(e.target.value) || 0})}
+                        className="w-32 p-2 border rounded bg-white/5"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                      />
+                    </div>
+                  )}
                 </div>
                 
                 {invoiceData.enableTax && (
@@ -372,6 +344,30 @@ const InvoiceGenerator = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Notes and Terms Section */}
+        <section className="mt-8 mb-8 space-y-6">
+          <div>
+            <label className="block mb-1">Notes</label>
+            <textarea
+              value={invoiceData.notes}
+              onChange={(e) => setInvoiceData({...invoiceData, notes: e.target.value})}
+              className="w-full p-2 border rounded bg-white/5"
+              rows="4"
+              placeholder="Any additional notes for the client..."
+            />
+          </div>
+          <div>
+            <label className="block mb-1">Terms & Conditions</label>
+            <textarea
+              value={invoiceData.terms}
+              onChange={(e) => setInvoiceData({...invoiceData, terms: e.target.value})}
+              className="w-full p-2 border rounded bg-white/5"
+              rows="4"
+              placeholder="Payment terms and conditions..."
+            />
           </div>
         </section>
 
