@@ -45,70 +45,69 @@ const InvoiceSteps = () => {
           </p>
         </div>
 
-        <div className="relative">
-          {/* Background Line */}
-          <div className={`absolute top-24 left-0 w-full h-0.5 ${isDark ? 'bg-emerald-900/50' : 'bg-emerald-800/50'} hidden md:block`} />
-          
-          <div className="grid md:grid-cols-3 gap-16">
-            {steps.map((step, index) => (
-              <div 
-                key={step.number}
-                className="relative group"
-              >
-                {/* Step Content */}
-                <div className="flex flex-col items-start">
-                  {/* Number */}
-                  <span className={`text-4xl font-bold mb-8 transition-all duration-300
-                    ${isDark ? 'text-emerald-800' : 'text-emerald-700'}
-                    group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-300 group-hover:to-emerald-500`}>
-                    {step.number}
-                  </span>
-                  
-                  {/* Icon */}
-                  <div className={`w-20 h-20 rounded-3xl bg-gradient-to-br ${step.color} p-0.5 mb-8 transform group-hover:scale-105 group-hover:rotate-3 transition-all duration-300`}>
-                    <div className={`w-full h-full ${isDark ? 'bg-emerald-950' : 'bg-emerald-900'} rounded-[22px] flex items-center justify-center`}>
-                      <div className="text-emerald-100">
-                        {step.icon}
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Text Content */}
-                  <h3 className="text-2xl font-semibold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-300 group-hover:to-emerald-500 transition-colors">
-                    {step.title}
-                  </h3>
-                  <p className={`${isDark ? 'text-emerald-300' : 'text-emerald-200'} leading-relaxed`}>
-                    {step.description}
-                  </p>
-                </div>
-
-                {/* Progress Indicator */}
-                {index < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-24 left-1/2 w-full h-0.5 overflow-hidden">
-                    <div className="w-full h-full bg-gradient-to-r from-emerald-400 to-emerald-600 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
-                  </div>
-                )}
+        <div className="grid md:grid-cols-3 gap-8 relative">
+          {steps.map((step, index) => (
+            <div 
+              key={step.number}
+              className={`relative p-8 rounded-2xl transition-all duration-300 group
+                ${isDark ? 'bg-emerald-900/30' : 'bg-emerald-800/30'}
+                hover:bg-gradient-to-br hover:from-emerald-800/40 hover:to-emerald-900/40
+                border border-emerald-700/30 hover:border-emerald-600/50`}
+            >
+              {/* Step Number Badge */}
+              <div className="absolute -top-4 left-8 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full px-3 py-1">
+                <span className="text-sm font-semibold text-white">
+                  Step {step.number}
+                </span>
               </div>
-            ))}
-          </div>
-          <div className="mt-16 text-center flex gap-4 justify-center">
-            <button className="bg-emerald-100 text-emerald-900 px-6 py-3 rounded-md font-medium hover:bg-emerald-200 transition-colors flex items-center">
-              Create Your Invoice
-              <svg 
-                className="w-4 h-4 ml-2" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
-          </div>
+
+              {/* Icon */}
+              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} p-0.5 mb-6 transform group-hover:scale-105 group-hover:rotate-3 transition-all duration-300`}>
+                <div className={`w-full h-full ${isDark ? 'bg-emerald-950' : 'bg-emerald-900'} rounded-xl flex items-center justify-center`}>
+                  <div className="text-emerald-100">
+                    {step.icon}
+                  </div>
+                </div>
+              </div>
+
+              {/* Content */}
+              <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-300 group-hover:to-emerald-500">
+                {step.title}
+              </h3>
+              <p className="text-emerald-200/90 text-sm leading-relaxed">
+                {step.description}
+              </p>
+
+              {/* Connector Line */}
+              {index < steps.length - 1 && (
+                <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-emerald-700/30">
+                  <div className="w-full h-full bg-gradient-to-r from-emerald-400 to-emerald-600 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-16 text-center flex gap-4 justify-center">
+          <button className="bg-emerald-100 text-emerald-900 px-6 py-3 rounded-md font-medium hover:bg-emerald-200 transition-colors flex items-center">
+            Create Your Invoice
+            <svg 
+              className="w-4 h-4 ml-2" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+          <button className="border border-emerald-300 text-emerald-100 px-6 py-3 rounded-md font-medium hover:bg-emerald-800/30 transition-colors">
+            Learn More
+          </button>
         </div>
       </div>
     </div>
