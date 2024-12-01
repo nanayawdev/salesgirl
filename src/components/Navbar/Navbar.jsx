@@ -5,7 +5,10 @@ import { Button } from '@/components/ui/button'
 
 const Navbar = () => {
       return (
-        <nav className="flex items-center justify-between max-w-4xl mx-auto my-4 px-6 py-3 bg-rose-300 rounded-md">
+        <nav className="flex items-center justify-between max-w-4xl mx-auto my-4 px-6 py-3 bg-gray-300 rounded-md">
+          <Link to="/" className="text-xl font-bold text-primary">
+            Salesgirl
+          </Link>
           <ul className="flex space-x-6">
             <li>
               <Link to="/tools" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
