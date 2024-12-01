@@ -45,8 +45,8 @@ const Navbar = () => {
             <div className="flex-1 flex items-center space-x-2 tablet:space-x-4 laptop:space-x-8">
               {/* Logo */}
               <a href="/" className="flex-shrink-0">
-                <span className="text-gray-900 dark:text-white text-xl">
-                  PaddyVotes
+                <span className="text-gray-900 dark:text-white text-xl text-[12px]">
+                  Salesgirl
                 </span>
               </a>
               
@@ -59,7 +59,7 @@ const Navbar = () => {
                 <React.Fragment key={item.label}>
                   <a
                     href={item.href}
-                    className="text-p-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-3 py-2 font-medium"
+                    className="text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-3 py-2 font-medium"
                   >
                     {item.label}
                   </a>
@@ -74,14 +74,14 @@ const Navbar = () => {
             <div className="flex-1 flex items-center justify-end space-x-2 tablet:space-x-4 laptop:space-x-6">
               <a
                 href="/signin"
-                className="hidden tablet:block text-p-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-medium"
+                className="hidden tablet:block text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-medium"
               >
                 Sign in
               </a>
               
               <a
                 href="/signup"
-                className="hidden tablet:block text-p-base bg-gray-900 text-white dark:bg-gray-800 hover:bg-gray-800 dark:hover:bg-gray-700 px-4 py-2 font-medium rounded-lg transition-colors whitespace-nowrap"
+                className="hidden tablet:block text-[12px] bg-gray-900 text-white dark:bg-gray-800 hover:bg-gray-800 dark:hover:bg-gray-700 px-4 py-2 font-medium rounded-lg transition-colors whitespace-nowrap"
               >
                 Create competition →
               </a>
