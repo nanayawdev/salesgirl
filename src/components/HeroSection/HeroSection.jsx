@@ -1,6 +1,12 @@
 import React from 'react';
 
 const HeroSection = () => {
+  const scrollToSteps = () => {
+    document.querySelector('#invoice-steps').scrollIntoView({ 
+      behavior: 'smooth' 
+    });
+  };
+
   return (
     <div className="bg-gradient-to-br from-emerald-800 to-emerald-950 min-h-[600px] flex items-center justify-center">
       <div className="text-center max-w-3xl mx-auto px-4">
@@ -32,7 +38,10 @@ const HeroSection = () => {
             </svg>
           </button>
           
-          <button className="border border-emerald-300 text-emerald-100 px-6 py-3 rounded-md font-medium hover:bg-emerald-800/30 transition-colors">
+          <button 
+            onClick={scrollToSteps}
+            className="border border-emerald-300 text-emerald-100 px-6 py-3 rounded-md font-medium hover:bg-emerald-800/30 transition-colors"
+          >
             Learn More
           </button>
         </div>
