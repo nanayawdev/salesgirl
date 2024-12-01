@@ -177,6 +177,111 @@ const InvoiceGenerator = () => {
           </section>
         </div>
 
+        {/* Invoice Details */}
+        <section className="mb-8 bg-white/10 p-6 rounded-lg shadow-sm">
+          <h2 className="text-xl font-semibold mb-4">Invoice Details</h2>
+          <div className="grid grid-cols-4 gap-4">
+            <div>
+              <label className="block mb-1">Invoice Number</label>
+              <input
+                type="text"
+                value={invoiceData.invoiceNumber}
+                onChange={(e) => setInvoiceData({...invoiceData, invoiceNumber: e.target.value})}
+                className="w-full p-2 border rounded bg-white/5"
+                placeholder="INV-001"
+              />
+            </div>
+            <div>
+              <label className="block mb-1">Currency</label>
+              <select
+                value={invoiceData.currency}
+                onChange={(e) => setInvoiceData({...invoiceData, currency: e.target.value})}
+                className="w-full p-2 border rounded bg-white/5"
+              >
+                <option value="USD">USD - US Dollar</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="GBP">GBP - British Pound</option>
+                <option value="CAD">CAD - Canadian Dollar</option>
+                <option value="AUD">AUD - Australian Dollar</option>
+                <option value="INR">INR - Indian Rupee</option>
+              </select>
+            </div>
+            <div>
+              <label className="block mb-1">Date Issued</label>
+              <input
+                type="date"
+                value={invoiceData.dateIssued}
+                onChange={(e) => setInvoiceData({...invoiceData, dateIssued: e.target.value})}
+                className="w-full p-2 border rounded bg-white/5"
+              />
+            </div>
+            <div>
+              <label className="block mb-1">Due Date</label>
+              <input
+                type="date"
+                value={invoiceData.dueDate}
+                onChange={(e) => setInvoiceData({...invoiceData, dueDate: e.target.value})}
+                className="w-full p-2 border rounded bg-white/5"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Additional Details */}
+        <section className="mb-8 bg-white/10 p-6 rounded-lg shadow-sm">
+          <h2 className="text-xl font-semibold mb-4">Additional Details</h2>
+          <div className="grid grid-cols-2 gap-8">
+            <div>
+              <label className="block mb-1">Notes</label>
+              <textarea
+                value={invoiceData.notes}
+                onChange={(e) => setInvoiceData({...invoiceData, notes: e.target.value})}
+                className="w-full p-2 border rounded bg-white/5"
+                rows="4"
+                placeholder="Any additional notes for the client..."
+              />
+            </div>
+            <div>
+              <label className="block mb-1">Terms & Conditions</label>
+              <textarea
+                value={invoiceData.terms}
+                onChange={(e) => setInvoiceData({...invoiceData, terms: e.target.value})}
+                className="w-full p-2 border rounded bg-white/5"
+                rows="4"
+                placeholder="Payment terms and conditions..."
+              />
+            </div>
+          </div>
+
+          {/* Tax Settings */}
+          <div className="mt-6">
+            <label className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                checked={invoiceData.enableTax}
+                onChange={(e) => setInvoiceData({...invoiceData, enableTax: e.target.checked})}
+                className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
+              />
+              <span>Enable Tax</span>
+            </label>
+            
+            {invoiceData.enableTax && (
+              <div className="mt-2">
+                <label className="block mb-1">Tax Rate (%)</label>
+                <input
+                  type="number"
+                  value={invoiceData.taxRate}
+                  onChange={(e) => setInvoiceData({...invoiceData, taxRate: parseFloat(e.target.value) || 0})}
+                  className="w-32 p-2 border rounded bg-white/5"
+                  min="0"
+                  max="100"
+                  step="0.1"
+                />
+              </div>
+            )}
+          </div>
+        </section>
+
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-4">Items</h2>
           
