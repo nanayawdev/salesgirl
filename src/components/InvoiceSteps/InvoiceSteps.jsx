@@ -31,7 +31,7 @@ const InvoiceSteps = () => {
   ];
 
   return (
-    <div className={`py-24 ${isDark ? 'bg-emerald-950' : 'bg-emerald-900'}`}>
+    <div id="invoice-steps" className={`py-24 ${isDark ? 'bg-emerald-950' : 'bg-emerald-900'}`}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-24">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-500 text-sm font-medium tracking-wider uppercase mb-3 block">
