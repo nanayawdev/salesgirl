@@ -56,9 +56,8 @@ const Navbar = () => {
             {/* Center section - with flex-1 and justify-center */}
             <div className="flex-1 hidden laptop:flex items-center justify-center space-x-4">
               {navItems.map((item) => (
-                <>
+                <React.Fragment key={item.label}>
                   <a
-                    key={item.label}
                     href={item.href}
                     className="font-satoshi text-p-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-3 py-2 font-medium"
                   >
@@ -67,7 +66,7 @@ const Navbar = () => {
                   {item.label === 'Events' && (
                     <div className="h-4 w-px bg-gray-200 dark:bg-border-dark" />
                   )}
-                </>
+                </React.Fragment>
               ))}
             </div>
 
@@ -150,9 +149,8 @@ const Navbar = () => {
           <div className="laptop:hidden py-4 absolute left-0 right-0 bg-white dark:bg-background-dark border-b border-gray-200 dark:border-border-dark shadow-lg">
             <div className="space-y-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
               {navItems.map((item) => (
-                <>
+                <React.Fragment key={item.label}>
                   <a
-                    key={item.label}
                     href={item.href}
                     className="block px-4 py-2 font-satoshi text-p-base font-normal text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
                   >
@@ -161,7 +159,7 @@ const Navbar = () => {
                   {item.label === 'Events' && (
                     <div className="mx-4 my-2 border-t border-gray-200 dark:border-border-dark" />
                   )}
-                </>
+                </React.Fragment>
               ))}
               <div className="px-4 py-4 space-y-4 tablet:hidden">
                 <a
