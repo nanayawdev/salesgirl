@@ -11,6 +11,10 @@ export default {
         'background-dark': '#111827',
         'border-dark': '#374151',
       },
+      screens: {
+        'tablet': '640px',
+        'laptop': '1024px',
+      },
     },
   },
   plugins: [],
