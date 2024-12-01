@@ -38,8 +38,8 @@ const Navbar = () => {
   return (
     <nav className="w-full bg-white dark:bg-background-dark relative">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="py-4">
-          <div className="flex items-center justify-between h-16">
+        <div className="py-2">
+          <div className="flex items-center justify-between h-12">
             {/* Left section - with flex-1 */}
             <div className="flex-1 flex items-center space-x-2 tablet:space-x-4 laptop:space-x-8">
               {/* Logo */}
@@ -141,7 +141,7 @@ const Navbar = () => {
               </button>
             </div>
           </div>
-          <div className="mt-4 border-b border-gray-200 dark:border-border-dark" />
+          <div className="mt-2 border-b border-gray-200 dark:border-border-dark" />
         </div>
 
         {/* Mobile Menu */}

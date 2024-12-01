@@ -16,10 +16,10 @@ const InvoiceFeatures = () => {
 
         <div className="grid md:grid-cols-3 gap-8">
           <div className="group p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
-            <div className="mb-4 p-3 rounded-lg bg-green-50 w-fit group-hover:bg-green-100 transition-colors">
-              <DocumentTextIcon className="w-6 h-6 text-green-600" />
+            <div className="mb-4 p-3 rounded-lg bg-emerald-50 w-fit group-hover:bg-emerald-100 transition-colors">
+              <DocumentTextIcon className="w-6 h-6 text-emerald-600" />
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-black group-hover:text-green-600 transition-colors">
+            <h3 className="text-xl font-semibold mb-2 text-black group-hover:text-emerald-600 transition-colors">
               Professional Templates
             </h3>
             <p className="text-gray-700">
@@ -28,10 +28,10 @@ const InvoiceFeatures = () => {
           </div>
 
           <div className="group p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
-            <div className="mb-4 p-3 rounded-lg bg-green-50 w-fit group-hover:bg-green-100 transition-colors">
-              <ClockIcon className="w-6 h-6 text-green-600" />
+            <div className="mb-4 p-3 rounded-lg bg-emerald-50 w-fit group-hover:bg-emerald-100 transition-colors">
+              <ClockIcon className="w-6 h-6 text-emerald-600" />
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-black group-hover:text-green-600 transition-colors">
+            <h3 className="text-xl font-semibold mb-2 text-black group-hover:text-emerald-600 transition-colors">
               Quick & Easy
             </h3>
             <p className="text-gray-700">
@@ -40,10 +40,10 @@ const InvoiceFeatures = () => {
           </div>
 
           <div className="group p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
-            <div className="mb-4 p-3 rounded-lg bg-green-50 w-fit group-hover:bg-green-100 transition-colors">
-              <CalculatorIcon className="w-6 h-6 text-green-600" />
+            <div className="mb-4 p-3 rounded-lg bg-emerald-50 w-fit group-hover:bg-emerald-100 transition-colors">
+              <CalculatorIcon className="w-6 h-6 text-emerald-600" />
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-black group-hover:text-green-600 transition-colors">
+            <h3 className="text-xl font-semibold mb-2 text-black group-hover:text-emerald-600 transition-colors">
               Automatic Calculations
             </h3>
             <p className="text-gray-700">
