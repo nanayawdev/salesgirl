@@ -105,9 +105,7 @@ const InvoiceSteps = () => {
               />
             </svg>
           </button>
-          <button className="border border-emerald-300 text-emerald-100 px-6 py-3 rounded-md font-medium hover:bg-emerald-800/30 transition-colors">
-            Learn More
-          </button>
+
         </div>
       </div>
     </div>
