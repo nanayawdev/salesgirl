@@ -91,9 +91,26 @@ const InvoiceSteps = () => {
               </div>
             ))}
           </div>
-          <div className="mt-16 text-center">
-          <button className="px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-emerald-500 to-emerald-700 rounded-xl hover:from-emerald-600 hover:to-emerald-800 transition-all duration-300 shadow-sm hover:shadow-md">
-            Get Started Now
+          <div className="mt-16 text-center flex gap-4 justify-center">
+            <button className="bg-emerald-100 text-emerald-900 px-6 py-3 rounded-md font-medium hover:bg-emerald-200 transition-colors flex items-center">
+              Create Your Invoice
+              <svg 
+                className="w-4 h-4 ml-2" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+            
+            <button className="border border-emerald-300 text-emerald-100 px-6 py-3 rounded-md font-medium hover:bg-emerald-800/30 transition-colors">
+              Learn More
             </button>
           </div>
         </div>
