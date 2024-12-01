@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { MessageCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
-
 import { Button } from '@/components/ui/button'
+
 const Navbar = () => {
       return (
         <nav className="flex items-center justify-between max-w-4xl mx-auto my-4 px-6 py-3 bg-background rounded-full shadow-md">
