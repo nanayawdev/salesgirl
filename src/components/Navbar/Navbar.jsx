@@ -37,7 +37,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full bg-gray-500 dark:bg-background-dark relative">
+    <nav className="w-full bg-white dark:bg-background-dark relative">
       <div className="max-w-7xl mx-auto px-4">
         <div className="py-4">
           <div className="flex items-center justify-between h-16">
