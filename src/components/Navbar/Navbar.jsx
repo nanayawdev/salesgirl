@@ -1,7 +1,7 @@
 const Navbar = () => {
     return (
         <header>
-            <div className="mt-4">
+            <div className="mt-4 border-b border-border">
                 <div className="px-4 mx-auto sm:px-6 lg:px-8">
                     <nav className="relative flex items-center justify-between h-14 lg:h-16">
                         <div className="hidden lg:flex lg:items-center lg:space-x-10">
