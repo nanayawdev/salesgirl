@@ -104,7 +104,7 @@ const Navbar = () => {
                         setTheme('light');
                         setIsThemeOpen(false);
                       }}
-                      className="w-full flex items-center px-4 py-2 text-p-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                      className="w-full flex items-center px-4 py-2 text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
                       <Sun className="h-4 w-4 mr-2" />
                       Light
@@ -114,7 +114,7 @@ const Navbar = () => {
                         setTheme('dark');
                         setIsThemeOpen(false);
                       }}
-                      className="w-full flex items-center px-4 py-2 text-p-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                      className="w-full flex items-center px-4 py-2 text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
                       <Moon className="h-4 w-4 mr-2" />
                       Dark
@@ -124,7 +124,7 @@ const Navbar = () => {
                         setTheme('system');
                         setIsThemeOpen(false);
                       }}
-                      className="w-full flex items-center px-4 py-2 text-p-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                      className="w-full flex items-center px-4 py-2 text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
                       <SunMoon className="h-4 w-4 mr-2" />
                       System
