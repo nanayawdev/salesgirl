@@ -52,11 +52,7 @@ const InvoiceFeatures = () => {
           </div>
         </div>
 
-        <div className="mt-16 text-center">
-          <button className="px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-emerald-500 to-emerald-700 rounded-xl hover:from-emerald-600 hover:to-emerald-800 transition-all duration-300 shadow-sm hover:shadow-md">
-            Get Started Now
-          </button>
-        </div>
+        
       </div>
     </div>
   );
