@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   const scrollToSteps = () => {
@@ -21,7 +22,10 @@ const HeroSection = () => {
         </p>
         
         <div className="flex gap-4 justify-center">
-          <button className="bg-emerald-100 text-emerald-900 px-6 py-3 rounded-md font-medium hover:bg-emerald-200 transition-colors flex items-center">
+          <Link 
+            to="/create-invoice"
+            className="bg-emerald-100 text-emerald-900 px-6 py-3 rounded-md font-medium hover:bg-emerald-200 transition-colors flex items-center"
+          >
             Create Your Invoice
             <svg 
               className="w-4 h-4 ml-2" 
@@ -36,7 +40,7 @@ const HeroSection = () => {
                 d="M9 5l7 7-7 7"
               />
             </svg>
-          </button>
+          </Link>
           
           <button 
             onClick={scrollToSteps}
