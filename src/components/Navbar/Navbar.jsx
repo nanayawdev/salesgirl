@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
-import { Menu, X, Sun, Moon, SunMoon } from 'lucide-react';
+import { Menu, X, Sun, Moon, SunMoon, ChevronRight } from 'lucide-react';
 import NoticeBar from '../ui/noticebar';
 
 const Navbar = () => {
@@ -25,9 +25,8 @@ const Navbar = () => {
   const navItems = [
     { label: 'Home', href: '/' },
     { label: 'Company', href: '/company' },
-    { label: 'Competitions', href: '/competitions' },
-    { label: 'FAQ', href: '/faq' },
-    { label: 'Events', href: '/events' },
+    { label: 'Tools', href: '/tools' },
+    { label: 'About', href: '/about' },
   ];
 
   const themeIcon = {
@@ -83,7 +82,8 @@ const Navbar = () => {
                 href="/signup"
                 className="hidden tablet:block text-[12px] bg-gray-900 text-white dark:bg-gray-800 hover:bg-gray-800 dark:hover:bg-gray-700 px-4 py-2 font-medium rounded-lg transition-colors whitespace-nowrap"
               >
-                Create competition →
+                Get started
+                <ChevronRight className="inline-block h-4 w-4 ml-1" />
               </a>
 
               <div className="hidden tablet:block h-4 w-px bg-gray-200 dark:bg-border-dark" />
