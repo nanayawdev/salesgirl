@@ -1,9 +1,9 @@
 const Navbar = () => {
     return (
         <header>
-            <div className="border-b border-border">
+            <div className="mt-4">
                 <div className="px-4 mx-auto sm:px-6 lg:px-8">
-                    <nav className="relative flex items-center justify-between h-16 lg:h-20">
+                    <nav className="relative flex items-center justify-between h-14 lg:h-16">
                         <div className="hidden lg:flex lg:items-center lg:space-x-10">
                             <a href="#" className="text-base font-medium text-muted-foreground hover:text-foreground">Features</a>
                             <a href="#" className="text-base font-medium text-muted-foreground hover:text-foreground">Solutions</a>
@@ -11,11 +11,11 @@ const Navbar = () => {
                             <a href="#" className="text-base font-medium text-muted-foreground hover:text-foreground">About</a>
                         </div>
 
-                        <div className="lg:absolute lg:-translate-x-1/2 lg:inset-y-5 lg:left-1/2">
+                        <div className="lg:absolute lg:-translate-x-1/2 lg:inset-y-3 lg:left-1/2">
                             <div className="flex-shrink-0">
                                 <a href="#" className="flex">
                                     <img 
-                                        className="w-auto h-8 lg:h-10" 
+                                        className="w-auto h-6 lg:h-8" 
                                         src="https://cdn.rareblocks.xyz/collection/celebration/images/logo.svg" 
                                         alt="Logo" 
                                     />
