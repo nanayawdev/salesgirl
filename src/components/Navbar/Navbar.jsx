@@ -30,9 +30,9 @@ const Navbar = () => {
   ];
 
   const themeIcon = {
-    light: <Sun className="h-5 w-5" />,
-    dark: <Moon className="h-5 w-5" />,
-    system: <SunMoon className="h-5 w-5" />
+    light: <Sun className="h-4 w-4" />,
+    dark: <Moon className="h-4 w-4" />,
+    system: <SunMoon className="h-4 w-4" />
   };
 
   return (
