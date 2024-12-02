@@ -21,12 +21,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { format } from "date-fns";
 import { CalendarIcon } from "@heroicons/react/24/outline";
 import { Input } from "@/components/ui/input";
-import { useCurrency, CURRENCY_OPTIONS } from '../../hooks/useCurrency';
+import { CURRENCY_OPTIONS } from '../../hooks/useCurrency';
 
 const InvoiceGenerator = () => {
   const { theme } = useTheme();
   const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  const { rates, loading, error, convertAmount, formatAmount } = useCurrency('USD');
 
   const [invoiceData, setInvoiceData] = useState({
     // Your Details
@@ -79,13 +78,24 @@ const InvoiceGenerator = () => {
     setItems(newItems);
   };
 
-  const calculateItemAmount = (item) => {
-    const amount = item.quantity * item.rate;
-    return convertAmount(amount, 'USD', invoiceData.currency);
+  const getCurrencySymbol = (currencyCode) => {
+    const currencySymbols = {
+      USD: '$',
+      EUR: '€',
+      GBP: '£',
+      JPY: '¥',
+      CAD: 'C$',
+      AUD: 'A$',
+      CHF: 'CHF',
+      CNY: '¥',
+      INR: '₹',
+      NZD: 'NZ$',
+    };
+    return currencySymbols[currencyCode] || currencyCode;
   };
 
   const calculateSubtotal = () => {
-    return items.reduce((sum, item) => sum + calculateItemAmount(item), 0);
+    return items.reduce((sum, item) => sum + (item.quantity * item.rate), 0);
   };
 
   const calculateTax = (subtotal) => {
@@ -220,7 +230,6 @@ const InvoiceGenerator = () => {
               <Select
                 value={invoiceData.currency}
                 onValueChange={(value) => setInvoiceData({...invoiceData, currency: value})}
-                disabled={loading}
               >
                 <SelectTrigger className="w-full bg-white/5">
                   <SelectValue placeholder="Select currency" />
@@ -233,7 +242,6 @@ const InvoiceGenerator = () => {
                   ))}
                 </SelectContent>
               </Select>
-              {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
             </div>
             <div>
               <label className="block mb-1">Date Issued</label>
@@ -353,7 +361,7 @@ const InvoiceGenerator = () => {
               </div>
               <div className="col-span-1">
                 <p className="p-2">
-                  {formatAmount(calculateItemAmount(item), invoiceData.currency)}
+                  {getCurrencySymbol(invoiceData.currency)}{(item.quantity * item.rate).toFixed(2)}
                 </p>
               </div>
               <div className="col-span-1">
@@ -376,21 +384,21 @@ const InvoiceGenerator = () => {
               <div className="w-64 space-y-2">
                 <div className="flex justify-between">
                   <span>Subtotal:</span>
-                  <span>{formatAmount(calculateSubtotal(), invoiceData.currency)}</span>
+                  <span>{getCurrencySymbol(invoiceData.currency)}{calculateSubtotal().toFixed(2)}</span>
                 </div>
                 
                 {invoiceData.enableTax && (
                   <div className="flex justify-between">
                     <span>Tax ({invoiceData.taxRate}%):</span>
                     <span>
-                      {formatAmount(calculateTax(calculateSubtotal()), invoiceData.currency)}
+                      {getCurrencySymbol(invoiceData.currency)}{calculateTax(calculateSubtotal()).toFixed(2)}
                     </span>
                   </div>
                 )}
                 
                 <div className="flex justify-between font-bold border-t pt-2">
                   <span>Total:</span>
-                  <span>{formatAmount(calculateTotal(), invoiceData.currency)}</span>
+                  <span>{getCurrencySymbol(invoiceData.currency)}{calculateTotal().toFixed(2)}</span>
                 </div>
               </div>
             </div>
