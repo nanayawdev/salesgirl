@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { 
   ArrowLeftIcon,
@@ -23,10 +23,18 @@ import { CalendarIcon } from "@heroicons/react/24/outline";
 import { Input } from "@/components/ui/input";
 import { CURRENCY_OPTIONS } from '../../hooks/useCurrency';
 import PreviewInvoice from '../PreviewInvoice/PreviewInvoice';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useInvoices } from '../../hooks/useInvoices';
 
-const InvoiceGenerator = () => {
+const InvoiceGenerator = ({ view = false }) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { createInvoice, updateInvoice } = useInvoices();
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [invoiceData, setInvoiceData] = useState({
     // Your Details
@@ -64,6 +72,32 @@ const InvoiceGenerator = () => {
   ]);
 
   const [showPreview, setShowPreview] = useState(false);
+
+  useEffect(() => {
+    const loadInvoice = async () => {
+      if (id) {
+        const { data: invoice } = await supabase
+          .from('invoices')
+          .select(`
+            *,
+            invoice_items (*)
+          `)
+          .eq('id', id)
+          .single();
+
+        if (invoice) {
+          setInvoiceData({
+            ...invoice,
+            businessLogo: invoice.business_logo_url,
+            clientLogo: invoice.client_logo_url,
+          });
+          setItems(invoice.invoice_items);
+        }
+      }
+    };
+
+    loadInvoice();
+  }, [id]);
 
   const handleLogoUpload = (e) => {
     const file = e.target.files[0];
@@ -139,6 +173,22 @@ const InvoiceGenerator = () => {
     const discount = calculateDiscount(subtotal);
     const tax = calculateTax(subtotal, discount);
     return subtotal - discount + tax;
+  };
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    try {
+      if (id) {
+        await updateInvoice(id, invoiceData, items);
+      } else {
+        await createInvoice(invoiceData, items);
+      }
+      navigate('/');
+    } catch (error) {
+      console.error('Error saving invoice:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -588,16 +638,20 @@ const InvoiceGenerator = () => {
         {/* Action Buttons */}
         <div className="flex justify-end space-x-4">
           <button 
-            onClick={() => setShowPreview(true)}
+            onClick={() => navigate('/')}
             className="inline-flex items-center px-6 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
           >
-            <EyeIcon className="w-5 h-5 mr-2" />
-            Preview Invoice
+            Cancel
           </button>
-          <button className="inline-flex items-center px-6 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700">
-            <DocumentArrowDownIcon className="w-5 h-5 mr-2" />
-            Generate Invoice
-          </button>
+          {!view && (
+            <button 
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              className="inline-flex items-center px-6 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 disabled:opacity-50"
+            >
+              {isSubmitting ? 'Saving...' : id ? 'Update Invoice' : 'Create Invoice'}
+            </button>
+          )}
         </div>
 
         {/* Preview Modal */}
