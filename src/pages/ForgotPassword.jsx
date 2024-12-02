@@ -50,7 +50,7 @@ const ForgotPassword = () => {
           <CardFooter className="flex flex-col space-y-4">
             <Button 
               type="submit" 
-              className="w-full bg-black hover:bg-gray-800 text-white dark:bg-white dark:text-black dark:hover:bg-gray-200"
+              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white dark:bg-white dark:text-black dark:hover:bg-gray-200"
             >
               Send reset link
               <ArrowRight className="ml-2 h-4 w-4" />
