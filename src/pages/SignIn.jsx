@@ -73,19 +73,19 @@ const SignIn = () => {
           <CardFooter className="flex flex-col space-y-4">
             <Button 
               type="submit" 
-              className="w-full bg-black hover:bg-gray-800 text-white dark:bg-white dark:text-black dark:hover:bg-gray-200"
+              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white dark:bg-white dark:text-black dark:hover:bg-gray-200"
             >
               Sign in
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
             <div className="text-center text-sm">
-              <a href="/forgot-password" className="text-primary hover:text-primary/90">
+              <a href="/forgot-password" className="text-gray-500 hover:text-gray-600">
                 Forgot password?
               </a>
             </div>
             <div className="text-center text-sm text-muted-foreground">
               Don't have an account?{' '}
-              <a href="/signup" className="text-primary hover:text-primary/90">
+              <a href="/signup" className="text-gray-500 hover:text-gray-600">
                 Sign up
               </a>
             </div>
