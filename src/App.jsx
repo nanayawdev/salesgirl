@@ -6,6 +6,8 @@ import InvoiceFeatures from './components/InvoiceFeatures/InvoiceFeatures';
 import InvoiceSteps from './components/InvoiceSteps/InvoiceSteps';
 import InvoiceGenerator from './components/InvoiceGenerator/InvoiceGenerator';
 import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         } />
         <Route path="/create-invoice" element={<InvoiceGenerator />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </Router>
   );
