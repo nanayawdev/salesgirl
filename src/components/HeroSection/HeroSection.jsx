@@ -11,13 +11,11 @@ const HeroSection = () => {
   return (
     <div className="bg-gradient-to-br from-emerald-800 to-emerald-950 min-h-[400px] sm:min-h-[500px] lg:min-h-[600px] flex items-center justify-center py-12 sm:py-16 lg:py-20">
       <div className="text-center max-w-xs sm:max-w-md lg:max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2 sm:mb-3">
-          Create Professional <span className="text-emerald-300">Invoices</span>
-          <br className="hidden sm:block" />
-          in Minutes
+        <h1 className="text-xl sm:text-3xl lg:text-5xl font-bold text-white mb-2 sm:mb-3">
+          Create Professional <span className="text-emerald-300">Invoices</span> in Minutes
         </h1>
         
-        <p className="text-emerald-100 text-sm sm:text-base mb-4 sm:mb-6">
+        <p className="text-xs sm:text-base mb-4 sm:mb-6">
           Generate polished, professional invoices that help you get paid faster. No accounting expertise required.
         </p>
         
