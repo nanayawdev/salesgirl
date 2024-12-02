@@ -238,7 +238,7 @@ const InvoiceGenerator = () => {
                     <CalendarIcon className="h-4 w-4 opacity-50" />
                   </button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
+                <PopoverContent className="w-auto p-0 bg-white dark:bg-gray-800" align="start">
                   <Calendar
                     mode="single"
                     selected={new Date(invoiceData.dateIssued)}
@@ -249,6 +249,7 @@ const InvoiceGenerator = () => {
                       })
                     }
                     initialFocus
+                    className="rounded-md border"
                   />
                 </PopoverContent>
               </Popover>
@@ -268,7 +269,7 @@ const InvoiceGenerator = () => {
                     <CalendarIcon className="h-4 w-4 opacity-50" />
                   </button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
+                <PopoverContent className="w-auto p-0 bg-white dark:bg-gray-800" align="start">
                   <Calendar
                     mode="single"
                     selected={invoiceData.dueDate ? new Date(invoiceData.dueDate) : undefined}
@@ -279,6 +280,7 @@ const InvoiceGenerator = () => {
                       })
                     }
                     initialFocus
+                    className="rounded-md border"
                   />
                 </PopoverContent>
               </Popover>
