@@ -460,53 +460,69 @@ const InvoiceGenerator = () => {
             </div>
           ))}
 
-          {/* Add discount and tax controls */}
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <div className="flex items-center space-x-4">
-              <label className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={invoiceData.enableDiscount}
-                  onChange={(e) => setInvoiceData({...invoiceData, enableDiscount: e.target.checked})}
-                  className="rounded border-gray-300"
-                />
-                <span>Enable Discount</span>
-              </label>
-              {invoiceData.enableDiscount && (
-                <Input
-                  type="number"
-                  value={invoiceData.discountRate}
-                  onChange={(e) => setInvoiceData({...invoiceData, discountRate: parseFloat(e.target.value) || 0})}
-                  className="w-20 text-right"
-                  min="0"
-                  max="100"
-                  placeholder="%"
-                />
-              )}
+          {/* Discount and Tax Section */}
+          <section className="mb-8 bg-white/10 p-6 rounded-lg shadow-sm">
+            <h2 className="text-xl font-semibold mb-4">Additional Charges</h2>
+            <div className="grid grid-cols-2 gap-6">
+              {/* Discount Controls */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      checked={invoiceData.enableDiscount}
+                      onChange={(e) => setInvoiceData({...invoiceData, enableDiscount: e.target.checked})}
+                      className="rounded border-gray-300"
+                    />
+                    <span>Enable Discount</span>
+                  </label>
+                  {invoiceData.enableDiscount && (
+                    <div className="flex items-center space-x-2">
+                      <Input
+                        type="number"
+                        value={invoiceData.discountRate}
+                        onChange={(e) => setInvoiceData({...invoiceData, discountRate: parseFloat(e.target.value) || 0})}
+                        className="w-24 text-right bg-white/5"
+                        min="0"
+                        max="100"
+                        placeholder="0"
+                      />
+                      <span>%</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Tax Controls */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      checked={invoiceData.enableTax}
+                      onChange={(e) => setInvoiceData({...invoiceData, enableTax: e.target.checked})}
+                      className="rounded border-gray-300"
+                    />
+                    <span>Enable Tax</span>
+                  </label>
+                  {invoiceData.enableTax && (
+                    <div className="flex items-center space-x-2">
+                      <Input
+                        type="number"
+                        value={invoiceData.taxRate}
+                        onChange={(e) => setInvoiceData({...invoiceData, taxRate: parseFloat(e.target.value) || 0})}
+                        className="w-24 text-right bg-white/5"
+                        min="0"
+                        max="100"
+                        placeholder="0"
+                      />
+                      <span>%</span>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <label className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={invoiceData.enableTax}
-                  onChange={(e) => setInvoiceData({...invoiceData, enableTax: e.target.checked})}
-                  className="rounded border-gray-300"
-                />
-                <span>Enable Tax</span>
-              </label>
-              {invoiceData.enableTax && (
-                <Input
-                  type="number"
-                  value={invoiceData.taxRate}
-                  onChange={(e) => setInvoiceData({...invoiceData, taxRate: parseFloat(e.target.value) || 0})}
-                  className="w-20 text-right"
-                  min="0"
-                  max="100"
-                  placeholder="%"
-                />
-              )}
-            </div>
-          </div>
+          </section>
 
           {/* Totals Section */}
           <div className="border-t mt-4 pt-4">
