@@ -223,6 +223,14 @@ const InvoiceGenerator = ({ view = false }) => {
     }
   };
 
+  const handlePreview = () => {
+    setShowPreview(true);
+  };
+
+  const handleClosePreview = () => {
+    setShowPreview(false);
+  };
+
   return (
     <div className={`min-h-screen ${isDark ? 'bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-900'}`}>
       <div className="max-w-4xl mx-auto p-6">
@@ -670,7 +678,7 @@ const InvoiceGenerator = ({ view = false }) => {
         {/* Action Buttons */}
         <div className="flex justify-end space-x-4">
           <button 
-            onClick={() => setShowPreview(true)}
+            onClick={handlePreview}
             className="inline-flex items-center px-6 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
           >
             <EyeIcon className="w-5 h-5 mr-2" />
@@ -694,7 +702,7 @@ const InvoiceGenerator = ({ view = false }) => {
               ...invoiceData,
               items
             }}
-            onClose={() => setShowPreview(false)}
+            onClose={handleClosePreview}
           />
         )}
       </div>

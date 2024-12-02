@@ -2,10 +2,18 @@ import React from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 const PreviewInvoice = ({ invoice, onClose }) => {
+  // Helper function to handle logo display
+  const getLogoSrc = (logo) => {
+    if (!logo) return null;
+    if (logo instanceof File) {
+      return URL.createObjectURL(logo);
+    }
+    return logo; // Return the URL string directly
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-3xl relative flex flex-col max-h-[90vh]">
-        {/* Close Button - Keep it fixed */}
         <button 
           onClick={onClose}
           className="absolute right-4 top-4 text-gray-500 hover:text-gray-700 z-10"
@@ -13,23 +21,19 @@ const PreviewInvoice = ({ invoice, onClose }) => {
           <XMarkIcon className="w-6 h-6" />
         </button>
 
-        {/* Scrollable Content */}
         <div className="overflow-y-auto flex-1 p-8">
-          {/* Invoice Content */}
           <div className="min-h-min">
-            {/* Header */}
             <div className="mb-8">
               <h1 className="text-2xl font-bold text-gray-900">INVOICE</h1>
               <p className="text-gray-600">#{invoice.invoiceNumber}</p>
             </div>
 
-            {/* Business and Client Info */}
             <div className="grid grid-cols-2 gap-8 mb-8">
               <div>
                 <h2 className="text-gray-600 mb-2">From</h2>
                 {invoice.businessLogo && (
                   <img 
-                    src={URL.createObjectURL(invoice.businessLogo)} 
+                    src={getLogoSrc(invoice.businessLogo)} 
                     alt="Business Logo" 
                     className="max-h-12 mb-2"
                   />
@@ -42,7 +46,7 @@ const PreviewInvoice = ({ invoice, onClose }) => {
                 <h2 className="text-gray-600 mb-2">Bill To</h2>
                 {invoice.clientLogo && (
                   <img 
-                    src={URL.createObjectURL(invoice.clientLogo)} 
+                    src={getLogoSrc(invoice.clientLogo)} 
                     alt="Client Logo" 
                     className="max-h-12 mb-2"
                   />
@@ -53,7 +57,6 @@ const PreviewInvoice = ({ invoice, onClose }) => {
               </div>
             </div>
 
-            {/* Dates */}
             <div className="grid grid-cols-2 gap-8 mb-8">
               <div>
                 <h2 className="text-gray-600 mb-2">Issue Date</h2>
@@ -65,7 +68,6 @@ const PreviewInvoice = ({ invoice, onClose }) => {
               </div>
             </div>
 
-            {/* Items Table */}
             <div className="mb-8">
               <table className="w-full">
                 <thead>
@@ -100,7 +102,6 @@ const PreviewInvoice = ({ invoice, onClose }) => {
               </table>
             </div>
 
-            {/* Totals */}
             <div className="flex justify-end mb-8">
               <div className="w-64">
                 <div className="flex justify-between py-2">
@@ -150,7 +151,6 @@ const PreviewInvoice = ({ invoice, onClose }) => {
               </div>
             </div>
 
-            {/* Terms and Notes */}
             <div className="grid grid-cols-2 gap-8">
               <div>
                 <h2 className="text-gray-600 mb-2">Terms & Conditions</h2>
