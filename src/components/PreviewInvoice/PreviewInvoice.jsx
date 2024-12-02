@@ -62,22 +62,29 @@ const PreviewInvoice = ({ invoice, onClose }) => {
             <div className="mb-8">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-gray-200">
-                    <th className="text-left py-3 text-gray-600">Description</th>
-                    <th className="text-right py-3 text-gray-600">Quantity</th>
-                    <th className="text-right py-3 text-gray-600">Rate</th>
-                    <th className="text-right py-3 text-gray-600">Amount</th>
+                  <tr className="bg-gray-50 border-y border-gray-200">
+                    <th className="text-left py-3 px-4 text-gray-600">Description</th>
+                    <th className="text-right py-3 px-4 text-gray-600">Quantity</th>
+                    <th className="text-right py-3 px-4 text-gray-600">Rate</th>
+                    <th className="text-right py-3 px-4 text-gray-600">Amount</th>
                   </tr>
                 </thead>
                 <tbody>
                   {invoice.items.map((item, index) => (
-                    <tr key={index} className="border-b border-gray-200">
-                      <td className="py-4">{item.description}</td>
-                      <td className="text-right py-4">{item.quantity}</td>
-                      <td className="text-right py-4">
+                    <tr 
+                      key={index} 
+                      className={`
+                        border-b border-gray-200
+                        ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
+                        hover:bg-gray-100 transition-colors
+                      `}
+                    >
+                      <td className="py-4 px-4">{item.description}</td>
+                      <td className="text-right py-4 px-4">{item.quantity}</td>
+                      <td className="text-right py-4 px-4">
                         {invoice.currency}{item.rate.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                       </td>
-                      <td className="text-right py-4">
+                      <td className="text-right py-4 px-4">
                         {invoice.currency}{(item.quantity * item.rate).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                       </td>
                     </tr>
