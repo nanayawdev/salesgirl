@@ -8,7 +8,7 @@ import InvoiceGenerator from './components/InvoiceGenerator/InvoiceGenerator';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import ForgotPassword from './pages/ForgotPassword';
-
+import Footer from './components/Footer/Footer';
 function App() {
   return (
     <Router>
@@ -19,6 +19,7 @@ function App() {
             <HeroSection />
             <InvoiceFeatures />
             <InvoiceSteps />
+            <Footer />
           </>
         } />
         <Route path="/create-invoice" element={<InvoiceGenerator />} />
