@@ -182,6 +182,8 @@ const InvoiceGenerator = ({ view = false }) => {
       if (id) {
         await updateInvoice(id, invoiceData, items);
       } else {
+        console.log('Invoice Data:', invoiceData);
+        console.log('Items:', items);
         await createInvoice(invoiceData, items);
       }
       toast.success(id ? 'Invoice updated!' : 'Invoice created!');
