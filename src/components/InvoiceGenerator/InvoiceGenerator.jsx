@@ -20,6 +20,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { CalendarIcon } from "@heroicons/react/24/outline";
+import { Input } from "@/components/ui/input";
 
 const InvoiceGenerator = () => {
   const { theme } = useTheme();
@@ -311,31 +312,31 @@ const InvoiceGenerator = () => {
           {items.map((item, index) => (
             <div key={index} className="grid grid-cols-12 gap-4 mb-4 items-center">
               <div className="col-span-6">
-                <input
+                <Input
                   type="text"
                   placeholder="Description"
                   value={item.description}
                   onChange={(e) => updateItem(index, 'description', e.target.value)}
-                  className="w-full p-2 border rounded bg-white/5"
+                  className="bg-white/5"
                 />
               </div>
               <div className="col-span-2">
-                <input
+                <Input
                   type="number"
                   placeholder="Qty"
                   value={item.quantity}
                   onChange={(e) => updateItem(index, 'quantity', parseFloat(e.target.value) || 0)}
-                  className="w-full p-2 border rounded bg-white/5"
+                  className="bg-white/5"
                   min="0"
                 />
               </div>
               <div className="col-span-2">
-                <input
+                <Input
                   type="number"
                   placeholder="Rate"
                   value={item.rate}
                   onChange={(e) => updateItem(index, 'rate', parseFloat(e.target.value) || 0)}
-                  className="w-full p-2 border rounded bg-white/5"
+                  className="bg-white/5"
                   min="0"
                 />
               </div>
@@ -379,11 +380,11 @@ const InvoiceGenerator = () => {
                   {invoiceData.enableTax && (
                     <div className="mt-2">
                       <label className="block mb-1">Tax Rate (%)</label>
-                      <input
+                      <Input
                         type="number"
                         value={invoiceData.taxRate}
                         onChange={(e) => setInvoiceData({...invoiceData, taxRate: parseFloat(e.target.value) || 0})}
-                        className="w-32 p-2 border rounded bg-white/5"
+                        className="w-32 bg-white/5"
                         min="0"
                         max="100"
                         step="0.1"
