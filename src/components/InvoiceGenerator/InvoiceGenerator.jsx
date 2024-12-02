@@ -211,10 +211,10 @@ const InvoiceGenerator = () => {
                 value={invoiceData.currency}
                 onValueChange={(value) => setInvoiceData({...invoiceData, currency: value})}
               >
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full bg-white/5">
                   <SelectValue placeholder="Select currency" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white dark:bg-gray-800">
                   <SelectItem value="USD">USD - US Dollar</SelectItem>
                   <SelectItem value="EUR">EUR - Euro</SelectItem>
                   <SelectItem value="GBP">GBP - British Pound</SelectItem>
