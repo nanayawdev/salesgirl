@@ -22,11 +22,11 @@ const HeroSection = () => {
         <div className="flex flex-col sm:flex-row gap-2 justify-center items-center">
           <Link 
             to="/create-invoice"
-            className="w-32 sm:w-36 bg-emerald-100 text-emerald-900 px-2 py-1.5 rounded-md text-sm font-medium hover:bg-emerald-200 transition-colors flex items-center justify-center"
+            className="w-32 sm:w-36 lg:w-44 bg-emerald-100 text-emerald-900 px-2 py-1.5 lg:px-4 lg:py-2.5 rounded-md text-sm lg:text-base font-medium hover:bg-emerald-200 transition-colors flex items-center justify-center"
           >
             Create Invoice
             <svg 
-              className="w-2.5 h-2.5 ml-1.5" 
+              className="w-2.5 h-2.5 lg:w-3 lg:h-3 ml-1.5" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -42,7 +42,7 @@ const HeroSection = () => {
           
           <button 
             onClick={scrollToSteps}
-            className="w-32 sm:w-36 border border-emerald-300 text-emerald-100 px-2 py-1.5 rounded-md text-sm font-medium hover:bg-emerald-800/30 transition-colors"
+            className="w-32 sm:w-36 lg:w-44 border border-emerald-300 text-emerald-100 px-2 py-1.5 lg:px-4 lg:py-2.5 rounded-md text-sm lg:text-base font-medium hover:bg-emerald-800/30 transition-colors"
           >
             Learn More
           </button>
