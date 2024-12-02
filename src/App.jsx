@@ -12,6 +12,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import Footer from './components/Footer/Footer';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
+import GuestGuard from '@/components/GuestGuard/GuestGuard';
 
 function App() {
   return (
@@ -26,6 +27,21 @@ function App() {
               <InvoiceSteps />
               <Footer />
             </>
+          } />
+          <Route path="/signin" element={
+            <GuestGuard>
+              <SignIn />
+            </GuestGuard>
+          } />
+          <Route path="/signup" element={
+            <GuestGuard>
+              <SignUp />
+            </GuestGuard>
+          } />
+          <Route path="/forgot-password" element={
+            <GuestGuard>
+              <ForgotPassword />
+            </GuestGuard>
           } />
           <Route path="/invoices" element={
             <ProtectedRoute>
@@ -50,9 +66,6 @@ function App() {
               <InvoiceGenerator view />
             </ProtectedRoute>
           } />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </Router>
     </AuthProvider>
