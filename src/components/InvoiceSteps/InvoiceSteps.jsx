@@ -29,10 +29,10 @@ const InvoiceSteps = () => {
   ];
 
   return (
-    <div id="invoice-steps" className="py-24 bg-emerald-900">
+    <div id="invoice-steps" className="py-24 bg-emerald-900 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-24">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-500 text-sm font-medium tracking-wider uppercase mb-3 block">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-500 dark:from-gray-300 dark:to-gray-400 text-sm font-medium tracking-wider uppercase mb-3 block">
             Simple Process
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
