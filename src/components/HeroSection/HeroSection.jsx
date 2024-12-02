@@ -1,11 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 
 const HeroSection = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   const scrollToSteps = () => {
     document.querySelector('#invoice-steps').scrollIntoView({ 
       behavior: 'smooth' 
     });
+  };
+
+  const handleStartBuilding = () => {
+    if (!user) {
+      navigate('/signin');
+    } else {
+      navigate('/create-invoice');
+    }
   };
 
   return (
