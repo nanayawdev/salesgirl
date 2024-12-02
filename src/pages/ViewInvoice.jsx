@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Download } from 'lucide-react'; // Import the Download icon
 import jsPDF from 'jspdf';
@@ -7,9 +7,30 @@ const ViewInvoice = () => {
   const { id } = useParams();
   const [invoice, setInvoice] = useState(null);
 
-  // ... your existing invoice fetching logic ...
+  useEffect(() => {
+    // Fetch the invoice data based on the ID
+    const fetchInvoice = async () => {
+      // Replace with your actual data fetching logic
+      const fetchedInvoice = {
+        invoiceNumber: '12345',
+        date: new Date(),
+        clientName: 'John Doe',
+        clientEmail: 'john.doe@example.com',
+        items: [
+          { description: 'Item 1', quantity: 2, price: 50 },
+          { description: 'Item 2', quantity: 1, price: 100 },
+        ],
+        total: 200,
+      };
+      setInvoice(fetchedInvoice);
+    };
+
+    fetchInvoice();
+  }, [id]);
 
   const generatePDF = () => {
+    if (!invoice) return;
+
     const doc = new jsPDF();
     
     // Add company logo/name
@@ -57,20 +78,30 @@ const ViewInvoice = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      {/* Existing invoice view code */}
-      
-      {/* Add Download PDF button */}
-      <div className="mt-6 flex justify-end">
-        <button
-          onClick={generatePDF}
-          className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          <Download className="w-4 h-4 mr-2" />
-          Download PDF
-        </button>
-      </div>
+      {/* Check if invoice data is loaded */}
+      {invoice ? (
+        <>
+          {/* Display invoice details here */}
+          <h1>Invoice #{invoice.invoiceNumber}</h1>
+          <p>Date: {new Date(invoice.date).toLocaleDateString()}</p>
+          <p>Client: {invoice.clientName}</p>
+          <p>Email: {invoice.clientEmail}</p>
+          {/* Add more invoice details as needed */}
 
-      {/* Rest of your invoice display code */}
+          {/* Add Download PDF button */}
+          <div className="mt-6 flex justify-end">
+            <button
+              onClick={generatePDF}
+              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Download PDF
+            </button>
+          </div>
+        </>
+      ) : (
+        <p>Loading invoice...</p>
+      )}
     </div>
   );
 };
