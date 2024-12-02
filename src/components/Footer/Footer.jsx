@@ -8,12 +8,12 @@ const Footer = () => {
                     <div className="xl:flex xl:items-center xl:justify-start">
                         <img className="w-auto mx-auto h-7" src="https://cdn.rareblocks.xyz/collection/celebration/images/logo-alt-2.svg" alt="" />
 
-                        <p className="mt-5 text-sm text-white xl:ml-6 xl:mt-0">© Copyright 2021 Postcraft</p>
+                        <p className="mt-5 text-sm text-white xl:ml-6 xl:mt-0">© Copyright {new Date().getFullYear()} SalesGirl</p>
                     </div>
 
                     <div className="items-center mt-8 xl:mt-0 xl:flex xl:justify-end xl:space-x-8">
                         <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 xl:justify-end">
-                            {['About', 'Services', 'Privacy Policy', 'Terms & Conditions', 'Support'].map((item) => (
+                            {['About', 'Privacy Policy', 'Terms & Conditions', 'Support'].map((item) => (
                                 <li key={item}>
                                     <a href="#" className="text-sm text-white transition-all duration-200 hover:text-opacity-80 focus:text-opacity-80">
                                         {item}
