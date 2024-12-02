@@ -7,22 +7,22 @@ const InvoiceSteps = () => {
   const steps = [
     {
       number: '01',
-      title: 'Add your details',
-      description: 'Enter your business information and branding',
+      title: 'Business Details',
+      description: 'Fill in your company information and customize the look',
       icon: <ClipboardDocumentIcon className="w-8 h-8" />,
       color: 'from-emerald-400 to-emerald-600'
     },
     {
       number: '02',
-      title: 'Input line items',
-      description: 'Add your products or services with quantities and rates',
+      title: 'Add Items',
+      description: 'List your services or products with pricing details',
       icon: <ListBulletIcon className="w-8 h-8" />,
       color: 'from-emerald-500 to-emerald-700'
     },
     {
       number: '03',
-      title: 'Send & get paid',
-      description: 'Download your professional invoice and send it to your client',
+      title: 'Finalize & Share',
+      description: 'Generate a polished invoice ready to share with your client',
       icon: <BanknotesIcon className="w-8 h-8" />,
       color: 'from-emerald-600 to-emerald-800'
     },
@@ -33,13 +33,13 @@ const InvoiceSteps = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 sm:mb-12 lg:mb-16">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-500 text-xs sm:text-sm font-medium tracking-wider uppercase mb-2 block">
-            Simple Process
+            Easy Steps
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4">
-            How to Create Your Invoice
+          <h2 className="text-2xl sm:text-3xl lg:text-7xl font-bold text-white mb-3 sm:mb-4">
+            Create Your Invoice in Minutes
           </h2>
           <p className="text-emerald-200 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">
-            Three simple steps to get your professional invoice
+            Follow these quick steps to generate a professional invoice
           </p>
         </div>
 
