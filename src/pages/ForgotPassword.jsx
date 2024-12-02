@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, Mail } from 'lucide-react';
-import { toast } from 'react-hot-toast';
 import { supabase } from '@/lib/supabase';
+import { toast } from 'sonner';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
