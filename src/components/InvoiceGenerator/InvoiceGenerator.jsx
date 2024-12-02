@@ -53,6 +53,8 @@ const InvoiceGenerator = () => {
     // Additional Details
     enableTax: false,
     taxRate: 0,
+    enableDiscount: false,
+    discountRate: 0,
     notes: '',
     terms: 'Payment is due within 30 days of invoice date.\nLate payments will incur a 5% monthly fee.'
   });
@@ -119,20 +121,24 @@ const InvoiceGenerator = () => {
   };
 
   const calculateSubtotal = () => {
-    const subtotal = items.reduce((sum, item) => sum + (item.quantity * item.rate), 0);
-    return formatNumber(subtotal);
+    return items.reduce((sum, item) => sum + (item.quantity * item.rate), 0);
   };
 
-  const calculateTax = (subtotal) => {
-    // Remove commas before calculation
-    const subtotalNumber = parseFloat(subtotal.replace(/,/g, ''));
-    return formatNumber(subtotalNumber * (invoiceData.taxRate / 100));
+  const calculateDiscount = (subtotal) => {
+    if (!invoiceData.enableDiscount) return 0;
+    return subtotal * (invoiceData.discountRate / 100);
+  };
+
+  const calculateTax = (subtotal, discount) => {
+    if (!invoiceData.enableTax) return 0;
+    return (subtotal - discount) * (invoiceData.taxRate / 100);
   };
 
   const calculateTotal = () => {
-    const subtotal = parseFloat(calculateSubtotal().replace(/,/g, ''));
-    const tax = invoiceData.enableTax ? parseFloat(calculateTax(calculateSubtotal()).replace(/,/g, '')) : 0;
-    return formatNumber(subtotal + tax);
+    const subtotal = calculateSubtotal();
+    const discount = calculateDiscount(subtotal);
+    const tax = calculateTax(subtotal, discount);
+    return subtotal - discount + tax;
   };
 
   return (
@@ -454,27 +460,83 @@ const InvoiceGenerator = () => {
             </div>
           ))}
 
+          {/* Add discount and tax controls */}
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="flex items-center space-x-4">
+              <label className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  checked={invoiceData.enableDiscount}
+                  onChange={(e) => setInvoiceData({...invoiceData, enableDiscount: e.target.checked})}
+                  className="rounded border-gray-300"
+                />
+                <span>Enable Discount</span>
+              </label>
+              {invoiceData.enableDiscount && (
+                <Input
+                  type="number"
+                  value={invoiceData.discountRate}
+                  onChange={(e) => setInvoiceData({...invoiceData, discountRate: parseFloat(e.target.value) || 0})}
+                  className="w-20 text-right"
+                  min="0"
+                  max="100"
+                  placeholder="%"
+                />
+              )}
+            </div>
+            <div className="flex items-center space-x-4">
+              <label className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  checked={invoiceData.enableTax}
+                  onChange={(e) => setInvoiceData({...invoiceData, enableTax: e.target.checked})}
+                  className="rounded border-gray-300"
+                />
+                <span>Enable Tax</span>
+              </label>
+              {invoiceData.enableTax && (
+                <Input
+                  type="number"
+                  value={invoiceData.taxRate}
+                  onChange={(e) => setInvoiceData({...invoiceData, taxRate: parseFloat(e.target.value) || 0})}
+                  className="w-20 text-right"
+                  min="0"
+                  max="100"
+                  placeholder="%"
+                />
+              )}
+            </div>
+          </div>
+
           {/* Totals Section */}
           <div className="border-t mt-4 pt-4">
             <div className="flex justify-end">
               <div className="w-64 space-y-2">
                 <div className="flex justify-between">
                   <span>Subtotal:</span>
-                  <span>{getCurrencySymbol(invoiceData.currency)}{calculateSubtotal()}</span>
+                  <span>{getCurrencySymbol(invoiceData.currency)}{formatNumber(calculateSubtotal())}</span>
                 </div>
+                
+                {invoiceData.enableDiscount && (
+                  <div className="flex justify-between text-red-600">
+                    <span>Discount ({invoiceData.discountRate}%):</span>
+                    <span>-{getCurrencySymbol(invoiceData.currency)}{formatNumber(calculateDiscount(calculateSubtotal()))}</span>
+                  </div>
+                )}
                 
                 {invoiceData.enableTax && (
                   <div className="flex justify-between">
                     <span>Tax ({invoiceData.taxRate}%):</span>
                     <span>
-                      {getCurrencySymbol(invoiceData.currency)}{calculateTax(calculateSubtotal())}
+                      {getCurrencySymbol(invoiceData.currency)}
+                      {formatNumber(calculateTax(calculateSubtotal(), calculateDiscount(calculateSubtotal())))}
                     </span>
                   </div>
                 )}
                 
                 <div className="flex justify-between font-bold border-t pt-2">
                   <span>Total:</span>
-                  <span>{getCurrencySymbol(invoiceData.currency)}{calculateTotal()}</span>
+                  <span>{getCurrencySymbol(invoiceData.currency)}{formatNumber(calculateTotal())}</span>
                 </div>
               </div>
             </div>

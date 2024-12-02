@@ -111,21 +111,38 @@ const PreviewInvoice = ({ invoice, onClose }) => {
                       .toLocaleString('en-US', { minimumFractionDigits: 2 })}
                   </span>
                 </div>
+                
+                {invoice.enableDiscount && (
+                  <div className="flex justify-between py-2 text-red-600">
+                    <span>Discount ({invoice.discountRate}%)</span>
+                    <span>
+                      -{invoice.currency}
+                      {((invoice.items.reduce((sum, item) => sum + (item.quantity * item.rate), 0)) * 
+                        (invoice.discountRate / 100))
+                        .toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    </span>
+                  </div>
+                )}
+                
                 {invoice.enableTax && (
                   <div className="flex justify-between py-2">
                     <span className="text-gray-600">Tax ({invoice.taxRate}%)</span>
                     <span>
                       {invoice.currency}
-                      {(invoice.items.reduce((sum, item) => sum + (item.quantity * item.rate), 0) * (invoice.taxRate / 100))
+                      {((invoice.items.reduce((sum, item) => sum + (item.quantity * item.rate), 0) * 
+                        (1 - (invoice.enableDiscount ? invoice.discountRate / 100 : 0))) * 
+                        (invoice.taxRate / 100))
                         .toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </span>
                   </div>
                 )}
+                
                 <div className="flex justify-between py-2 border-t border-gray-200 font-bold">
                   <span>Total</span>
                   <span>
                     {invoice.currency}
                     {(invoice.items.reduce((sum, item) => sum + (item.quantity * item.rate), 0) * 
+                      (1 - (invoice.enableDiscount ? invoice.discountRate / 100 : 0)) * 
                       (1 + (invoice.enableTax ? invoice.taxRate / 100 : 0)))
                       .toLocaleString('en-US', { minimumFractionDigits: 2 })}
                   </span>
