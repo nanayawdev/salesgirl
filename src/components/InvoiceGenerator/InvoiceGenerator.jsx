@@ -43,7 +43,7 @@ const InvoiceGenerator = () => {
     
     // Invoice Details
     invoiceNumber: `INV-${new Date().getFullYear()}${Math.floor(Math.random() * 10000)}`,
-    currency: 'USD',
+    currency: 'GHS',
     dateIssued: new Date().toISOString().split('T')[0],
     dueDate: '',
     
