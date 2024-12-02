@@ -235,210 +235,219 @@ const InvoiceGenerator = ({ view = false }) => {
   };
 
   const generatePDF = () => {
-    if (!invoiceData) return;
-
-    const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.width;
-    const margin = 20;
-
-    // Helper function for text alignment
-    const centerText = (text, y) => {
-      const textWidth = doc.getStringUnitWidth(text) * doc.internal.getFontSize() / doc.internal.scaleFactor;
-      return (pageWidth - textWidth) / 2;
-    };
-
-    // Set initial styles
-    doc.setFont('helvetica');
-    
-    // Header Section
-    doc.setFontSize(24);
-    doc.setTextColor(31, 41, 55); // text-gray-900
-    doc.text('INVOICE', centerText('INVOICE'), 40);
-    
-    doc.setFontSize(14);
-    doc.setTextColor(107, 114, 128); // text-gray-600
-    doc.text(`#${invoiceData.invoiceNumber}`, centerText(`#${invoiceData.invoiceNumber}`), 50);
-
-    // Business & Client Details Section (Grid Layout)
-    const startY = 70;
-    
-    // From Section
-    doc.setFontSize(12);
-    doc.setTextColor(107, 114, 128);
-    doc.text('From', margin, startY);
-    
-    if (invoiceData.businessLogo) {
-      const logoSrc = invoiceData.businessLogo instanceof File
-        ? URL.createObjectURL(invoiceData.businessLogo)
-        : invoiceData.businessLogo;
-      doc.addImage(logoSrc, 'JPEG', margin, startY + 5, 40, 20);
+    console.log('Generating PDF...');
+    if (!invoiceData) {
+      console.error('No invoice data available');
+      return;
     }
 
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(31, 41, 55);
-    doc.text(invoiceData.businessName, margin, startY + 35);
-    
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(107, 114, 128);
-    const businessAddressLines = doc.splitTextToSize(invoiceData.businessAddress, 80);
-    businessAddressLines.forEach((line, i) => {
-      doc.text(line, margin, startY + 45 + (i * 6));
-    });
-    doc.text(invoiceData.businessEmail, margin, startY + 45 + (businessAddressLines.length * 6) + 6);
+    try {
+      const doc = new jsPDF();
+      const pageWidth = doc.internal.pageSize.width;
+      const margin = 20;
 
-    // Bill To Section
-    const rightColumnX = pageWidth / 2 + 10;
-    doc.setTextColor(107, 114, 128);
-    doc.text('Bill To', rightColumnX, startY);
+      // Helper function for text alignment
+      const centerText = (text, y) => {
+        const textWidth = doc.getStringUnitWidth(text) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+        return (pageWidth - textWidth) / 2;
+      };
 
-    if (invoiceData.clientLogo) {
-      const clientLogoSrc = invoiceData.clientLogo instanceof File
-        ? URL.createObjectURL(invoiceData.clientLogo)
-        : invoiceData.clientLogo;
-      doc.addImage(clientLogoSrc, 'JPEG', rightColumnX, startY + 5, 40, 20);
-    }
+      // Set initial styles
+      doc.setFont('helvetica');
+      
+      // Header Section
+      doc.setFontSize(24);
+      doc.setTextColor(31, 41, 55); // text-gray-900
+      doc.text('INVOICE', centerText('INVOICE'), 40);
+      
+      doc.setFontSize(14);
+      doc.setTextColor(107, 114, 128); // text-gray-600
+      doc.text(`#${invoiceData.invoiceNumber}`, centerText(`#${invoiceData.invoiceNumber}`), 50);
 
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(31, 41, 55);
-    doc.text(invoiceData.clientName, rightColumnX, startY + 35);
-    
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(107, 114, 128);
-    const clientAddressLines = doc.splitTextToSize(invoiceData.clientAddress, 80);
-    clientAddressLines.forEach((line, i) => {
-      doc.text(line, rightColumnX, startY + 45 + (i * 6));
-    });
-    doc.text(invoiceData.clientEmail, rightColumnX, startY + 45 + (clientAddressLines.length * 6) + 6);
-
-    // Dates Section
-    const datesY = startY + 90;
-    doc.setTextColor(107, 114, 128);
-    doc.text('Issue Date', margin, datesY);
-    doc.text('Due Date', rightColumnX, datesY);
-    
-    doc.setTextColor(31, 41, 55);
-    doc.text(invoiceData.dateIssued, margin, datesY + 10);
-    doc.text(invoiceData.dueDate, rightColumnX, datesY + 10);
-
-    // Items Table
-    doc.autoTable({
-      startY: datesY + 30,
-      head: [['Description', 'Quantity', 'Rate', 'Amount']],
-      body: items.map(item => [
-        item.description,
-        item.quantity,
-        `${invoiceData.currency}${item.rate.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
-        `${invoiceData.currency}${(item.quantity * item.rate).toLocaleString('en-US', { minimumFractionDigits: 2 })}`
-      ]),
-      styles: {
-        fontSize: 10,
-        cellPadding: 6,
-      },
-      headStyles: {
-        fillColor: [249, 250, 251], // bg-gray-50
-        textColor: [107, 114, 128], // text-gray-600
-        fontStyle: 'bold',
-        halign: 'right'
-      },
-      columnStyles: {
-        0: { halign: 'left' },
-        1: { halign: 'right' },
-        2: { halign: 'right' },
-        3: { halign: 'right' }
-      },
-      alternateRowStyles: {
-        fillColor: [249, 250, 251] // bg-gray-50
-      },
-      margin: { left: margin, right: margin }
-    });
-
-    // Totals Section
-    const subtotal = items.reduce((sum, item) => sum + (item.quantity * item.rate), 0);
-    const discount = invoiceData.enableDiscount ? subtotal * (invoiceData.discountRate / 100) : 0;
-    const tax = invoiceData.enableTax ? (subtotal - discount) * (invoiceData.taxRate / 100) : 0;
-    const total = subtotal - discount + tax;
-
-    const totalsX = pageWidth - margin - 60;
-    let totalsY = doc.lastAutoTable.finalY + 20;
-
-    // Subtotal
-    doc.setTextColor(107, 114, 128);
-    doc.text('Subtotal', totalsX - 50, totalsY);
-    doc.setTextColor(31, 41, 55);
-    doc.text(
-      `${invoiceData.currency}${subtotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
-      totalsX + 50,
-      totalsY,
-      { align: 'right' }
-    );
-
-    // Discount if enabled
-    if (invoiceData.enableDiscount) {
-      totalsY += 10;
-      doc.setTextColor(220, 38, 38); // text-red-600
-      doc.text(`Discount (${invoiceData.discountRate}%)`, totalsX - 50, totalsY);
-      doc.text(
-        `-${invoiceData.currency}${discount.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
-        totalsX + 50,
-        totalsY,
-        { align: 'right' }
-      );
-    }
-
-    // Tax if enabled
-    if (invoiceData.enableTax) {
-      totalsY += 10;
+      // Business & Client Details Section (Grid Layout)
+      const startY = 70;
+      
+      // From Section
+      doc.setFontSize(12);
       doc.setTextColor(107, 114, 128);
-      doc.text(`Tax (${invoiceData.taxRate}%)`, totalsX - 50, totalsY);
+      doc.text('From', margin, startY);
+      
+      if (invoiceData.businessLogo) {
+        const logoSrc = invoiceData.businessLogo instanceof File
+          ? URL.createObjectURL(invoiceData.businessLogo)
+          : invoiceData.businessLogo;
+        doc.addImage(logoSrc, 'JPEG', margin, startY + 5, 40, 20);
+      }
+
+      doc.setFont('helvetica', 'bold');
       doc.setTextColor(31, 41, 55);
-      doc.text(
-        `${invoiceData.currency}${tax.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
-        totalsX + 50,
-        totalsY,
-        { align: 'right' }
-      );
-    }
-
-    // Total
-    totalsY += 15;
-    doc.setDrawColor(229, 231, 235); // border-gray-200
-    doc.line(totalsX - 60, totalsY - 5, totalsX + 50, totalsY - 5);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(31, 41, 55);
-    doc.text('Total', totalsX - 50, totalsY);
-    doc.text(
-      `${invoiceData.currency}${total.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
-      totalsX + 50,
-      totalsY,
-      { align: 'right' }
-    );
-
-    // Terms and Notes Section
-    const termsY = totalsY + 30;
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(107, 114, 128);
-    
-    // Terms
-    doc.text('Terms & Conditions', margin, termsY);
-    const termsLines = doc.splitTextToSize(invoiceData.terms, (pageWidth - (margin * 2)) / 2);
-    doc.setTextColor(31, 41, 55);
-    termsLines.forEach((line, i) => {
-      doc.text(line, margin, termsY + 10 + (i * 6));
-    });
-
-    // Notes if available
-    if (invoiceData.notes) {
+      doc.text(invoiceData.businessName, margin, startY + 35);
+      
+      doc.setFont('helvetica', 'normal');
       doc.setTextColor(107, 114, 128);
-      doc.text('Notes', rightColumnX, termsY);
-      const notesLines = doc.splitTextToSize(invoiceData.notes, (pageWidth - (margin * 2)) / 2);
-      doc.setTextColor(31, 41, 55);
-      notesLines.forEach((line, i) => {
-        doc.text(line, rightColumnX, termsY + 10 + (i * 6));
+      const businessAddressLines = doc.splitTextToSize(invoiceData.businessAddress, 80);
+      businessAddressLines.forEach((line, i) => {
+        doc.text(line, margin, startY + 45 + (i * 6));
       });
-    }
+      doc.text(invoiceData.businessEmail, margin, startY + 45 + (businessAddressLines.length * 6) + 6);
 
-    // Save the PDF
-    doc.save(`invoice-${invoiceData.invoiceNumber}.pdf`);
+      // Bill To Section
+      const rightColumnX = pageWidth / 2 + 10;
+      doc.setTextColor(107, 114, 128);
+      doc.text('Bill To', rightColumnX, startY);
+
+      if (invoiceData.clientLogo) {
+        const clientLogoSrc = invoiceData.clientLogo instanceof File
+          ? URL.createObjectURL(invoiceData.clientLogo)
+          : invoiceData.clientLogo;
+        doc.addImage(clientLogoSrc, 'JPEG', rightColumnX, startY + 5, 40, 20);
+      }
+
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(31, 41, 55);
+      doc.text(invoiceData.clientName, rightColumnX, startY + 35);
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(107, 114, 128);
+      const clientAddressLines = doc.splitTextToSize(invoiceData.clientAddress, 80);
+      clientAddressLines.forEach((line, i) => {
+        doc.text(line, rightColumnX, startY + 45 + (i * 6));
+      });
+      doc.text(invoiceData.clientEmail, rightColumnX, startY + 45 + (clientAddressLines.length * 6) + 6);
+
+      // Dates Section
+      const datesY = startY + 90;
+      doc.setTextColor(107, 114, 128);
+      doc.text('Issue Date', margin, datesY);
+      doc.text('Due Date', rightColumnX, datesY);
+      
+      doc.setTextColor(31, 41, 55);
+      doc.text(invoiceData.dateIssued, margin, datesY + 10);
+      doc.text(invoiceData.dueDate, rightColumnX, datesY + 10);
+
+      // Items Table
+      doc.autoTable({
+        startY: datesY + 30,
+        head: [['Description', 'Quantity', 'Rate', 'Amount']],
+        body: items.map(item => [
+          item.description,
+          item.quantity,
+          `${invoiceData.currency}${item.rate.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+          `${invoiceData.currency}${(item.quantity * item.rate).toLocaleString('en-US', { minimumFractionDigits: 2 })}`
+        ]),
+        styles: {
+          fontSize: 10,
+          cellPadding: 6,
+        },
+        headStyles: {
+          fillColor: [249, 250, 251], // bg-gray-50
+          textColor: [107, 114, 128], // text-gray-600
+          fontStyle: 'bold',
+          halign: 'right'
+        },
+        columnStyles: {
+          0: { halign: 'left' },
+          1: { halign: 'right' },
+          2: { halign: 'right' },
+          3: { halign: 'right' }
+        },
+        alternateRowStyles: {
+          fillColor: [249, 250, 251] // bg-gray-50
+        },
+        margin: { left: margin, right: margin }
+      });
+
+      // Totals Section
+      const subtotal = items.reduce((sum, item) => sum + (item.quantity * item.rate), 0);
+      const discount = invoiceData.enableDiscount ? subtotal * (invoiceData.discountRate / 100) : 0;
+      const tax = invoiceData.enableTax ? (subtotal - discount) * (invoiceData.taxRate / 100) : 0;
+      const total = subtotal - discount + tax;
+
+      const totalsX = pageWidth - margin - 60;
+      let totalsY = doc.lastAutoTable.finalY + 20;
+
+      // Subtotal
+      doc.setTextColor(107, 114, 128);
+      doc.text('Subtotal', totalsX - 50, totalsY);
+      doc.setTextColor(31, 41, 55);
+      doc.text(
+        `${invoiceData.currency}${subtotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+        totalsX + 50,
+        totalsY,
+        { align: 'right' }
+      );
+
+      // Discount if enabled
+      if (invoiceData.enableDiscount) {
+        totalsY += 10;
+        doc.setTextColor(220, 38, 38); // text-red-600
+        doc.text(`Discount (${invoiceData.discountRate}%)`, totalsX - 50, totalsY);
+        doc.text(
+          `-${invoiceData.currency}${discount.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+          totalsX + 50,
+          totalsY,
+          { align: 'right' }
+        );
+      }
+
+      // Tax if enabled
+      if (invoiceData.enableTax) {
+        totalsY += 10;
+        doc.setTextColor(107, 114, 128);
+        doc.text(`Tax (${invoiceData.taxRate}%)`, totalsX - 50, totalsY);
+        doc.setTextColor(31, 41, 55);
+        doc.text(
+          `${invoiceData.currency}${tax.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+          totalsX + 50,
+          totalsY,
+          { align: 'right' }
+        );
+      }
+
+      // Total
+      totalsY += 15;
+      doc.setDrawColor(229, 231, 235); // border-gray-200
+      doc.line(totalsX - 60, totalsY - 5, totalsX + 50, totalsY - 5);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(31, 41, 55);
+      doc.text('Total', totalsX - 50, totalsY);
+      doc.text(
+        `${invoiceData.currency}${total.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+        totalsX + 50,
+        totalsY,
+        { align: 'right' }
+      );
+
+      // Terms and Notes Section
+      const termsY = totalsY + 30;
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(107, 114, 128);
+      
+      // Terms
+      doc.text('Terms & Conditions', margin, termsY);
+      const termsLines = doc.splitTextToSize(invoiceData.terms, (pageWidth - (margin * 2)) / 2);
+      doc.setTextColor(31, 41, 55);
+      termsLines.forEach((line, i) => {
+        doc.text(line, margin, termsY + 10 + (i * 6));
+      });
+
+      // Notes if available
+      if (invoiceData.notes) {
+        doc.setTextColor(107, 114, 128);
+        doc.text('Notes', rightColumnX, termsY);
+        const notesLines = doc.splitTextToSize(invoiceData.notes, (pageWidth - (margin * 2)) / 2);
+        doc.setTextColor(31, 41, 55);
+        notesLines.forEach((line, i) => {
+          doc.text(line, rightColumnX, termsY + 10 + (i * 6));
+        });
+      }
+
+      console.log('PDF generated successfully');
+      doc.save(`invoice-${invoiceData.invoiceNumber}.pdf`);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      toast.error('Error generating PDF');
+    }
   };
 
   return (
@@ -894,15 +903,13 @@ const InvoiceGenerator = ({ view = false }) => {
             <EyeIcon className="w-5 h-5 mr-2" />
             Preview Invoice
           </button>
-          {view && (
-            <button
-              onClick={generatePDF}
-              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              <Download className="w-4 h-4 mr-2" />
-              Download PDF
-            </button>
-          )}
+          <button
+            onClick={generatePDF}
+            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            <DocumentArrowDownIcon className="w-4 h-4 mr-2" />
+            Download PDF
+          </button>
           {!view && (
             <button 
               onClick={handleSubmit}
