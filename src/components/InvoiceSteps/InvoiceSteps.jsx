@@ -1,11 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ClipboardDocumentIcon, ListBulletIcon, BanknotesIcon } from '@heroicons/react/24/outline';
-import { useTheme } from '../../contexts/ThemeContext';
 
 const InvoiceSteps = () => {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
   const steps = [
     {
@@ -32,7 +29,7 @@ const InvoiceSteps = () => {
   ];
 
   return (
-    <div id="invoice-steps" className={`py-24 ${isDark ? 'bg-emerald-950' : 'bg-emerald-900'}`}>
+    <div id="invoice-steps" className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-24">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-500 text-sm font-medium tracking-wider uppercase mb-3 block">
@@ -51,7 +48,7 @@ const InvoiceSteps = () => {
             <div 
               key={step.number}
               className={`relative p-8 rounded-2xl transition-all duration-300 group
-                ${isDark ? 'bg-emerald-900/30' : 'bg-emerald-800/30'}
+                bg-emerald-800/30
                 hover:bg-gradient-to-br hover:from-emerald-800/40 hover:to-emerald-900/40
                 border border-emerald-700/30 hover:border-emerald-600/50`}
             >
@@ -64,7 +61,7 @@ const InvoiceSteps = () => {
 
               {/* Icon */}
               <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} p-0.5 mb-6 transform group-hover:scale-105 group-hover:rotate-3 transition-all duration-300`}>
-                <div className={`w-full h-full ${isDark ? 'bg-emerald-950' : 'bg-emerald-900'} rounded-xl flex items-center justify-center`}>
+                <div className="w-full h-full bg-emerald-900 rounded-xl flex items-center justify-center">
                   <div className="text-emerald-100">
                     {step.icon}
                   </div>
