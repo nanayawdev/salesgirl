@@ -1,26 +1,22 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
-import { Menu, X, Sun, Moon, SunMoon, ChevronRight } from 'lucide-react';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '@/contexts/AuthContext';
+import { Menu, Transition } from '@headlessui/react';
+import { Menu as MenuIcon, X, Sun, Moon, SunMoon, ChevronRight } from 'lucide-react';
 import NoticeBar from '../ui/noticebar';
 
 const Navbar = () => {
-  const { theme, setTheme } = useTheme();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isThemeOpen, setIsThemeOpen] = useState(false);
-  const themeDropdownRef = useRef(null);
+  const { user, signOut } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (themeDropdownRef.current && !themeDropdownRef.current.contains(event.target)) {
-        setIsThemeOpen(false);
-      }
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
     }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  };
 
   const navItems = [
     { label: 'Home', href: '/' },
@@ -29,154 +25,86 @@ const Navbar = () => {
     { label: 'About', href: '/about' },
   ];
 
-  const themeIcon = {
-    light: <Sun className="h-4 w-4" />,
-    dark: <Moon className="h-4 w-4" />,
-    system: <SunMoon className="h-4 w-4" />
-  };
-
   return (
     <nav className="w-full bg-white dark:bg-background-dark relative">
       <div className="max-w-7xl mx-auto px-4">
         <div className="py-2">
           <div className="flex items-center justify-between h-12">
-            {/* Left section - with flex-1 */}
+            {/* Left section */}
             <div className="flex-1 flex items-center space-x-2 tablet:space-x-4 laptop:space-x-8">
-              {/* Logo */}
-              <a href="/" className="flex-shrink-0">
+              <Link to="/" className="flex-shrink-0">
                 <span className="text-gray-900 dark:text-white text-xl text-[12px]">
                   Salesgirl
                 </span>
-              </a>
-              
+              </Link>
               <NoticeBar />
             </div>
 
-            {/* Center section - with flex-1 and justify-center */}
+            {/* Center section */}
             <div className="flex-1 hidden laptop:flex items-center justify-center space-x-4">
               {navItems.map((item) => (
-                <React.Fragment key={item.label}>
-                  <a
-                    href={item.href}
-                    className="text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-3 py-2 font-medium"
-                  >
-                    {item.label}
-                  </a>
-                  {item.label === 'Events' && (
-                    <div className="h-4 w-px bg-gray-200 dark:bg-border-dark" />
-                  )}
-                </React.Fragment>
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className="text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-3 py-2 font-medium"
+                >
+                  {item.label}
+                </Link>
               ))}
             </div>
 
-            {/* Right section - with flex-1 and justify-end */}
+            {/* Right section */}
             <div className="flex-1 flex items-center justify-end space-x-2 tablet:space-x-4 laptop:space-x-6">
-              <a
-                href="/signin"
-                className="hidden tablet:block text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-medium"
-              >
-                Sign in
-              </a>
-              
-              <a
-                href="/signup"
-                className="hidden tablet:block text-[12px] bg-gray-900 text-white dark:bg-gray-800 hover:bg-gray-800 dark:hover:bg-gray-700 px-4 py-2 font-medium rounded-lg transition-colors whitespace-nowrap"
-              >
-                Get started
-                <ChevronRight className="inline-block h-4 w-4 ml-1" />
-              </a>
-
-              <div className="hidden tablet:block h-4 w-px bg-gray-200 dark:bg-border-dark" />
-
-              <div className="relative" ref={themeDropdownRef}>
-                <button
-                  onClick={() => setIsThemeOpen(!isThemeOpen)}
-                  className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-lg transition-colors"
-                  aria-label="Toggle theme"
-                >
-                  {themeIcon[theme]}
-                </button>
-
-                {isThemeOpen && (
-                  <div className="absolute right-0 z-50 top-full mt-8 w-36 bg-white dark:bg-background-dark border border-gray-200 dark:border-border-dark rounded-lg shadow-lg py-1">
-                    <button
-                      onClick={() => {
-                        setTheme('light');
-                        setIsThemeOpen(false);
-                      }}
-                      className="w-full flex items-center px-4 py-2 text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
-                    >
-                      <Sun className="h-4 w-4 mr-2" />
-                      Light
-                    </button>
-                    <button
-                      onClick={() => {
-                        setTheme('dark');
-                        setIsThemeOpen(false);
-                      }}
-                      className="w-full flex items-center px-4 py-2 text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
-                    >
-                      <Moon className="h-4 w-4 mr-2" />
-                      Dark
-                    </button>
-                    <button
-                      onClick={() => {
-                        setTheme('system');
-                        setIsThemeOpen(false);
-                      }}
-                      className="w-full flex items-center px-4 py-2 text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
-                    >
-                      <SunMoon className="h-4 w-4 mr-2" />
-                      System
-                    </button>
-                  </div>
-                )}
-              </div>
-
-              <button
-                className="laptop:hidden text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </button>
+              {user ? (
+                <Menu as="div" className="relative">
+                  <Menu.Button className="text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-medium">
+                    {user.user_metadata?.full_name || user.email}
+                  </Menu.Button>
+                  <Transition
+                    as={React.Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute right-0 mt-2 w-48 bg-white dark:bg-background-dark rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            onClick={handleSignOut}
+                            className={`${
+                              active ? 'bg-gray-100 dark:bg-gray-800' : ''
+                            } block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 rounded-lg`}
+                          >
+                            Sign Out
+                          </button>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              ) : (
+                <>
+                  <Link
+                    to="/signin"
+                    className="hidden tablet:block text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-medium"
+                  >
+                    Sign in
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="hidden tablet:block text-[12px] bg-gray-900 text-white dark:bg-gray-800 hover:bg-gray-800 dark:hover:bg-gray-700 px-4 py-2 font-medium rounded-lg transition-colors whitespace-nowrap"
+                  >
+                    Get started
+                    <ChevronRight className="inline-block h-4 w-4 ml-1" />
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="laptop:hidden py-4 absolute left-0 right-0 bg-white dark:bg-background-dark border-b border-gray-200 dark:border-border-dark shadow-lg">
-            <div className="space-y-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
-              {navItems.map((item) => (
-                <React.Fragment key={item.label}>
-                  <a
-                    href={item.href}
-                    className="block px-4 py-2 font-satoshi text-p-base font-normal text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
-                  >
-                    {item.label}
-                  </a>
-                  {item.label === 'Events' && (
-                    <div className="mx-4 my-2 border-t border-gray-200 dark:border-border-dark" />
-                  )}
-                </React.Fragment>
-              ))}
-              <div className="px-4 py-4 space-y-4 tablet:hidden">
-                <a
-                  href="/signin"
-                  className="block font-satoshi text-p-base font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                >
-                  Sign in
-                </a>
-                <a
-                  href="/signup"
-                  className="block w-full font-satoshi text-p-base bg-gray-900 text-white dark:bg-gray-800 hover:bg-gray-800 dark:hover:bg-gray-700 px-4 py-2 font-medium rounded-lg text-center"
-                >
-                  Create competition →
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   );
