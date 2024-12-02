@@ -9,6 +9,17 @@ import {
   EyeIcon,
   DocumentArrowDownIcon
 } from '@heroicons/react/24/outline';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { format } from "date-fns";
+import { CalendarIcon } from "@heroicons/react/24/outline";
 
 const InvoiceGenerator = () => {
   const { theme } = useTheme();
@@ -195,36 +206,82 @@ const InvoiceGenerator = () => {
             </div>
             <div>
               <label className="block mb-1">Currency</label>
-              <select
+              <Select
                 value={invoiceData.currency}
-                onChange={(e) => setInvoiceData({...invoiceData, currency: e.target.value})}
-                className="w-full p-2 border rounded bg-white/5"
+                onValueChange={(value) => setInvoiceData({...invoiceData, currency: value})}
               >
-                <option value="USD">USD - US Dollar</option>
-                <option value="EUR">EUR - Euro</option>
-                <option value="GBP">GBP - British Pound</option>
-                <option value="CAD">CAD - Canadian Dollar</option>
-                <option value="AUD">AUD - Australian Dollar</option>
-                <option value="INR">INR - Indian Rupee</option>
-              </select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select currency" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="USD">USD - US Dollar</SelectItem>
+                  <SelectItem value="EUR">EUR - Euro</SelectItem>
+                  <SelectItem value="GBP">GBP - British Pound</SelectItem>
+                  <SelectItem value="CAD">CAD - Canadian Dollar</SelectItem>
+                  <SelectItem value="AUD">AUD - Australian Dollar</SelectItem>
+                  <SelectItem value="INR">INR - Indian Rupee</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <label className="block mb-1">Date Issued</label>
-              <input
-                type="date"
-                value={invoiceData.dateIssued}
-                onChange={(e) => setInvoiceData({...invoiceData, dateIssued: e.target.value})}
-                className="w-full p-2 border rounded bg-white/5"
-              />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button
+                    className={`w-full p-2 border rounded bg-white/5 text-left flex items-center justify-between`}
+                  >
+                    {invoiceData.dateIssued ? (
+                      format(new Date(invoiceData.dateIssued), "PPP")
+                    ) : (
+                      <span>Pick a date</span>
+                    )}
+                    <CalendarIcon className="h-4 w-4 opacity-50" />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={new Date(invoiceData.dateIssued)}
+                    onSelect={(date) => 
+                      setInvoiceData({
+                        ...invoiceData, 
+                        dateIssued: date ? format(date, 'yyyy-MM-dd') : ''
+                      })
+                    }
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
             <div>
               <label className="block mb-1">Due Date</label>
-              <input
-                type="date"
-                value={invoiceData.dueDate}
-                onChange={(e) => setInvoiceData({...invoiceData, dueDate: e.target.value})}
-                className="w-full p-2 border rounded bg-white/5"
-              />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button
+                    className={`w-full p-2 border rounded bg-white/5 text-left flex items-center justify-between`}
+                  >
+                    {invoiceData.dueDate ? (
+                      format(new Date(invoiceData.dueDate), "PPP")
+                    ) : (
+                      <span>Pick a date</span>
+                    )}
+                    <CalendarIcon className="h-4 w-4 opacity-50" />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={invoiceData.dueDate ? new Date(invoiceData.dueDate) : undefined}
+                    onSelect={(date) => 
+                      setInvoiceData({
+                        ...invoiceData, 
+                        dueDate: date ? format(date, 'yyyy-MM-dd') : ''
+                      })
+                    }
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
           </div>
         </section>
