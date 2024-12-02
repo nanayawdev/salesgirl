@@ -321,16 +321,17 @@ const InvoiceGenerator = () => {
 
           {/* Items Header */}
           <div className="grid grid-cols-12 gap-4 mb-2 font-semibold">
-            <div className="col-span-6">Description</div>
-            <div className="col-span-2">Quantity</div>
-            <div className="col-span-2">Rate</div>
-            <div className="col-span-2">Amount</div>
+            <div className="col-span-5">Description</div>
+            <div className="col-span-2 text-right">Quantity</div>
+            <div className="col-span-2 text-right">Rate</div>
+            <div className="col-span-2 text-right">Amount</div>
+            <div className="col-span-1"></div> {/* Space for delete button */}
           </div>
 
           {/* Items List */}
           {items.map((item, index) => (
             <div key={index} className="grid grid-cols-12 gap-4 mb-4 items-center">
-              <div className="col-span-6">
+              <div className="col-span-5">
                 <Input
                   type="text"
                   placeholder="Description"
@@ -345,7 +346,7 @@ const InvoiceGenerator = () => {
                   placeholder="Qty"
                   value={item.quantity}
                   onChange={(e) => updateItem(index, 'quantity', parseFloat(e.target.value) || 0)}
-                  className="bg-white/5"
+                  className="bg-white/5 text-right"
                   min="0"
                 />
               </div>
@@ -355,16 +356,16 @@ const InvoiceGenerator = () => {
                   placeholder="Rate"
                   value={item.rate}
                   onChange={(e) => updateItem(index, 'rate', parseFloat(e.target.value) || 0)}
-                  className="bg-white/5"
+                  className="bg-white/5 text-right"
                   min="0"
                 />
               </div>
-              <div className="col-span-1">
-                <p className="p-2">
+              <div className="col-span-2 text-right">
+                <p className="p-2 truncate" title={`${getCurrencySymbol(invoiceData.currency)}${(item.quantity * item.rate).toFixed(2)}`}>
                   {getCurrencySymbol(invoiceData.currency)}{(item.quantity * item.rate).toFixed(2)}
                 </p>
               </div>
-              <div className="col-span-1">
+              <div className="col-span-1 flex justify-center">
                 <button 
                   onClick={() => {
                     const newItems = items.filter((_, i) => i !== index);
