@@ -32,8 +32,8 @@ const HeroSection = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row gap-2 justify-center items-center">
-          <Link 
-            to="/create-invoice"
+          <button 
+            onClick={handleStartBuilding}
             className="w-32 sm:w-36 lg:w-44 bg-emerald-100 text-emerald-900 px-2 py-1.5 lg:px-4 lg:py-2.5 rounded-md text-sm lg:text-base font-medium hover:bg-emerald-200 transition-colors flex items-center justify-center"
           >
             Start Building
@@ -50,7 +50,7 @@ const HeroSection = () => {
                 d="M9 5l7 7-7 7"
               />
             </svg>
-          </Link>
+          </button>
           
           <button 
             onClick={scrollToSteps}
