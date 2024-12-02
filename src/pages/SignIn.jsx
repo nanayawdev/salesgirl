@@ -11,6 +11,9 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -19,11 +22,25 @@ const SignIn = () => {
     rememberMe: false
   });
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle sign in logic here
-    console.log('Sign in attempt with:', formData);
+    
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (error) throw error;
+
+      toast.success('Successfully signed in!');
+      navigate('/create-invoice');
+      
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
