@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import HeroSection from './components/HeroSection/HeroSection';
 import InvoiceFeatures from './components/InvoiceFeatures/InvoiceFeatures';
@@ -27,18 +27,25 @@ function App() {
               <Footer />
             </>
           } />
-          <Route path="/invoices" element={<InvoiceList />} />
+          <Route path="/invoices" element={
+            <ProtectedRoute>
+              <InvoiceList />
+            </ProtectedRoute>
+          } />
+          <Route path="/invoice/new" element={
+            <ProtectedRoute>
+              <InvoiceGenerator />
+            </ProtectedRoute>
+          } />
           <Route path="/create-invoice" element={
+            <Navigate to="/invoice/new" replace />
+          } />
+          <Route path="/invoice/edit/:id" element={
             <ProtectedRoute>
               <InvoiceGenerator />
             </ProtectedRoute>
           } />
-          <Route path="/edit-invoice/:id" element={
-            <ProtectedRoute>
-              <InvoiceGenerator />
-            </ProtectedRoute>
-          } />
-          <Route path="/view-invoice/:id" element={
+          <Route path="/invoice/view/:id" element={
             <ProtectedRoute>
               <InvoiceGenerator view />
             </ProtectedRoute>

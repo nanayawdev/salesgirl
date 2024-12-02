@@ -137,48 +137,70 @@ export const useInvoices = () => {
   // Update existing invoice
   const updateInvoice = async (id, invoiceData, items) => {
     try {
-      // Handle logo updates if needed
-      let businessLogoUrl = invoiceData.business_logo_url;
-      let clientLogoUrl = invoiceData.client_logo_url;
+      // Handle logo uploads if they are new files
+      let businessLogoUrl = invoiceData.businessLogo;
+      let clientLogoUrl = invoiceData.clientLogo;
 
       if (invoiceData.businessLogo instanceof File) {
         businessLogoUrl = await uploadLogo(invoiceData.businessLogo, 'business');
       }
+
       if (invoiceData.clientLogo instanceof File) {
         clientLogoUrl = await uploadLogo(invoiceData.clientLogo, 'client');
       }
 
-      // Update invoice
+      // Update the invoice
       const { error: invoiceError } = await supabase
         .from('invoices')
         .update({
-          ...invoiceData,
+          business_name: invoiceData.businessName,
+          business_email: invoiceData.businessEmail,
+          business_address: invoiceData.businessAddress,
           business_logo_url: businessLogoUrl,
+          client_name: invoiceData.clientName,
+          client_email: invoiceData.clientEmail,
+          client_address: invoiceData.clientAddress,
           client_logo_url: clientLogoUrl,
+          currency: invoiceData.currency,
+          date_issued: invoiceData.dateIssued,
+          due_date: invoiceData.dueDate,
+          enable_tax: invoiceData.enableTax,
+          tax_rate: invoiceData.taxRate,
+          enable_discount: invoiceData.enableDiscount,
+          discount_rate: invoiceData.discountRate,
+          notes: invoiceData.notes,
+          terms: invoiceData.terms
         })
         .eq('id', id);
 
       if (invoiceError) throw invoiceError;
 
-      // Delete existing items
-      await supabase
+      // Update the invoice items
+      const { error: itemsError } = await supabase
         .from('invoice_items')
         .delete()
         .eq('invoice_id', id);
 
-      // Insert new items
-      const { error: itemsError } = await supabase
-        .from('invoice_items')
-        .insert(items.map(item => ({
-          invoice_id: id,
-          ...item
-        })));
-
       if (itemsError) throw itemsError;
 
-      await fetchInvoices();
-    } catch (err) {
-      setError(err.message);
+      const { error: insertItemsError } = await supabase
+        .from('invoice_items')
+        .insert(
+          items.map(item => ({
+            invoice_id: id,
+            description: item.description,
+            quantity: item.quantity,
+            rate: item.rate
+          }))
+        );
+
+      if (insertItemsError) throw insertItemsError;
+
+      toast.success('Invoice updated successfully!');
+    } catch (error) {
+      console.error('Error updating invoice:', error);
+      toast.error('Failed to update invoice');
+      throw error;
     }
   };
 

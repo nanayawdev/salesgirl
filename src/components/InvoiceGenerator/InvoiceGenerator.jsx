@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
+import { supabase } from '@/lib/supabase';
 import { 
   ArrowLeftIcon,
   DocumentTextIcon,
@@ -69,35 +70,61 @@ const InvoiceGenerator = ({ view = false }) => {
   });
 
   const [items, setItems] = useState([
-    { description: 'Consulting Services', quantity: 1, rate: 100 }
+    { description: '', quantity: 1, rate: 0 }
   ]);
 
   const [showPreview, setShowPreview] = useState(false);
 
-  useEffect(() => {
-    const loadInvoice = async () => {
-      if (id) {
-        const { data: invoice } = await supabase
-          .from('invoices')
-          .select(`
-            *,
-            invoice_items (*)
-          `)
-          .eq('id', id)
-          .single();
+  const loadInvoice = async (invoiceId) => {
+    try {
+      const { data: invoice, error } = await supabase
+        .from('invoices')
+        .select(`
+          *,
+          invoice_items (*)
+        `)
+        .eq('id', invoiceId)
+        .single();
 
-        if (invoice) {
-          setInvoiceData({
-            ...invoice,
-            businessLogo: invoice.business_logo_url,
-            clientLogo: invoice.client_logo_url,
-          });
-          setItems(invoice.invoice_items);
-        }
+      if (error) throw error;
+      
+      if (invoice) {
+        setInvoiceData({
+          businessLogo: invoice.business_logo_url || null,
+          businessName: invoice.business_name || '',
+          businessEmail: invoice.business_email || '',
+          businessAddress: invoice.business_address || '',
+          clientLogo: invoice.client_logo_url || null,
+          clientName: invoice.client_name || '',
+          clientEmail: invoice.client_email || '',
+          clientAddress: invoice.client_address || '',
+          invoiceNumber: invoice.invoice_number || '',
+          currency: invoice.currency || 'GHS',
+          dateIssued: invoice.date_issued || new Date().toISOString().split('T')[0],
+          dueDate: invoice.due_date || '',
+          enableTax: invoice.enable_tax || false,
+          taxRate: invoice.tax_rate || 0,
+          enableDiscount: invoice.enable_discount || false,
+          discountRate: invoice.discount_rate || 0,
+          notes: invoice.notes || '',
+          terms: invoice.terms || ''
+        });
+        setItems(invoice.invoice_items?.map(item => ({
+          description: item.description || '',
+          quantity: item.quantity || 0,
+          rate: item.rate || 0
+        })) || [{ description: '', quantity: 1, rate: 0 }]);
       }
-    };
+    } catch (error) {
+      console.error('Error loading invoice:', error);
+      toast.error('Error loading invoice');
+    }
+  };
 
-    loadInvoice();
+  useEffect(() => {
+    if (id) {
+      loadInvoice(id);
+    }
   }, [id]);
 
   const handleLogoUpload = (e) => {
@@ -228,7 +255,7 @@ const InvoiceGenerator = ({ view = false }) => {
                   id="business-logo-upload"
                 />
                 <label htmlFor="business-logo-upload" className="cursor-pointer">
-                  {invoiceData.businessLogo ? (
+                  {invoiceData.businessLogo instanceof File ? (
                     <div className="flex flex-col items-center">
                       <img 
                         src={URL.createObjectURL(invoiceData.businessLogo)} 
@@ -259,7 +286,7 @@ const InvoiceGenerator = ({ view = false }) => {
                   id="client-logo-upload"
                 />
                 <label htmlFor="client-logo-upload" className="cursor-pointer">
-                  {invoiceData.clientLogo ? (
+                  {invoiceData.clientLogo instanceof File ? (
                     <div className="flex flex-col items-center">
                       <img 
                         src={URL.createObjectURL(invoiceData.clientLogo)} 
@@ -288,7 +315,7 @@ const InvoiceGenerator = ({ view = false }) => {
               <label className="block mb-1">Business Name</label>
               <input
                 type="text"
-                value={invoiceData.businessName}
+                value={invoiceData.businessName || ''}
                 onChange={(e) => setInvoiceData({...invoiceData, businessName: e.target.value})}
                 className="w-full p-2 border rounded bg-white/5"
               />
