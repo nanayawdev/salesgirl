@@ -3,14 +3,14 @@ import { DocumentTextIcon, ClockIcon, CalculatorIcon } from '@heroicons/react/24
 
 const InvoiceFeatures = () => {
   return (
-    <div className="px-4 py-8 sm:py-12 lg:py-16 bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-900 dark:to-gray-900">
+    <div className="px-4 py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-900 dark:to-gray-900">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-gray-100 tracking-tight">
-            Why Use Our Invoice Generator?
+          <h2 className="text-2xl sm:text-3xl lg:text-7xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-gray-100 tracking-tight">
+            Create <span className="text-emerald-600">Invoices</span> with Confidence
           </h2>
           <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            Everything you need to create professional invoices, without the complexity
+            Simple, powerful tools to help you create and manage your invoices effortlessly
           </p>
         </div>
 
@@ -20,10 +20,10 @@ const InvoiceFeatures = () => {
               <DocumentTextIcon className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-600" />
             </div>
             <h3 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-3 text-gray-900 dark:text-gray-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-600 transition-colors duration-300">
-              Professional Templates
+              Beautiful Designs
             </h3>
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
-              Create polished, professional invoices that get you paid faster
+              Stand out with elegant, customizable invoice templates that reflect your brand
             </p>
           </div>
 
@@ -32,10 +32,10 @@ const InvoiceFeatures = () => {
               <ClockIcon className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-600" />
             </div>
             <h3 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-3 text-gray-900 dark:text-gray-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-600 transition-colors duration-300">
-              Quick & Easy
+              Time-Saving
             </h3>
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
-              Generate detailed invoices in under 2 minutes
+              Create and send professional invoices in just a few clicks
             </p>
           </div>
 
@@ -44,10 +44,10 @@ const InvoiceFeatures = () => {
               <CalculatorIcon className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-600" />
             </div>
             <h3 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-3 text-gray-900 dark:text-gray-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-600 transition-colors duration-300">
-              Automatic Calculations
+              Smart Calculations
             </h3>
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
-              Let our system handle all the math for accurate billing
+              Focus on your work while we handle all the numbers and tax calculations
             </p>
           </div>
         </div>
