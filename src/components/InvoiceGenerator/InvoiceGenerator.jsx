@@ -22,6 +22,7 @@ import { format } from "date-fns";
 import { CalendarIcon } from "@heroicons/react/24/outline";
 import { Input } from "@/components/ui/input";
 import { CURRENCY_OPTIONS } from '../../hooks/useCurrency';
+import PreviewInvoice from '../PreviewInvoice/PreviewInvoice';
 
 const InvoiceGenerator = () => {
   const { theme } = useTheme();
@@ -58,6 +59,8 @@ const InvoiceGenerator = () => {
   const [items, setItems] = useState([
     { description: 'Consulting Services', quantity: 1, rate: 100 }
   ]);
+
+  const [showPreview, setShowPreview] = useState(false);
 
   const handleLogoUpload = (e) => {
     const file = e.target.files[0];
@@ -449,7 +452,10 @@ const InvoiceGenerator = () => {
 
         {/* Action Buttons */}
         <div className="flex justify-end space-x-4">
-          <button className="inline-flex items-center px-6 py-2 bg-gray-600 text-white rounded hover:bg-gray-700">
+          <button 
+            onClick={() => setShowPreview(true)}
+            className="inline-flex items-center px-6 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+          >
             <EyeIcon className="w-5 h-5 mr-2" />
             Preview Invoice
           </button>
@@ -458,6 +464,17 @@ const InvoiceGenerator = () => {
             Generate Invoice
           </button>
         </div>
+
+        {/* Preview Modal */}
+        {showPreview && (
+          <PreviewInvoice 
+            invoice={{
+              ...invoiceData,
+              items
+            }}
+            onClose={() => setShowPreview(false)}
+          />
+        )}
       </div>
     </div>
   );
