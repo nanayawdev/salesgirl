@@ -32,12 +32,50 @@ export const useInvoices = () => {
     }
   };
 
+  // Helper function to upload logos
+  const uploadLogo = async (file, prefix) => {
+    if (!file) return null;
+    
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${prefix}-${Date.now()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('logos')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data } = supabase.storage
+        .from('logos')
+        .getPublicUrl(filePath);
+
+      return data.publicUrl;
+    } catch (error) {
+      console.error('Error uploading logo:', error);
+      throw error;
+    }
+  };
+
   // Create new invoice
   const createInvoice = async (invoiceData, items) => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) throw new Error('Not authenticated');
+
+      // Handle logo uploads
+      let businessLogoUrl = null;
+      let clientLogoUrl = null;
+
+      if (invoiceData.businessLogo instanceof File) {
+        businessLogoUrl = await uploadLogo(invoiceData.businessLogo, 'business');
+      }
+
+      if (invoiceData.clientLogo instanceof File) {
+        clientLogoUrl = await uploadLogo(invoiceData.clientLogo, 'client');
+      }
 
       // First, create the invoice
       const { data: invoice, error: invoiceError } = await supabase
@@ -49,11 +87,11 @@ export const useInvoices = () => {
             business_name: invoiceData.businessName,
             business_email: invoiceData.businessEmail,
             business_address: invoiceData.businessAddress,
-            business_logo_url: invoiceData.businessLogo,
+            business_logo_url: businessLogoUrl,
             client_name: invoiceData.clientName,
             client_email: invoiceData.clientEmail,
             client_address: invoiceData.clientAddress,
-            client_logo_url: invoiceData.clientLogo,
+            client_logo_url: clientLogoUrl,
             currency: invoiceData.currency,
             date_issued: invoiceData.dateIssued,
             due_date: invoiceData.dueDate,
@@ -147,54 +185,37 @@ export const useInvoices = () => {
   // Delete invoice and associated files
   const deleteInvoice = async (id) => {
     try {
+      // Get the invoice details first to get logo URLs
       const { data: invoice } = await supabase
         .from('invoices')
         .select('business_logo_url, client_logo_url')
         .eq('id', id)
         .single();
 
-      // Delete logos from storage
+      // Delete logos from storage if they exist
       if (invoice.business_logo_url) {
         await supabase.storage
           .from('logos')
-          .remove([invoice.business_logo_url]);
+          .remove([invoice.business_logo_url.split('/').pop()]);
       }
       if (invoice.client_logo_url) {
         await supabase.storage
           .from('logos')
-          .remove([invoice.client_logo_url]);
+          .remove([invoice.client_logo_url.split('/').pop()]);
       }
 
-      // Delete invoice (cascade will handle items)
+      // Delete the invoice (cascade will handle items)
       const { error } = await supabase
         .from('invoices')
         .delete()
         .eq('id', id);
 
       if (error) throw error;
-      await fetchInvoices();
-    } catch (err) {
-      setError(err.message);
+      toast.success('Invoice deleted successfully');
+    } catch (error) {
+      toast.error('Error deleting invoice');
+      throw error;
     }
-  };
-
-  // Helper function to upload logos
-  const uploadLogo = async (file, prefix) => {
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${prefix}-${Date.now()}.${fileExt}`;
-    const filePath = `${fileName}`;
-
-    const { error: uploadError } = await supabase.storage
-      .from('logos')
-      .upload(filePath, file);
-
-    if (uploadError) throw uploadError;
-
-    const { data } = supabase.storage
-      .from('logos')
-      .getPublicUrl(filePath);
-
-    return data.publicUrl;
   };
 
   const fetchUserInvoices = async () => {
@@ -228,5 +249,6 @@ export const useInvoices = () => {
     updateInvoice,
     deleteInvoice,
     fetchUserInvoices,
+    uploadLogo
   };
 }; 
