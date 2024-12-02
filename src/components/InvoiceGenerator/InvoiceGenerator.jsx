@@ -386,7 +386,7 @@ const InvoiceGenerator = () => {
                     const newItems = items.filter((_, i) => i !== index);
                     setItems(newItems);
                   }}
-                  className="p-1 text-gray-400 hover:text-red-500"
+                  className="p-1 text-red-500 hover:text-rose-300"
                 >
                   <TrashIcon className="w-5 h-5" />
                 </button>
