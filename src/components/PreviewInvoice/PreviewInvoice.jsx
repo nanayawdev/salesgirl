@@ -126,10 +126,18 @@ const PreviewInvoice = ({ invoice, onClose }) => {
               </div>
             </div>
 
-            {/* Terms */}
-            <div>
-              <h2 className="text-gray-600 mb-2">Terms & Conditions</h2>
-              <p className="text-gray-600 whitespace-pre-line">{invoice.terms}</p>
+            {/* Terms and Notes */}
+            <div className="grid grid-cols-2 gap-8">
+              <div>
+                <h2 className="text-gray-600 mb-2">Terms & Conditions</h2>
+                <p className="text-gray-600 whitespace-pre-line">{invoice.terms}</p>
+              </div>
+              {invoice.notes && (
+                <div>
+                  <h2 className="text-gray-600 mb-2">Notes</h2>
+                  <p className="text-gray-600 whitespace-pre-line">{invoice.notes}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
