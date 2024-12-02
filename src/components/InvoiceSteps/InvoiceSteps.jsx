@@ -61,15 +61,15 @@ const InvoiceSteps = () => {
 
               {/* Icon */}
               <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} p-0.5 mb-6 transform group-hover:scale-105 group-hover:rotate-3 transition-all duration-300`}>
-                <div className="w-full h-full bg-emerald-900 rounded-xl flex items-center justify-center">
-                  <div className="text-emerald-100">
+                <div className="w-full h-full bg-emerald-900 dark:bg-gray-800 rounded-xl flex items-center justify-center">
+                  <div className="text-emerald-100 dark:text-gray-100">
                     {step.icon}
                   </div>
                 </div>
               </div>
 
               {/* Content */}
-              <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-300 group-hover:to-emerald-500">
+              <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-300 dark:group-hover:from-gray-300 group-hover:to-emerald-500 dark:group-hover:to-gray-400">
                 {step.title}
               </h3>
               <p className="text-emerald-200/90 text-sm leading-relaxed">
@@ -78,8 +78,8 @@ const InvoiceSteps = () => {
 
               {/* Connector Line */}
               {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-emerald-700/30">
-                  <div className="w-full h-full bg-gradient-to-r from-emerald-400 to-emerald-600 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+                <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-emerald-700/30 dark:bg-gray-700/30">
+                  <div className="w-full h-full bg-gradient-to-r from-emerald-400 to-emerald-600 dark:from-gray-400 dark:to-gray-600 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
                 </div>
               )}
             </div>
@@ -89,7 +89,7 @@ const InvoiceSteps = () => {
         <div className="mt-16 text-center flex gap-4 justify-center">
           <Link 
             to="/create-invoice"
-            className="bg-emerald-100 text-emerald-900 px-6 py-3 rounded-md font-medium hover:bg-emerald-200 transition-colors flex items-center"
+            className="bg-emerald-100 dark:bg-gray-700 text-emerald-900 dark:text-gray-100 px-6 py-3 rounded-md font-medium hover:bg-emerald-200 dark:hover:bg-gray-600 transition-colors flex items-center"
           >
             Create Your Invoice
             <svg 
