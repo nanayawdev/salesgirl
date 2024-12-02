@@ -18,9 +18,14 @@ export default defineConfig({
         script-src 'self' 'unsafe-inline' 'unsafe-eval';
         style-src 'self' 'unsafe-inline';
         img-src 'self' data: blob: https:;
-        connect-src 'self' ${process.env.VITE_SUPABASE_URL} https://api.supabase.co;
+        connect-src 'self' 
+          https://gchkskdblqyfzzahqkjc.supabase.co 
+          https://*.supabase.co 
+          https://*.supabase.net 
+          wss://*.supabase.co;
         frame-src 'self';
         font-src 'self';
+        worker-src 'self' blob:;
       `.replace(/\s+/g, ' ').trim()
     }
   },
