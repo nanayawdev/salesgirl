@@ -25,6 +25,7 @@ import { CURRENCY_OPTIONS } from '../../hooks/useCurrency';
 import PreviewInvoice from '../PreviewInvoice/PreviewInvoice';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useInvoices } from '@/hooks/useInvoices';
+import { toast } from 'sonner';
 
 const InvoiceGenerator = ({ view = false }) => {
   const { theme } = useTheme();
@@ -183,9 +184,11 @@ const InvoiceGenerator = ({ view = false }) => {
       } else {
         await createInvoice(invoiceData, items);
       }
-      navigate('/');
+      toast.success(id ? 'Invoice updated!' : 'Invoice created!');
+      navigate('/invoices');
     } catch (error) {
       console.error('Error saving invoice:', error);
+      toast.error('Failed to save invoice');
     } finally {
       setIsSubmitting(false);
     }

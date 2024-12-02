@@ -33,29 +33,64 @@ export const useInvoices = () => {
   };
 
   // Create new invoice
-  const createInvoice = async (invoiceData) => {
+  const createInvoice = async (invoiceData, items) => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) throw new Error('Not authenticated');
 
-      const { data, error } = await supabase
+      // First, create the invoice
+      const { data: invoice, error: invoiceError } = await supabase
         .from('invoices')
         .insert([
           {
-            ...invoiceData,
             user_id: user.id,
-            invoice_number: generateInvoiceNumber(),
-            date_issued: new Date().toISOString()
+            invoice_number: invoiceData.invoiceNumber || generateInvoiceNumber(),
+            business_name: invoiceData.businessName,
+            business_email: invoiceData.businessEmail,
+            business_address: invoiceData.businessAddress,
+            business_logo_url: invoiceData.businessLogo,
+            client_name: invoiceData.clientName,
+            client_email: invoiceData.clientEmail,
+            client_address: invoiceData.clientAddress,
+            client_logo_url: invoiceData.clientLogo,
+            currency: invoiceData.currency,
+            date_issued: invoiceData.dateIssued,
+            due_date: invoiceData.dueDate,
+            enable_tax: invoiceData.enableTax,
+            tax_rate: invoiceData.taxRate,
+            enable_discount: invoiceData.enableDiscount,
+            discount_rate: invoiceData.discountRate,
+            notes: invoiceData.notes,
+            terms: invoiceData.terms
           }
         ])
         .select()
         .single();
 
-      if (error) throw error;
-      return data;
+      if (invoiceError) throw invoiceError;
+
+      // Then, create the invoice items
+      if (items && items.length > 0) {
+        const { error: itemsError } = await supabase
+          .from('invoice_items')
+          .insert(
+            items.map(item => ({
+              invoice_id: invoice.id,
+              description: item.description,
+              quantity: item.quantity,
+              rate: item.rate
+            }))
+          );
+
+        if (itemsError) throw itemsError;
+      }
+
+      toast.success('Invoice created successfully!');
+      return invoice;
 
     } catch (error) {
+      console.error('Error creating invoice:', error);
       toast.error(error.message);
       throw error;
     }
