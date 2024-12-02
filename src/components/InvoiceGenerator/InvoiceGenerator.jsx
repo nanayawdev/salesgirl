@@ -94,18 +94,32 @@ const InvoiceGenerator = () => {
     return currencySymbols[currencyCode] || currencyCode;
   };
 
+  const formatNumber = (number) => {
+    return new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(number);
+  };
+
+  const calculateItemAmount = (item) => {
+    return formatNumber(item.quantity * item.rate);
+  };
+
   const calculateSubtotal = () => {
-    return items.reduce((sum, item) => sum + (item.quantity * item.rate), 0);
+    const subtotal = items.reduce((sum, item) => sum + (item.quantity * item.rate), 0);
+    return formatNumber(subtotal);
   };
 
   const calculateTax = (subtotal) => {
-    return subtotal * (invoiceData.taxRate / 100);
+    // Remove commas before calculation
+    const subtotalNumber = parseFloat(subtotal.replace(/,/g, ''));
+    return formatNumber(subtotalNumber * (invoiceData.taxRate / 100));
   };
 
   const calculateTotal = () => {
-    const subtotal = calculateSubtotal();
-    const tax = invoiceData.enableTax ? calculateTax(subtotal) : 0;
-    return subtotal + tax;
+    const subtotal = parseFloat(calculateSubtotal().replace(/,/g, ''));
+    const tax = invoiceData.enableTax ? parseFloat(calculateTax(calculateSubtotal()).replace(/,/g, '')) : 0;
+    return formatNumber(subtotal + tax);
   };
 
   return (
@@ -361,8 +375,9 @@ const InvoiceGenerator = () => {
                 />
               </div>
               <div className="col-span-3 text-right">
-                <p className="p-2 overflow-x-auto whitespace-nowrap" title={`${getCurrencySymbol(invoiceData.currency)}${(item.quantity * item.rate).toFixed(2)}`}>
-                  {getCurrencySymbol(invoiceData.currency)}{(item.quantity * item.rate).toFixed(2)}
+                <p className="p-2 overflow-x-auto whitespace-nowrap" 
+                   title={`${getCurrencySymbol(invoiceData.currency)}${calculateItemAmount(item)}`}>
+                  {getCurrencySymbol(invoiceData.currency)}{calculateItemAmount(item)}
                 </p>
               </div>
               <div className="col-span-1 flex justify-center">
@@ -385,21 +400,21 @@ const InvoiceGenerator = () => {
               <div className="w-64 space-y-2">
                 <div className="flex justify-between">
                   <span>Subtotal:</span>
-                  <span>{getCurrencySymbol(invoiceData.currency)}{calculateSubtotal().toFixed(2)}</span>
+                  <span>{getCurrencySymbol(invoiceData.currency)}{calculateSubtotal()}</span>
                 </div>
                 
                 {invoiceData.enableTax && (
                   <div className="flex justify-between">
                     <span>Tax ({invoiceData.taxRate}%):</span>
                     <span>
-                      {getCurrencySymbol(invoiceData.currency)}{calculateTax(calculateSubtotal()).toFixed(2)}
+                      {getCurrencySymbol(invoiceData.currency)}{calculateTax(calculateSubtotal())}
                     </span>
                   </div>
                 )}
                 
                 <div className="flex justify-between font-bold border-t pt-2">
                   <span>Total:</span>
-                  <span>{getCurrencySymbol(invoiceData.currency)}{calculateTotal().toFixed(2)}</span>
+                  <span>{getCurrencySymbol(invoiceData.currency)}{calculateTotal()}</span>
                 </div>
               </div>
             </div>
