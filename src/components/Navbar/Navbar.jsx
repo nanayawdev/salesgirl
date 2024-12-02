@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '@/contexts/AuthContext';
 import { Menu, Transition } from '@headlessui/react';
-import { Menu as MenuIcon, X, Sun, Moon, SunMoon, ChevronRight, ChevronDown } from 'lucide-react';
+import { Menu as MenuIcon, X, Sun, Moon, SunMoon, ChevronRight, ChevronDown, FileText, LogOut } from 'lucide-react';
 import NoticeBar from '../ui/noticebar';
 
 const Navbar = () => {
@@ -77,8 +77,9 @@ const Navbar = () => {
                             to="/invoices"
                             className={`${
                               active ? 'bg-gray-100 dark:bg-gray-800' : ''
-                            } block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 rounded-t-lg`}
+                            } block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 rounded-t-lg flex items-center`}
                           >
+                            <FileText className="w-4 h-4 mr-2" />
                             My Invoices
                           </Link>
                         )}
@@ -89,8 +90,9 @@ const Navbar = () => {
                             onClick={handleSignOut}
                             className={`${
                               active ? 'bg-gray-100 dark:bg-gray-800' : ''
-                            } block w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 rounded-b-lg hover:text-red-700 dark:hover:text-red-300`}
+                            } block w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 rounded-b-lg hover:text-red-700 dark:hover:text-red-300 flex items-center`}
                           >
+                            <LogOut className="w-4 h-4 mr-2" />
                             Sign Out
                           </button>
                         )}
