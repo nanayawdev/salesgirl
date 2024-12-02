@@ -10,29 +10,45 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import ForgotPassword from './pages/ForgotPassword';
 import Footer from './components/Footer/Footer';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { ProtectedRoute } from '@/components/ProtectedRoute';
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={
-          <>
-            <HeroSection />
-            <InvoiceFeatures />
-            <InvoiceSteps />
-            <Footer />
-          </>
-        } />
-        <Route path="/invoices" element={<InvoiceList />} />
-        <Route path="/create-invoice" element={<InvoiceGenerator />} />
-        <Route path="/edit-invoice/:id" element={<InvoiceGenerator />} />
-        <Route path="/view-invoice/:id" element={<InvoiceGenerator view />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={
+            <>
+              <HeroSection />
+              <InvoiceFeatures />
+              <InvoiceSteps />
+              <Footer />
+            </>
+          } />
+          <Route path="/invoices" element={<InvoiceList />} />
+          <Route path="/create-invoice" element={
+            <ProtectedRoute>
+              <InvoiceGenerator />
+            </ProtectedRoute>
+          } />
+          <Route path="/edit-invoice/:id" element={
+            <ProtectedRoute>
+              <InvoiceGenerator />
+            </ProtectedRoute>
+          } />
+          <Route path="/view-invoice/:id" element={
+            <ProtectedRoute>
+              <InvoiceGenerator view />
+            </ProtectedRoute>
+          } />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
