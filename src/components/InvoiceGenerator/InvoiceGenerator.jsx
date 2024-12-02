@@ -36,6 +36,7 @@ const InvoiceGenerator = () => {
     businessAddress: '',
     
     // Client Details
+    clientLogo: null,
     clientName: '',
     clientEmail: '',
     clientAddress: '',
@@ -66,6 +67,15 @@ const InvoiceGenerator = () => {
     const file = e.target.files[0];
     if (file && file.size <= 500000) { // 500KB limit
       setInvoiceData({ ...invoiceData, businessLogo: file });
+    } else {
+      alert('File size must be less than 500KB');
+    }
+  };
+
+  const handleClientLogoUpload = (e) => {
+    const file = e.target.files[0];
+    if (file && file.size <= 500000) { // 500KB limit
+      setInvoiceData({ ...invoiceData, clientLogo: file });
     } else {
       alert('File size must be less than 500KB');
     }
@@ -144,20 +154,67 @@ const InvoiceGenerator = () => {
         </div>
 
         <section className="mb-8 bg-white/10 p-6 rounded-lg shadow-sm">
-          <div className="mb-4">
-            <label className="block mb-2">Brand Logo (optional)</label>
-            <div className="border-2 border-dashed rounded-lg p-4 text-center">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleLogoUpload}
-                className="hidden"
-                id="logo-upload"
-              />
-              <label htmlFor="logo-upload" className="cursor-pointer">
-                <CloudArrowUpIcon className="w-8 h-8 mx-auto mb-2 text-gray-400" />
-                <span className="text-sm text-gray-500">Upload logo (max 500KB)</span>
-              </label>
+          <div className="grid grid-cols-2 gap-8">
+            {/* Business Logo */}
+            <div>
+              <label className="block mb-2">Business Logo (optional)</label>
+              <div className="border-2 border-dashed rounded-lg p-4 text-center">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleLogoUpload}
+                  className="hidden"
+                  id="business-logo-upload"
+                />
+                <label htmlFor="business-logo-upload" className="cursor-pointer">
+                  {invoiceData.businessLogo ? (
+                    <div className="flex flex-col items-center">
+                      <img 
+                        src={URL.createObjectURL(invoiceData.businessLogo)} 
+                        alt="Business Logo" 
+                        className="max-h-20 mb-2"
+                      />
+                      <span className="text-sm text-gray-500">Click to change logo</span>
+                    </div>
+                  ) : (
+                    <>
+                      <CloudArrowUpIcon className="w-8 h-8 mx-auto mb-2 text-gray-400" />
+                      <span className="text-sm text-gray-500">Upload logo (max 500KB)</span>
+                    </>
+                  )}
+                </label>
+              </div>
+            </div>
+
+            {/* Client Logo */}
+            <div>
+              <label className="block mb-2">Client Logo (optional)</label>
+              <div className="border-2 border-dashed rounded-lg p-4 text-center">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleClientLogoUpload}
+                  className="hidden"
+                  id="client-logo-upload"
+                />
+                <label htmlFor="client-logo-upload" className="cursor-pointer">
+                  {invoiceData.clientLogo ? (
+                    <div className="flex flex-col items-center">
+                      <img 
+                        src={URL.createObjectURL(invoiceData.clientLogo)} 
+                        alt="Client Logo" 
+                        className="max-h-20 mb-2"
+                      />
+                      <span className="text-sm text-gray-500">Click to change logo</span>
+                    </div>
+                  ) : (
+                    <>
+                      <CloudArrowUpIcon className="w-8 h-8 mx-auto mb-2 text-gray-400" />
+                      <span className="text-sm text-gray-500">Upload logo (max 500KB)</span>
+                    </>
+                  )}
+                </label>
+              </div>
             </div>
           </div>
         </section>
