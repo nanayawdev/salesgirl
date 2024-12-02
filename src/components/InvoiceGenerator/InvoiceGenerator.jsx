@@ -638,10 +638,11 @@ const InvoiceGenerator = ({ view = false }) => {
         {/* Action Buttons */}
         <div className="flex justify-end space-x-4">
           <button 
-            onClick={() => navigate('/')}
+            onClick={() => setShowPreview(true)}
             className="inline-flex items-center px-6 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
           >
-            Cancel
+            <EyeIcon className="w-5 h-5 mr-2" />
+            Preview Invoice
           </button>
           {!view && (
             <button 
