@@ -29,7 +29,7 @@ const PreviewInvoice = ({ invoice, onClose }) => {
                 <h2 className="text-gray-600 mb-2">From</h2>
                 {invoice.businessLogo && (
                   <img 
-                    src={invoice.businessLogo} 
+                    src={URL.createObjectURL(invoice.businessLogo)} 
                     alt="Business Logo" 
                     className="max-h-12 mb-2"
                   />
@@ -40,6 +40,13 @@ const PreviewInvoice = ({ invoice, onClose }) => {
               </div>
               <div>
                 <h2 className="text-gray-600 mb-2">Bill To</h2>
+                {invoice.clientLogo && (
+                  <img 
+                    src={URL.createObjectURL(invoice.clientLogo)} 
+                    alt="Client Logo" 
+                    className="max-h-12 mb-2"
+                  />
+                )}
                 <p className="font-medium">{invoice.clientName}</p>
                 <p className="text-gray-600 whitespace-pre-line">{invoice.clientAddress}</p>
                 <p className="text-gray-600">{invoice.clientEmail}</p>
