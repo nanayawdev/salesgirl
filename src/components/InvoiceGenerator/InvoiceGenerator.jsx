@@ -42,7 +42,9 @@ const InvoiceGenerator = () => {
     terms: 'Payment is due within 30 days of invoice date.\nLate payments will incur a 5% monthly fee.'
   });
 
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([
+    { description: 'Consulting Services', quantity: 1, rate: 100 }
+  ]);
 
   const handleLogoUpload = (e) => {
     const file = e.target.files[0];
@@ -347,27 +349,29 @@ const InvoiceGenerator = () => {
           </div>
         </section>
 
-        {/* Notes and Terms Section */}
-        <section className="mt-8 mb-8 space-y-6">
-          <div>
-            <label className="block mb-1">Notes</label>
-            <textarea
-              value={invoiceData.notes}
-              onChange={(e) => setInvoiceData({...invoiceData, notes: e.target.value})}
-              className="w-full p-2 border rounded bg-white/5"
-              rows="4"
-              placeholder="Any additional notes for the client..."
-            />
-          </div>
-          <div>
-            <label className="block mb-1">Terms & Conditions</label>
-            <textarea
-              value={invoiceData.terms}
-              onChange={(e) => setInvoiceData({...invoiceData, terms: e.target.value})}
-              className="w-full p-2 border rounded bg-white/5"
-              rows="4"
-              placeholder="Payment terms and conditions..."
-            />
+        {/* Notes and Terms Section - now side by side */}
+        <section className="mt-8 mb-8">
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <label className="block mb-1">Notes</label>
+              <textarea
+                value={invoiceData.notes}
+                onChange={(e) => setInvoiceData({...invoiceData, notes: e.target.value})}
+                className="w-full p-2 border rounded bg-white/5"
+                rows="4"
+                placeholder="Any additional notes for the client..."
+              />
+            </div>
+            <div>
+              <label className="block mb-1">Terms & Conditions</label>
+              <textarea
+                value={invoiceData.terms}
+                onChange={(e) => setInvoiceData({...invoiceData, terms: e.target.value})}
+                className="w-full p-2 border rounded bg-white/5"
+                rows="4"
+                placeholder="Payment terms and conditions..."
+              />
+            </div>
           </div>
         </section>
 
