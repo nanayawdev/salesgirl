@@ -238,77 +238,203 @@ const InvoiceGenerator = ({ view = false }) => {
     if (!invoiceData) return;
 
     const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.width;
+    const margin = 20;
 
-    // Add business logo if available
+    // Helper function for text alignment
+    const centerText = (text, y) => {
+      const textWidth = doc.getStringUnitWidth(text) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+      return (pageWidth - textWidth) / 2;
+    };
+
+    // Set initial styles
+    doc.setFont('helvetica');
+    
+    // Header Section
+    doc.setFontSize(24);
+    doc.setTextColor(31, 41, 55); // text-gray-900
+    doc.text('INVOICE', centerText('INVOICE'), 40);
+    
+    doc.setFontSize(14);
+    doc.setTextColor(107, 114, 128); // text-gray-600
+    doc.text(`#${invoiceData.invoiceNumber}`, centerText(`#${invoiceData.invoiceNumber}`), 50);
+
+    // Business & Client Details Section (Grid Layout)
+    const startY = 70;
+    
+    // From Section
+    doc.setFontSize(12);
+    doc.setTextColor(107, 114, 128);
+    doc.text('From', margin, startY);
+    
     if (invoiceData.businessLogo) {
       const logoSrc = invoiceData.businessLogo instanceof File
         ? URL.createObjectURL(invoiceData.businessLogo)
         : invoiceData.businessLogo;
-      doc.addImage(logoSrc, 'JPEG', 15, 15, 30, 30);
+      doc.addImage(logoSrc, 'JPEG', margin, startY + 5, 40, 20);
     }
 
-    // Add invoice title
-    doc.setFontSize(20);
-    doc.text('INVOICE', 105, 20, null, null, 'center');
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(31, 41, 55);
+    doc.text(invoiceData.businessName, margin, startY + 35);
+    
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(107, 114, 128);
+    const businessAddressLines = doc.splitTextToSize(invoiceData.businessAddress, 80);
+    businessAddressLines.forEach((line, i) => {
+      doc.text(line, margin, startY + 45 + (i * 6));
+    });
+    doc.text(invoiceData.businessEmail, margin, startY + 45 + (businessAddressLines.length * 6) + 6);
 
-    // Add invoice details
-    doc.setFontSize(12);
-    doc.text(`Invoice #: ${invoiceData.invoiceNumber}`, 15, 50);
-    doc.text(`Date Issued: ${invoiceData.dateIssued}`, 15, 60);
-    doc.text(`Due Date: ${invoiceData.dueDate}`, 15, 70);
+    // Bill To Section
+    const rightColumnX = pageWidth / 2 + 10;
+    doc.setTextColor(107, 114, 128);
+    doc.text('Bill To', rightColumnX, startY);
 
-    // Add client details
-    doc.text('Bill To:', 15, 90);
     if (invoiceData.clientLogo) {
       const clientLogoSrc = invoiceData.clientLogo instanceof File
         ? URL.createObjectURL(invoiceData.clientLogo)
         : invoiceData.clientLogo;
-      doc.addImage(clientLogoSrc, 'JPEG', 15, 95, 30, 30);
+      doc.addImage(clientLogoSrc, 'JPEG', rightColumnX, startY + 5, 40, 20);
     }
-    doc.text(invoiceData.clientName, 50, 100);
-    doc.text(invoiceData.clientEmail, 50, 110);
-    doc.text(invoiceData.clientAddress, 50, 120);
 
-    // Add items table
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(31, 41, 55);
+    doc.text(invoiceData.clientName, rightColumnX, startY + 35);
+    
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(107, 114, 128);
+    const clientAddressLines = doc.splitTextToSize(invoiceData.clientAddress, 80);
+    clientAddressLines.forEach((line, i) => {
+      doc.text(line, rightColumnX, startY + 45 + (i * 6));
+    });
+    doc.text(invoiceData.clientEmail, rightColumnX, startY + 45 + (clientAddressLines.length * 6) + 6);
+
+    // Dates Section
+    const datesY = startY + 90;
+    doc.setTextColor(107, 114, 128);
+    doc.text('Issue Date', margin, datesY);
+    doc.text('Due Date', rightColumnX, datesY);
+    
+    doc.setTextColor(31, 41, 55);
+    doc.text(invoiceData.dateIssued, margin, datesY + 10);
+    doc.text(invoiceData.dueDate, rightColumnX, datesY + 10);
+
+    // Items Table
     doc.autoTable({
-      startY: 130,
+      startY: datesY + 30,
       head: [['Description', 'Quantity', 'Rate', 'Amount']],
       body: items.map(item => [
         item.description,
-        item.quantity.toString(),
-        `${invoiceData.currency}${item.rate.toFixed(2)}`,
-        `${invoiceData.currency}${(item.quantity * item.rate).toFixed(2)}`
+        item.quantity,
+        `${invoiceData.currency}${item.rate.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+        `${invoiceData.currency}${(item.quantity * item.rate).toLocaleString('en-US', { minimumFractionDigits: 2 })}`
       ]),
-      theme: 'grid',
-      styles: { halign: 'right' },
-      headStyles: { fillColor: [240, 240, 240], textColor: [0, 0, 0] },
-      columnStyles: {
-        0: { halign: 'left' }, // Align first column to the left
+      styles: {
+        fontSize: 10,
+        cellPadding: 6,
       },
+      headStyles: {
+        fillColor: [249, 250, 251], // bg-gray-50
+        textColor: [107, 114, 128], // text-gray-600
+        fontStyle: 'bold',
+        halign: 'right'
+      },
+      columnStyles: {
+        0: { halign: 'left' },
+        1: { halign: 'right' },
+        2: { halign: 'right' },
+        3: { halign: 'right' }
+      },
+      alternateRowStyles: {
+        fillColor: [249, 250, 251] // bg-gray-50
+      },
+      margin: { left: margin, right: margin }
     });
 
-    // Calculate totals
+    // Totals Section
     const subtotal = items.reduce((sum, item) => sum + (item.quantity * item.rate), 0);
     const discount = invoiceData.enableDiscount ? subtotal * (invoiceData.discountRate / 100) : 0;
     const tax = invoiceData.enableTax ? (subtotal - discount) * (invoiceData.taxRate / 100) : 0;
     const total = subtotal - discount + tax;
 
-    // Add totals
-    doc.text(`Subtotal: ${invoiceData.currency}${subtotal.toFixed(2)}`, 150, doc.lastAutoTable.finalY + 10);
-    if (invoiceData.enableDiscount) {
-      doc.text(`Discount: -${invoiceData.currency}${discount.toFixed(2)}`, 150, doc.lastAutoTable.finalY + 20);
-    }
-    if (invoiceData.enableTax) {
-      doc.text(`Tax: ${invoiceData.currency}${tax.toFixed(2)}`, 150, doc.lastAutoTable.finalY + 30);
-    }
-    doc.text(`Total: ${invoiceData.currency}${total.toFixed(2)}`, 150, doc.lastAutoTable.finalY + 40);
+    const totalsX = pageWidth - margin - 60;
+    let totalsY = doc.lastAutoTable.finalY + 20;
 
-    // Add terms and notes
-    doc.text('Terms & Conditions:', 15, doc.lastAutoTable.finalY + 60);
-    doc.text(invoiceData.terms, 15, doc.lastAutoTable.finalY + 70);
+    // Subtotal
+    doc.setTextColor(107, 114, 128);
+    doc.text('Subtotal', totalsX - 50, totalsY);
+    doc.setTextColor(31, 41, 55);
+    doc.text(
+      `${invoiceData.currency}${subtotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+      totalsX + 50,
+      totalsY,
+      { align: 'right' }
+    );
+
+    // Discount if enabled
+    if (invoiceData.enableDiscount) {
+      totalsY += 10;
+      doc.setTextColor(220, 38, 38); // text-red-600
+      doc.text(`Discount (${invoiceData.discountRate}%)`, totalsX - 50, totalsY);
+      doc.text(
+        `-${invoiceData.currency}${discount.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+        totalsX + 50,
+        totalsY,
+        { align: 'right' }
+      );
+    }
+
+    // Tax if enabled
+    if (invoiceData.enableTax) {
+      totalsY += 10;
+      doc.setTextColor(107, 114, 128);
+      doc.text(`Tax (${invoiceData.taxRate}%)`, totalsX - 50, totalsY);
+      doc.setTextColor(31, 41, 55);
+      doc.text(
+        `${invoiceData.currency}${tax.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+        totalsX + 50,
+        totalsY,
+        { align: 'right' }
+      );
+    }
+
+    // Total
+    totalsY += 15;
+    doc.setDrawColor(229, 231, 235); // border-gray-200
+    doc.line(totalsX - 60, totalsY - 5, totalsX + 50, totalsY - 5);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(31, 41, 55);
+    doc.text('Total', totalsX - 50, totalsY);
+    doc.text(
+      `${invoiceData.currency}${total.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+      totalsX + 50,
+      totalsY,
+      { align: 'right' }
+    );
+
+    // Terms and Notes Section
+    const termsY = totalsY + 30;
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(107, 114, 128);
+    
+    // Terms
+    doc.text('Terms & Conditions', margin, termsY);
+    const termsLines = doc.splitTextToSize(invoiceData.terms, (pageWidth - (margin * 2)) / 2);
+    doc.setTextColor(31, 41, 55);
+    termsLines.forEach((line, i) => {
+      doc.text(line, margin, termsY + 10 + (i * 6));
+    });
+
+    // Notes if available
     if (invoiceData.notes) {
-      doc.text('Notes:', 15, doc.lastAutoTable.finalY + 90);
-      doc.text(invoiceData.notes, 15, doc.lastAutoTable.finalY + 100);
+      doc.setTextColor(107, 114, 128);
+      doc.text('Notes', rightColumnX, termsY);
+      const notesLines = doc.splitTextToSize(invoiceData.notes, (pageWidth - (margin * 2)) / 2);
+      doc.setTextColor(31, 41, 55);
+      notesLines.forEach((line, i) => {
+        doc.text(line, rightColumnX, termsY + 10 + (i * 6));
+      });
     }
 
     // Save the PDF
