@@ -321,17 +321,17 @@ const InvoiceGenerator = () => {
 
           {/* Items Header */}
           <div className="grid grid-cols-12 gap-4 mb-2 font-semibold">
-            <div className="col-span-5">Description</div>
+            <div className="col-span-4">Description</div>
             <div className="col-span-2 text-right">Quantity</div>
             <div className="col-span-2 text-right">Rate</div>
-            <div className="col-span-2 text-right">Amount</div>
+            <div className="col-span-3 text-right">Amount</div>
             <div className="col-span-1"></div> {/* Space for delete button */}
           </div>
 
           {/* Items List */}
           {items.map((item, index) => (
             <div key={index} className="grid grid-cols-12 gap-4 mb-4 items-center">
-              <div className="col-span-5">
+              <div className="col-span-4">
                 <Input
                   type="text"
                   placeholder="Description"
@@ -360,8 +360,8 @@ const InvoiceGenerator = () => {
                   min="0"
                 />
               </div>
-              <div className="col-span-2 text-right">
-                <p className="p-2 truncate" title={`${getCurrencySymbol(invoiceData.currency)}${(item.quantity * item.rate).toFixed(2)}`}>
+              <div className="col-span-3 text-right">
+                <p className="p-2 overflow-x-auto whitespace-nowrap" title={`${getCurrencySymbol(invoiceData.currency)}${(item.quantity * item.rate).toFixed(2)}`}>
                   {getCurrencySymbol(invoiceData.currency)}{(item.quantity * item.rate).toFixed(2)}
                 </p>
               </div>
