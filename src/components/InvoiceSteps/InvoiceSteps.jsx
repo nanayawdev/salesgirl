@@ -69,7 +69,7 @@ const InvoiceSteps = () => {
               </div>
 
               {/* Content */}
-              <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-300 group-hover:to-emerald-500">
+              <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-300 dark:group-hover:from-gray-300 group-hover:to-emerald-500 dark:group-hover:to-gray-500">
                 {step.title}
               </h3>
               <p className="text-emerald-200/90 text-sm leading-relaxed">
