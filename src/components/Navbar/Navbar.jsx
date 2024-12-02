@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '@/contexts/AuthContext';
 import { Menu, Transition } from '@headlessui/react';
-import { Menu as MenuIcon, X, Sun, Moon, SunMoon, ChevronRight } from 'lucide-react';
+import { Menu as MenuIcon, X, Sun, Moon, SunMoon, ChevronRight, ChevronDown } from 'lucide-react';
 import NoticeBar from '../ui/noticebar';
 
 const Navbar = () => {
@@ -57,8 +57,9 @@ const Navbar = () => {
             <div className="flex-1 flex items-center justify-end space-x-2 tablet:space-x-4 laptop:space-x-6">
               {user ? (
                 <Menu as="div" className="relative">
-                  <Menu.Button className="text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-medium">
+                  <Menu.Button className="flex items-center text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-medium">
                     {user.user_metadata?.full_name || user.email}
+                    <ChevronDown className="ml-1 h-4 w-4" />
                   </Menu.Button>
                   <Transition
                     as={React.Fragment}
@@ -72,11 +73,23 @@ const Navbar = () => {
                     <Menu.Items className="absolute right-0 mt-2 w-48 bg-white dark:bg-background-dark rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
+                          <Link
+                            to="/invoices"
+                            className={`${
+                              active ? 'bg-gray-100 dark:bg-gray-800' : ''
+                            } block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 rounded-t-lg`}
+                          >
+                            My Invoices
+                          </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
                           <button
                             onClick={handleSignOut}
                             className={`${
                               active ? 'bg-gray-100 dark:bg-gray-800' : ''
-                            } block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 rounded-lg`}
+                            } block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 rounded-b-lg`}
                           >
                             Sign Out
                           </button>
