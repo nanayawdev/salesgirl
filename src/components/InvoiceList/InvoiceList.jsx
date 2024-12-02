@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useInvoices } from '../../hooks/useInvoices';
 import { format } from 'date-fns';
 import {
@@ -10,20 +10,26 @@ import {
 import { Link } from 'react-router-dom';
 
 const InvoiceList = () => {
-  const { invoices, loading, error, deleteInvoice } = useInvoices();
+  const [invoices, setInvoices] = useState([]);
+  const { fetchUserInvoices } = useInvoices();
 
-  if (loading) {
+  useEffect(() => {
+    const loadInvoices = async () => {
+      try {
+        const data = await fetchUserInvoices();
+        setInvoices(data);
+      } catch (error) {
+        console.error('Error loading invoices:', error);
+      }
+    };
+
+    loadInvoices();
+  }, []);
+
+  if (invoices.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center min-h-screen text-red-500">
-        Error: {error}
       </div>
     );
   }

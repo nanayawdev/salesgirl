@@ -11,13 +11,25 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, Mail } from 'lucide-react';
+import { toast } from 'react-hot-toast';
+import { supabase } from '@/lib/supabase';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Password reset requested for:', email);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      
+      if (error) throw error;
+      
+      toast.success('Password reset instructions sent to your email!');
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (

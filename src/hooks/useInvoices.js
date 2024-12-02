@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { toast } from 'sonner';
 
 export const useInvoices = () => {
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const generateInvoiceNumber = () => {
+    return `INV-${new Date().getFullYear()}${Math.floor(Math.random() * 10000)}`;
+  };
 
   // Fetch all invoices for the logged-in user
   const fetchInvoices = async () => {
@@ -28,42 +33,31 @@ export const useInvoices = () => {
   };
 
   // Create new invoice
-  const createInvoice = async (invoiceData, items) => {
+  const createInvoice = async (invoiceData) => {
     try {
-      // Upload logos if they exist
-      const businessLogoUrl = invoiceData.businessLogo ? 
-        await uploadLogo(invoiceData.businessLogo, 'business') : null;
-      const clientLogoUrl = invoiceData.clientLogo ? 
-        await uploadLogo(invoiceData.clientLogo, 'client') : null;
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) throw new Error('Not authenticated');
 
-      // Create invoice
-      const { data: invoice, error: invoiceError } = await supabase
+      const { data, error } = await supabase
         .from('invoices')
-        .insert([{
-          ...invoiceData,
-          business_logo_url: businessLogoUrl,
-          client_logo_url: clientLogoUrl,
-        }])
+        .insert([
+          {
+            ...invoiceData,
+            user_id: user.id,
+            invoice_number: generateInvoiceNumber(),
+            date_issued: new Date().toISOString()
+          }
+        ])
         .select()
         .single();
 
-      if (invoiceError) throw invoiceError;
+      if (error) throw error;
+      return data;
 
-      // Create invoice items
-      const { error: itemsError } = await supabase
-        .from('invoice_items')
-        .insert(items.map(item => ({
-          invoice_id: invoice.id,
-          ...item
-        })));
-
-      if (itemsError) throw itemsError;
-
-      await fetchInvoices();
-      return invoice;
-    } catch (err) {
-      setError(err.message);
-      return null;
+    } catch (error) {
+      toast.error(error.message);
+      throw error;
     }
   };
 
@@ -168,6 +162,25 @@ export const useInvoices = () => {
     return data.publicUrl;
   };
 
+  const fetchUserInvoices = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('invoices')
+        .select(`
+          *,
+          invoice_items (*)
+        `)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return data;
+
+    } catch (error) {
+      toast.error('Error fetching invoices');
+      throw error;
+    }
+  };
+
   useEffect(() => {
     fetchInvoices();
   }, []);
@@ -179,5 +192,6 @@ export const useInvoices = () => {
     createInvoice,
     updateInvoice,
     deleteInvoice,
+    fetchUserInvoices,
   };
 }; 

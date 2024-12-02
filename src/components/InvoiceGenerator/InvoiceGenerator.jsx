@@ -24,7 +24,7 @@ import { Input } from "@/components/ui/input";
 import { CURRENCY_OPTIONS } from '../../hooks/useCurrency';
 import PreviewInvoice from '../PreviewInvoice/PreviewInvoice';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useInvoices } from '../../hooks/useInvoices';
+import { useInvoices } from '@/hooks/useInvoices';
 
 const InvoiceGenerator = ({ view = false }) => {
   const { theme } = useTheme();
