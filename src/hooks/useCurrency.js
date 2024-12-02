@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API_KEY = 'YOUR_API_KEY'; // Get from https://app.exchangerate-api.com/
+const API_KEY = 'e7df35945455a0b4d1f778d8'; // Get from https://app.exchangerate-api.com/
 const BASE_URL = 'https://v6.exchangerate-api.com/v6';
 
 export const useCurrency = (baseCurrency = 'USD') => {
@@ -55,6 +55,7 @@ export const useCurrency = (baseCurrency = 'USD') => {
 };
 
 export const CURRENCY_OPTIONS = [
+  { value: 'GHS', label: 'GHS - Ghanaian Cedi' },
   { value: 'USD', label: 'USD - US Dollar' },
   { value: 'EUR', label: 'EUR - Euro' },
   { value: 'GBP', label: 'GBP - British Pound' },

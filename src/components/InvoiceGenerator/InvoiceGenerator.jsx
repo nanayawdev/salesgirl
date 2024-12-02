@@ -21,10 +21,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { format } from "date-fns";
 import { CalendarIcon } from "@heroicons/react/24/outline";
 import { Input } from "@/components/ui/input";
+import { useCurrency, CURRENCY_OPTIONS } from '../../hooks/useCurrency';
 
 const InvoiceGenerator = () => {
   const { theme } = useTheme();
   const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const { rates, loading, error, convertAmount, formatAmount } = useCurrency('USD');
 
   const [invoiceData, setInvoiceData] = useState({
     // Your Details
@@ -77,15 +79,23 @@ const InvoiceGenerator = () => {
     setItems(newItems);
   };
 
+  const calculateItemAmount = (item) => {
+    const amount = item.quantity * item.rate;
+    return convertAmount(amount, 'USD', invoiceData.currency);
+  };
+
   const calculateSubtotal = () => {
-    return items.reduce((sum, item) => sum + (item.quantity * item.rate), 0);
+    return items.reduce((sum, item) => sum + calculateItemAmount(item), 0);
+  };
+
+  const calculateTax = (subtotal) => {
+    return subtotal * (invoiceData.taxRate / 100);
   };
 
   const calculateTotal = () => {
     const subtotal = calculateSubtotal();
-    return invoiceData.enableTax ? 
-      subtotal * (1 + (invoiceData.taxRate / 100)) : 
-      subtotal;
+    const tax = invoiceData.enableTax ? calculateTax(subtotal) : 0;
+    return subtotal + tax;
   };
 
   return (
@@ -205,25 +215,25 @@ const InvoiceGenerator = () => {
                 placeholder="INV-001"
               />
             </div>
-            <div>
+            <div className="mb-4">
               <label className="block mb-1">Currency</label>
               <Select
                 value={invoiceData.currency}
                 onValueChange={(value) => setInvoiceData({...invoiceData, currency: value})}
+                disabled={loading}
               >
                 <SelectTrigger className="w-full bg-white/5">
                   <SelectValue placeholder="Select currency" />
                 </SelectTrigger>
                 <SelectContent className="bg-white dark:bg-gray-800">
-                  <SelectItem value="GHS">GHS - Ghanaian Cedi</SelectItem>
-                  <SelectItem value="USD">USD - US Dollar</SelectItem>
-                  <SelectItem value="EUR">EUR - Euro</SelectItem>
-                  <SelectItem value="GBP">GBP - British Pound</SelectItem>
-                  <SelectItem value="CAD">CAD - Canadian Dollar</SelectItem>
-                  <SelectItem value="AUD">AUD - Australian Dollar</SelectItem>
-                  <SelectItem value="INR">INR - Indian Rupee</SelectItem>
+                  {CURRENCY_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
+              {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
             </div>
             <div>
               <label className="block mb-1">Date Issued</label>
@@ -342,7 +352,9 @@ const InvoiceGenerator = () => {
                 />
               </div>
               <div className="col-span-1">
-                <p className="p-2">${(item.quantity * item.rate).toFixed(2)}</p>
+                <p className="p-2">
+                  {formatAmount(calculateItemAmount(item), invoiceData.currency)}
+                </p>
               </div>
               <div className="col-span-1">
                 <button 
@@ -358,52 +370,27 @@ const InvoiceGenerator = () => {
             </div>
           ))}
 
-          {/* Totals Section with Tax */}
+          {/* Totals Section */}
           <div className="border-t mt-4 pt-4">
             <div className="flex justify-end">
               <div className="w-64 space-y-2">
                 <div className="flex justify-between">
                   <span>Subtotal:</span>
-                  <span>${calculateSubtotal().toFixed(2)}</span>
-                </div>
-                
-                <div className="py-2">
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      checked={invoiceData.enableTax}
-                      onChange={(e) => setInvoiceData({...invoiceData, enableTax: e.target.checked})}
-                      className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
-                    />
-                    <span>Enable Tax</span>
-                  </label>
-                  
-                  {invoiceData.enableTax && (
-                    <div className="mt-2">
-                      <label className="block mb-1">Tax Rate (%)</label>
-                      <Input
-                        type="number"
-                        value={invoiceData.taxRate}
-                        onChange={(e) => setInvoiceData({...invoiceData, taxRate: parseFloat(e.target.value) || 0})}
-                        className="w-32 bg-white/5"
-                        min="0"
-                        max="100"
-                        step="0.1"
-                      />
-                    </div>
-                  )}
+                  <span>{formatAmount(calculateSubtotal(), invoiceData.currency)}</span>
                 </div>
                 
                 {invoiceData.enableTax && (
                   <div className="flex justify-between">
                     <span>Tax ({invoiceData.taxRate}%):</span>
-                    <span>${(calculateSubtotal() * (invoiceData.taxRate / 100)).toFixed(2)}</span>
+                    <span>
+                      {formatAmount(calculateTax(calculateSubtotal()), invoiceData.currency)}
+                    </span>
                   </div>
                 )}
                 
                 <div className="flex justify-between font-bold border-t pt-2">
                   <span>Total:</span>
-                  <span>${calculateTotal().toFixed(2)}</span>
+                  <span>{formatAmount(calculateTotal(), invoiceData.currency)}</span>
                 </div>
               </div>
             </div>
