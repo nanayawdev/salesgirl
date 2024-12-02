@@ -9,10 +9,10 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-emerald-800 to-emerald-950 min-h-[600px] flex items-center justify-center">
+    <div className="bg-gradient-to-br from-emerald-800 to-emerald-950 min-h-[600px] flex items-center justify-center dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-900">
       <div className="text-center max-w-3xl mx-auto px-4">
         <h1 className="text-5xl font-bold text-white mb-4">
-          Create Professional <span className="text-emerald-300">Invoices</span>
+          Create Professional <span className="text-emerald-300 dark:text-emerald-300">Invoices</span>
           <br />
           in Minutes
         </h1>
@@ -24,7 +24,7 @@ const HeroSection = () => {
         <div className="flex gap-4 justify-center">
           <Link 
             to="/create-invoice"
-            className="bg-emerald-100 text-emerald-900 px-6 py-3 rounded-md font-medium hover:bg-emerald-200 transition-colors flex items-center"
+            className="bg-emerald-100 dark:bg-gray-700 text-emerald-900 dark:text-gray-100 px-6 py-3 rounded-md font-medium hover:bg-emerald-200 dark:hover:bg-gray-600/30 transition-colors flex items-center"
           >
             Create Your Invoice
             <svg 
@@ -44,7 +44,7 @@ const HeroSection = () => {
           
           <button 
             onClick={scrollToSteps}
-            className="border border-emerald-300 text-emerald-100 px-6 py-3 rounded-md font-medium hover:bg-emerald-800/30 transition-colors"
+            className="border border-emerald-300 dark:border-gray-600 text-emerald-100 dark:text-gray-100 px-6 py-3 rounded-md font-medium hover:bg-emerald-800/30 dark:hover:bg-gray-800/30 transition-colors"
           >
             Learn More
           </button>
