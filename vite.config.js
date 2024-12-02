@@ -12,5 +12,16 @@ export default defineConfig({
   },
   server: {
     port: 2100,
+    headers: {
+      'Content-Security-Policy': `
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval';
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data: blob: https:;
+        connect-src 'self' ${process.env.VITE_SUPABASE_URL} https://api.supabase.co;
+        frame-src 'self';
+        font-src 'self';
+      `.replace(/\s+/g, ' ').trim()
+    }
   },
 })
