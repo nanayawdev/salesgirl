@@ -29,6 +29,7 @@ import { useInvoices } from '@/hooks/useInvoices';
 import { toast } from 'sonner';
 import { Download } from 'lucide-react';
 import jsPDF from 'jspdf';
+import 'jspdf-autotable'; // Import jsPDF autotable plugin
 
 const InvoiceGenerator = ({ view = false }) => {
   const { theme } = useTheme();
@@ -237,46 +238,79 @@ const InvoiceGenerator = ({ view = false }) => {
     if (!invoiceData) return;
 
     const doc = new jsPDF();
-    
-    // Add company logo/name
+
+    // Add business logo if available
+    if (invoiceData.businessLogo) {
+      const logoSrc = invoiceData.businessLogo instanceof File
+        ? URL.createObjectURL(invoiceData.businessLogo)
+        : invoiceData.businessLogo;
+      doc.addImage(logoSrc, 'JPEG', 15, 15, 30, 30);
+    }
+
+    // Add invoice title
     doc.setFontSize(20);
-    doc.text('Invoice', 20, 20);
-    
+    doc.text('INVOICE', 105, 20, null, null, 'center');
+
     // Add invoice details
     doc.setFontSize(12);
-    doc.text(`Invoice #: ${invoiceData.invoiceNumber}`, 20, 40);
-    doc.text(`Date: ${new Date(invoiceData.dateIssued).toLocaleDateString()}`, 20, 50);
-    
+    doc.text(`Invoice #: ${invoiceData.invoiceNumber}`, 15, 50);
+    doc.text(`Date Issued: ${invoiceData.dateIssued}`, 15, 60);
+    doc.text(`Due Date: ${invoiceData.dueDate}`, 15, 70);
+
     // Add client details
-    doc.text('Bill To:', 20, 70);
-    doc.text(invoiceData.clientName, 20, 80);
-    doc.text(invoiceData.clientEmail, 20, 90);
-    
+    doc.text('Bill To:', 15, 90);
+    if (invoiceData.clientLogo) {
+      const clientLogoSrc = invoiceData.clientLogo instanceof File
+        ? URL.createObjectURL(invoiceData.clientLogo)
+        : invoiceData.clientLogo;
+      doc.addImage(clientLogoSrc, 'JPEG', 15, 95, 30, 30);
+    }
+    doc.text(invoiceData.clientName, 50, 100);
+    doc.text(invoiceData.clientEmail, 50, 110);
+    doc.text(invoiceData.clientAddress, 50, 120);
+
     // Add items table
-    let yPos = 110;
-    doc.text('Description', 20, yPos);
-    doc.text('Quantity', 90, yPos);
-    doc.text('Price', 130, yPos);
-    doc.text('Total', 170, yPos);
-    
-    yPos += 10;
-    doc.line(20, yPos, 190, yPos);
-    
-    // Add items
-    items.forEach((item) => {
-      yPos += 10;
-      doc.text(item.description, 20, yPos);
-      doc.text(item.quantity.toString(), 90, yPos);
-      doc.text(`$${item.rate.toFixed(2)}`, 130, yPos);
-      doc.text(`$${(item.quantity * item.rate).toFixed(2)}`, 170, yPos);
+    doc.autoTable({
+      startY: 130,
+      head: [['Description', 'Quantity', 'Rate', 'Amount']],
+      body: items.map(item => [
+        item.description,
+        item.quantity.toString(),
+        `${invoiceData.currency}${item.rate.toFixed(2)}`,
+        `${invoiceData.currency}${(item.quantity * item.rate).toFixed(2)}`
+      ]),
+      theme: 'grid',
+      styles: { halign: 'right' },
+      headStyles: { fillColor: [240, 240, 240], textColor: [0, 0, 0] },
+      columnStyles: {
+        0: { halign: 'left' }, // Align first column to the left
+      },
     });
-    
-    // Add total
-    yPos += 20;
-    doc.line(20, yPos, 190, yPos);
-    yPos += 10;
-    doc.text(`Total: $${calculateTotal().toFixed(2)}`, 150, yPos);
-    
+
+    // Calculate totals
+    const subtotal = items.reduce((sum, item) => sum + (item.quantity * item.rate), 0);
+    const discount = invoiceData.enableDiscount ? subtotal * (invoiceData.discountRate / 100) : 0;
+    const tax = invoiceData.enableTax ? (subtotal - discount) * (invoiceData.taxRate / 100) : 0;
+    const total = subtotal - discount + tax;
+
+    // Add totals
+    doc.text(`Subtotal: ${invoiceData.currency}${subtotal.toFixed(2)}`, 150, doc.lastAutoTable.finalY + 10);
+    if (invoiceData.enableDiscount) {
+      doc.text(`Discount: -${invoiceData.currency}${discount.toFixed(2)}`, 150, doc.lastAutoTable.finalY + 20);
+    }
+    if (invoiceData.enableTax) {
+      doc.text(`Tax: ${invoiceData.currency}${tax.toFixed(2)}`, 150, doc.lastAutoTable.finalY + 30);
+    }
+    doc.text(`Total: ${invoiceData.currency}${total.toFixed(2)}`, 150, doc.lastAutoTable.finalY + 40);
+
+    // Add terms and notes
+    doc.text('Terms & Conditions:', 15, doc.lastAutoTable.finalY + 60);
+    doc.text(invoiceData.terms, 15, doc.lastAutoTable.finalY + 70);
+    if (invoiceData.notes) {
+      doc.text('Notes:', 15, doc.lastAutoTable.finalY + 90);
+      doc.text(invoiceData.notes, 15, doc.lastAutoTable.finalY + 100);
+    }
+
     // Save the PDF
     doc.save(`invoice-${invoiceData.invoiceNumber}.pdf`);
   };
