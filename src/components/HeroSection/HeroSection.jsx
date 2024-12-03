@@ -21,7 +21,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="bg-background-light dark:bg-background-dark min-h-[400px] sm:min-h-[500px] lg:min-h-[600px] flex items-center justify-center py-12 sm:py-16 lg:py-20">
+    <div className="bg-background-light dark:bg-background-dark h-screen flex items-center justify-center py-12 sm:py-16 lg:py-20">
       <div className="text-center phone:max-w-xs tablet:max-w-md laptop:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="main-heading">
           Build Sleek <span className="span-text">Invoices</span> On The Go
