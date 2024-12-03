@@ -56,7 +56,7 @@ const HeroSection = () => {
             onClick={scrollToSteps}
             className="btn-secondary"
           >
-            See How It Works
+            Explore Features
           </button>
         </div>
       </div>

@@ -8,6 +8,7 @@ export default {
   theme: {
     extend: {
       screens: {
+        'phone': '320px',
         'tablet': '640px',
         'laptop': '1024px',
         'desktop': '1280px',
@@ -50,8 +51,9 @@ export default {
         'base': '16px',   
         'lg': '18px',     
         'xl': '24px',     
-        '2xl': '36px',    
-        '3xl': '72px',    
+        '2xl': '36px',
+        '3xl': '48px',
+        '4xl': '72px',    
       }
     },
   },

@@ -46,8 +46,8 @@ html, body {
 }
 
 .main-heading {
-  @apply text-3xl sm:text-xl md:text-2xl lg:text-3xl
-  font-bold dark:text-white mb-2 sm:mb-3
+  @apply text-xl phone:text-2xl tablet:text-3xl laptop:text-4xl desktop:text-4xl
+  font-bold dark:text-white mb-2 tablet:mb-3
   leading-tight tracking-tight;
 }
 
