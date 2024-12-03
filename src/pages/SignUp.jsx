@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { ArrowRight, Mail, Lock, Eye, EyeOff, User } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
+import { toast, Toaster } from 'sonner';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -57,6 +57,7 @@ const SignUp = () => {
 
   return (
     <div className="h-screen auth-page flex items-center justify-center bg-codGray-50 dark:bg-background-dark px-4 sm:px-6 lg:px-8">
+      <Toaster position="top-center" richColors />
       <Card className="w-full max-w-md border-0 shadow-none dark:bg-background-dark">
         <CardHeader className="space-y-1">
           <CardTitle className="text-xl phone:text-xl tablet:text-xl laptop:text-xl desktop:text-xl text-codGray-900 dark:text-codGray-50 font-bold text-center">Create an account</CardTitle>
