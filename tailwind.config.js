@@ -41,7 +41,7 @@ export default {
         },
         background: {
           light: '#fcfcfc',
-          dark: '#171717',
+          dark: '#131313',
         },
       },
       fontSize: {
