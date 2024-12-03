@@ -61,8 +61,8 @@ html, body {
 }
 
 .icon-base {
-  @apply text-codGray-500 
-    hover:text-codGray-700
+  @apply w-4 h-4 sm:w-5 sm:h-5 text-algaeGreen-500 
+    hover:text-algaeGreen-600
     transition-colors duration-200;
 }
 
