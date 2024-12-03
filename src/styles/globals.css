@@ -53,7 +53,7 @@ html, body {
 
 .description-text {
   @apply mb-4 sm:mb-6
-  text-lg text-codGray-900 dark:text-codGray-50;
+  text-xl phone:text-sm tablet:text-base laptop:text-lg desktop:text-lg text-codGray-900 dark:text-codGray-50;
 }
 
 .span-text {
