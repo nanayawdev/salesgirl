@@ -98,7 +98,7 @@ const About = () => {
       </div>
 
       {/* Mission Section */}
-      <div className="py-16 bg-codGray-50 dark:bg-codGray-950">
+      <div className="py-16 bg-background-light dark:bg-background-dark">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="p-3 bg-algaeGreen-50 dark:bg-codGray-600/30 rounded-full w-fit mx-auto mb-6">
             <HeartHandshake className="w-8 h-8 text-algaeGreen-400" />
