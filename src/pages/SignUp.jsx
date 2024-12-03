@@ -56,10 +56,10 @@ const SignUp = () => {
   };
 
   return (
-    <div className="h-[100vh] auth-page flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 sm:px-6 lg:px-8">
-      <Card className="w-full max-w-md border-0 shadow-none dark:bg-gray-800">
+    <div className="h-screen auth-page flex items-center justify-center bg-codGray-50 dark:bg-codGray-950 px-4 sm:px-6 lg:px-8">
+      <Card className="w-full max-w-md border-0 shadow-none dark:bg-codGray-800">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Create an account</CardTitle>
+          <CardTitle className="text-xl phone:text-xl tablet:text-xl laptop:text-xl desktop:text-xl font-bold text-center">Create an account</CardTitle>
           <CardDescription className="text-center">
             Enter your details to create your account
           </CardDescription>
