@@ -15,6 +15,9 @@ import { ProtectedRoute } from '@/components/ProtectedRoute';
 import GuestGuard from '@/components/GuestGuard/GuestGuard';
 import About from './pages/About';
 import CookieConsent from './components/CookieConsent/CookieConsent';
+import Company from './pages/Company';
+import Tools from './pages/Tools';
+import Quote from './pages/Quote';
 
 function App() {
   return (
@@ -69,6 +72,9 @@ function App() {
               <InvoiceGenerator view />
             </ProtectedRoute>
           } />
+          <Route path="/company" element={<Company />} />
+          <Route path="/tools" element={<Tools />} />
+          <Route path="/quote" element={<Quote />} />
         </Routes>
         <CookieConsent />
       </Router>

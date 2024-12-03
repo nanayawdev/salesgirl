@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const NoticeBar = () => {
   return (
-    <a
-      href="/status"
+    <Link
+      to="/quote"
       className="hidden tablet:flex items-center rounded-full bg-algaeGreen-400 dark:bg-algaeGreen-400 px-3 py-1 hover:bg-algaeGreen-300 dark:hover:bg-algaeGreen-300 transition-colors cursor-pointer"
     >
       <span className="font-medium text-xs text-codGray-900 dark:text-codGray-800 whitespace-nowrap">
@@ -26,7 +27,7 @@ const NoticeBar = () => {
         d="M9 5l7 7-7 7"
       />
     </svg>
-    </a>
+    </Link>
   );
 };
 
