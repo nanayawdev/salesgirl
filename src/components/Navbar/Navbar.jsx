@@ -40,7 +40,7 @@ const Navbar = () => {
             </div>
 
             {/* Center section */}
-            <div className="flex-1 hidden lg:flex items-center justify-center space-x-4">
+            <div className="flex-1 hidden lg:flex items-center justify-center space-x-4 ml-16">
               {navItems.map((item) => (
                 <Link
                   key={item.label}

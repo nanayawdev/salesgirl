@@ -4,7 +4,7 @@ const NoticeBar = () => {
   return (
     <a
       href="/status"
-      className="hidden tablet:flex items-center rounded-full bg-gray-50 dark:bg-gray-800 px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+      className="hidden tablet:flex items-center rounded-full bg-algaeGreen-50 dark:bg-algaeGreen-300 px-3 py-1 hover:bg-algaeGreen-100 dark:hover:bg-algaeGreen-700 transition-colors cursor-pointer"
     >
       <span className="font-medium text-xs text-gray-900 dark:text-white whitespace-nowrap">
         Introducing Status
