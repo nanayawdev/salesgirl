@@ -33,7 +33,7 @@ const Navbar = () => {
             {/* Left section */}
             <div className="flex-1 flex items-center space-x-2 tablet:space-x-4 laptop:space-x-8">
               <Link to="/" className="flex-shrink-0">
-                <span className="text-gray-900 dark:text-white text-xl text-[12px]">
+                <span className="text-gray-900 dark:text-white text-lg">
                   Salesgirl
                 </span>
               </Link>
@@ -41,7 +41,7 @@ const Navbar = () => {
             </div>
 
             {/* Center section */}
-            <div className="flex-1 hidden laptop:flex items-center justify-center space-x-4">
+            <div className="flex-1 hidden lg:flex items-center justify-center space-x-4">
               {navItems.map((item) => (
                 <Link
                   key={item.label}
@@ -110,10 +110,8 @@ const Navbar = () => {
                   </Link>
                   <Link
                     to="/signup"
-                    className="hidden tablet:block text-[12px] bg-gray-900 text-white dark:bg-gray-800 hover:bg-gray-800 dark:hover:bg-gray-700 px-4 py-2 font-medium rounded-lg transition-colors whitespace-nowrap"
-                  >
+                    className="btn-primary-sm">
                     Get started
-                    <ChevronRight className="inline-block h-4 w-4 ml-1" />
                   </Link>
                 </>
               )}

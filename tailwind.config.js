@@ -7,6 +7,11 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      screens: {
+        'tablet': '640px',
+        'laptop': '1024px',
+        'desktop': '1280px',
+      },
       colors: {
         algaeGreen: {
           '50': '#edfcf4',
@@ -21,9 +26,8 @@ export default {
           '900': '#084c34',
           '950': '#032b1e',
         },
-
         codGray: {
-          '50': '#f6f6f6',
+          '50': '#ffffff',
           '100': '#e7e7e7',
           '200': '#d1d1d1',
           '300': '#b0b0b0',
@@ -35,24 +39,20 @@ export default {
           '900': '#3d3d3d',
           '950': '#121212',
         },
-        'background': {
+        background: {
           light: '#fcfcfc',
           dark: '#171717',
         },
-        fontSize: {
-          'xs': '12px',     
-          'sm': '14px',     
-          'base': '16px',   
-          'lg': '18px',     
-          'xl': '24px',     
-          '2xl': '36px',    
-          '3xl': '72px',    
-        }
       },
-      screens: {
-        'tablet': '640px',
-        'laptop': '1024px',
-      },
+      fontSize: {
+        'xs': '12px',     
+        'sm': '14px',     
+        'base': '16px',   
+        'lg': '18px',     
+        'xl': '24px',     
+        '2xl': '36px',    
+        '3xl': '72px',    
+      }
     },
   },
   plugins: [],
