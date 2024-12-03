@@ -58,7 +58,7 @@ const Navbar = () => {
                 <Link
                   key={item.label}
                   to={item.href}
-                  className="text-[12px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-3 py-2 font-medium"
+                  className="text-xs text-codGray-900 dark:text-codGray-50 hover:text-codGray-700 dark:hover:text-codGray-300 px-3 py-2 font-medium"
                 >
                   {item.label}
                 </Link>
