@@ -76,7 +76,7 @@ const SignUp = () => {
                   placeholder="Your full name"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="pl-10"
+                  className="pl-10 text-sm placeholder:text-sm placeholder:text-codGray-500 dark:placeholder:text-codGray-50 dark:text-codGray-50"
                   required
                 />
               </div>
@@ -91,7 +91,7 @@ const SignUp = () => {
                   placeholder="Your email address"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="pl-10"
+                  className="pl-10 text-sm placeholder:text-sm placeholder:text-codGray-500 dark:placeholder:text-codGray-50 dark:text-codGray-50"
                   required
                 />
               </div>
@@ -105,7 +105,7 @@ const SignUp = () => {
                   type={showPassword ? "text" : "password"}
                   value={formData.password}
                   onChange={(e) => setFormData({...formData, password: e.target.value})}
-                  className="pl-10"
+                  className="pl-10 text-sm placeholder:text-sm placeholder:text-codGray-500 dark:placeholder:text-codGray-50 dark:text-codGray-50"
                   required
                 />
                 <button
@@ -130,7 +130,7 @@ const SignUp = () => {
                   type={showConfirmPassword ? "text" : "password"}
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-                  className="pl-10"
+                  className="pl-10 text-sm placeholder:text-sm placeholder:text-codGray-500 dark:placeholder:text-codGray-50 dark:text-codGray-50"
                   required
                 />
                 <button
