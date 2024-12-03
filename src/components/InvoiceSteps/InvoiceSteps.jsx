@@ -31,7 +31,7 @@ const InvoiceSteps = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-algaeGreen-400 to-algaeGreen-600 text-xs sm:text-sm font-medium tracking-wider uppercase mb-2 block">
               Easy Steps
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-7xl font-bold text-codGray-950 dark:text-codGray-50 mb-3 sm:mb-4">
+          <h2 className="main-heading">
             Create Your Invoice in Minutes
           </h2>
           <p className="description-text-sm">
@@ -43,21 +43,19 @@ const InvoiceSteps = () => {
           {steps.map((step, index) => (
             <div 
               key={step.number}
-              className={`relative p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl transition-all duration-300 group
-                bg-emerald-800/30
-                hover:bg-gradient-to-br hover:from-emerald-800/40 hover:to-emerald-900/40
-                border border-emerald-700/30 hover:border-emerald-600/50`}
+              className="group p-4 sm:p-6 rounded-2xl bg-codGray-50 dark:bg-codGray-950 transition-all duration-300 border border-codGray-100 dark:border-codGray-800 hover:border-algaeGreen-100 dark:hover:border-algaeGreen-100 hover:-translate-y-1"
             >
-              <div className="absolute -top-2 sm:-top-3 left-4 sm:left-6 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full px-2 sm:px-3 py-0.5 sm:py-1">
-                <span className="text-xs sm:text-sm font-semibold text-white">
-                  Step {step.number}
-                </span>
+              <div className="flex items-center gap-3 mb-2 sm:mb-3">
+                <div className="p-2 rounded-lg bg-algaeGreen-50 dark:bg-codGray-600/30 w-fit transition-colors duration-300">
+                  <span className="text-xs sm:text-sm font-semibold text-codGray-900 dark:text-codGray-100">
+                    Step {step.number}
+                  </span>
+                </div>
+                <h3 className="text-xl phone:text-base tablet:text-lg laptop:text-xl desktop:text-xl font-semibold text-codGray-900 dark:text-codGray-100 group-hover:text-algaeGreen-400 dark:group-hover:text-algaeGreen-400 transition-colors duration-300">
+                  {step.title}
+                </h3>
               </div>
-
-              <h3 className="text-base sm:text-lg lg:text-xl font-semibold mb-1.5 sm:mb-2 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-300 group-hover:to-emerald-500">
-                {step.title}
-              </h3>
-              <p className="text-emerald-200/90 text-xs sm:text-sm lg:text-base leading-relaxed">
+              <p className="description-text-sm">
                 {step.description}
               </p>
             </div>
