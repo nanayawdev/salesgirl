@@ -67,7 +67,7 @@ const SignUp = () => {
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
+              <Label htmlFor="name" className="text-xs text-codGray-900 dark:text-codGray-50">Full Name</Label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
                 <Input
@@ -76,13 +76,13 @@ const SignUp = () => {
                   placeholder="Your full name"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="pl-10 text-sm placeholder:text-sm placeholder:text-codGray-500 dark:placeholder:text-codGray-50 dark:text-codGray-50"
+                  className="pl-10 text-xs placeholder:text-xs placeholder:text-codGray-300 dark:placeholder:text-codGray-700 dark:text-codGray-50"
                   required
                 />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-xs text-codGray-900 dark:text-codGray-50">Email</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
                 <Input
@@ -91,13 +91,13 @@ const SignUp = () => {
                   placeholder="Your email address"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="pl-10 text-sm placeholder:text-sm placeholder:text-codGray-500 dark:placeholder:text-codGray-50 dark:text-codGray-50"
+                  className="pl-10 text-xs placeholder:text-xs placeholder:text-codGray-300 dark:placeholder:text-codGray-700 dark:text-codGray-50"
                   required
                 />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-xs text-codGray-900 dark:text-codGray-50">Password</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
                 <Input
@@ -105,7 +105,7 @@ const SignUp = () => {
                   type={showPassword ? "text" : "password"}
                   value={formData.password}
                   onChange={(e) => setFormData({...formData, password: e.target.value})}
-                  className="pl-10 text-sm placeholder:text-sm placeholder:text-codGray-500 dark:placeholder:text-codGray-50 dark:text-codGray-50"
+                  className="pl-10 text-xs placeholder:text-xs placeholder:text-codGray-300 dark:placeholder:text-codGray-700 dark:text-codGray-50"
                   required
                 />
                 <button
@@ -122,7 +122,7 @@ const SignUp = () => {
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Label htmlFor="confirmPassword" className="text-xs text-codGray-900 dark:text-codGray-50">Confirm Password</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
                 <Input
@@ -130,7 +130,7 @@ const SignUp = () => {
                   type={showConfirmPassword ? "text" : "password"}
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-                  className="pl-10 text-sm placeholder:text-sm placeholder:text-codGray-500 dark:placeholder:text-codGray-50 dark:text-codGray-50"
+                  className="pl-10 text-xs placeholder:text-xs placeholder:text-codGray-300 dark:placeholder:text-codGray-700 dark:text-codGray-50"
                   required
                 />
                 <button
@@ -150,14 +150,14 @@ const SignUp = () => {
           <CardFooter className="flex flex-col space-y-4">
             <Button 
               type="submit" 
-              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white dark:bg-white dark:text-black dark:hover:bg-gray-200"
+              className="w-full bg-algaeGreen-400 hover:bg-algaeGreen-600 text-white text-xs dark:bg-algaeGreen-400 dark:text-black dark:hover:bg-gray-200"
             >
               Create account
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <div className="text-center text-sm text-muted-foreground">
+            <div className="text-center text-xs text-codGray-900 dark:text-codGray-50">
               Already have an account?{' '}
-              <a href="/signin" className="text-gray-500 hover:text-gray-600">
+              <a href="/signin" className="text-codGray-500 dark:text-codGray-200 hover:text-codGray-900 dark:hover:text-codGray-200">
                 Sign in
               </a>
             </div>
