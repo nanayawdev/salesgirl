@@ -24,20 +24,20 @@ const CookieConsent = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 max-w-sm bg-codGray-800 dark:bg-codGray-800 rounded-lg shadow-lg p-4 text-white">
-      <p className="text-xs mb-4">
+    <div className="fixed bottom-4 right-4 z-50 max-w-sm bg-codGray-800 dark:bg-codGray-800 rounded-lg shadow-lg p-4 text-codGray-50">
+      <p className="text-sm mb-4">
         We use first-party cookies to improve our services.
       </p>
       <div className="flex gap-3">
         <button
           onClick={handleAccept}
-          className="btn-secondary"
+          className="btn-primary"
         >
           Accept
         </button>
         <button
           onClick={handleOptOut}
-          className="px-4 py-2 text-gray-300 hover:text-white transition-colors text-sm"
+          className="btn-secondary"
         >
           Opt out
         </button>
