@@ -74,48 +74,67 @@ const Tools = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark">
-      <div className="max-w-7xl mx-auto px-4 py-16 sm:py-24">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-codGray-900 dark:text-codGray-50 sm:text-5xl md:text-6xl">
-            Business Tools
+    <div className="bg-background-light dark:bg-background-dark">
+      <div className="max-w-7xl mx-auto px-4 py-12 sm:py-16 lg:py-20">
+        <div className="text-center mb-8 sm:mb-12">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-algaeGreen-400 to-algaeGreen-600 text-xs sm:text-sm font-medium tracking-wider uppercase mb-2 block">
+            Professional Suite
+          </span>
+          <h1 className="main-heading">
+            Business <span className="span-text">Tools</span>
           </h1>
-          <p className="mt-3 max-w-md mx-auto text-base text-codGray-600 dark:text-codGray-400 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+          <p className="description-text">
             Streamline your business operations with our comprehensive suite of professional tools
           </p>
+          <Link 
+            to="/create-invoice" 
+            className="btn-primary mt-8 inline-flex items-center"
+          >
+            Try Now
+            <svg 
+              className="w-2.5 h-2.5 lg:w-3 lg:h-3 ml-1.5" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </Link>
         </div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {tools.map((tool) => {
             const IconComponent = tool.icon;
             return (
               <Link
                 key={tool.title}
                 to={tool.link}
-                className="group relative bg-white dark:bg-codGray-800 rounded-lg shadow-lg p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                className="group p-4 sm:p-6 rounded-2xl bg-codGray-50 dark:bg-codGray-950 transition-all duration-300 border border-codGray-100 dark:border-codGray-800 hover:border-algaeGreen-100 dark:hover:border-algaeGreen-100 hover:-translate-y-1"
               >
                 <div className="flex items-start space-x-4">
-                  <div className="p-2 bg-primary/10 dark:bg-primary/20 rounded-lg">
-                    <IconComponent className="w-6 h-6 text-primary" />
+                  <div className="p-2 rounded-lg bg-algaeGreen-50 dark:bg-codGray-600/30 w-fit transition-colors duration-300">
+                    <IconComponent className="w-6 h-6 text-algaeGreen-500" />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-xl font-medium text-codGray-900 dark:text-codGray-50 group-hover:text-primary">
+                      <h3 className="text-xl phone:text-base tablet:text-lg laptop:text-xl desktop:text-xl font-semibold text-codGray-900 dark:text-codGray-100 group-hover:text-algaeGreen-400 dark:group-hover:text-algaeGreen-400 transition-colors duration-300">
                         {tool.title}
                       </h3>
                       {tool.badge && (
-                        <span className="px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
+                        <span className="px-2 py-1 text-xs font-medium bg-algaeGreen-50 dark:bg-algaeGreen-900/20 text-algaeGreen-600 dark:text-algaeGreen-400 rounded-full">
                           {tool.badge}
                         </span>
                       )}
                     </div>
-                    <p className="mt-2 text-sm text-codGray-600 dark:text-codGray-400">
+                    <p className="description-text-sm mt-2">
                       {tool.description}
                     </p>
                   </div>
-                </div>
-                <div className="absolute bottom-4 right-6 opacity-0 transform translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                  <span className="text-primary">Try now →</span>
                 </div>
               </Link>
             );
