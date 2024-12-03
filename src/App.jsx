@@ -14,6 +14,8 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import GuestGuard from '@/components/GuestGuard/GuestGuard';
 import About from './pages/About';
+import CookieConsent from './components/CookieConsent/CookieConsent';
+
 function App() {
   return (
     <AuthProvider>
@@ -68,6 +70,7 @@ function App() {
             </ProtectedRoute>
           } />
         </Routes>
+        <CookieConsent />
       </Router>
     </AuthProvider>
   );
