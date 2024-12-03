@@ -52,7 +52,7 @@ export default {
         'lg': '18px',     
         'xl': '24px',     
         '2xl': '36px',
-        '3xl': '48px',
+        '3xl': '44px',
         '4xl': '72px',    
       }
     },
