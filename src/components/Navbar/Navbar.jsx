@@ -4,6 +4,7 @@ import { AuthContext } from '@/contexts/AuthContext';
 import { Menu, Transition } from '@headlessui/react';
 import { Menu as MenuIcon, X, Sun, Moon, SunMoon, ChevronRight, ChevronDown, FileText, LogOut } from 'lucide-react';
 import NoticeBar from '../ui/noticebar';
+import logo from '@/assets/logo/logo-alt-2.svg';
 
 const Navbar = () => {
   const { user, signOut } = useContext(AuthContext);
@@ -33,9 +34,7 @@ const Navbar = () => {
             {/* Left section */}
             <div className="flex-1 flex items-center space-x-2 tablet:space-x-4 laptop:space-x-8">
               <Link to="/" className="flex-shrink-0">
-                <span className="text-gray-900 dark:text-white text-lg">
-                  Salesgirl
-                </span>
+                <img src={logo} alt="Salesgirl Logo" className="w-36 h-12" />
               </Link>
               <NoticeBar />
             </div>
