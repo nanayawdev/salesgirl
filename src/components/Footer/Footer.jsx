@@ -3,7 +3,7 @@ import { Twitter, Facebook, Instagram } from 'lucide-react';
 import logo from '@/assets/logo/salesgirl-logo.svg';
 const Footer = () => {
     return (
-        <section className="py-8 md:py-12 bg-gradient-to-r from-gray-800 to-gray-900">
+        <section className="py-8 md:py-12 bg-background-dark">
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
                 <div className="flex flex-col items-center space-y-8 lg:space-y-0 lg:flex-row lg:justify-between">
                     {/* Logo and Copyright */}
