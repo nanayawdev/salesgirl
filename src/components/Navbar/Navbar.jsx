@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '@/contexts/AuthContext';
 import { Menu, Transition } from '@headlessui/react';
-import { Ellipsis as MenuIcon, X, Sun, Moon, SunMoon, ChevronRight, ChevronDown, FileText, LogOut } from 'lucide-react';
+import { LayoutGrid as MenuIcon, X, Sun, Moon, SunMoon, ChevronRight, ChevronDown, FileText, LogOut } from 'lucide-react';
 import NoticeBar from '../ui/noticebar';
 import logo from '@/assets/logo/salesgirl-logo.svg';
 
@@ -46,9 +46,9 @@ const Navbar = () => {
               className="lg:hidden p-2"
             >
               {isMobileMenuOpen ? (
-                <X className="h-6 w-6 text-gray-600 dark:text-gray-400" />
+                <X className="h-4 w-4 text-codGray-600 dark:text-codGray-400" />
               ) : (
-                <MenuIcon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
+                <MenuIcon className="h-4 w-4 text-codGray-600 dark:text-codGray-400" />
               )}
             </button>
 
