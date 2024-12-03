@@ -17,10 +17,10 @@ const InvoiceFeatures = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           <div className="group p-4 sm:p-6 rounded-2xl bg-codGray-50 dark:bg-codGray-950 transition-all duration-300 border border-codGray-100 dark:border-codGray-800 hover:border-algaeGreen-100 dark:hover:border-algaeGreen-100 hover:-translate-y-1">
             <div className="flex items-center gap-3 mb-2 sm:mb-3">
-              <div className="p-3 rounded-xl bg-algaeGreen-50 dark:bg-gray-700 w-fit group-hover:bg-algaeGreen-100 dark:group-hover:bg-gray-600/30 transition-colors duration-300">
+              <div className="p-2 rounded-lg bg-algaeGreen-50 dark:bg-codGray-600/30 w-fit group-hover:bg-algaeGreen-100 dark:group-hover:bg-codGray-600/300 transition-colors duration-300">
                 <DocumentTextIcon className="icon-base" />
               </div>
-              <h3 className="text-xl phone:text-base tablet:text-lg laptop:text-xl desktop:text-xl font-semibold text-codGray-900 dark:text-codGray-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-600 transition-colors duration-300">
+              <h3 className="text-xl phone:text-base tablet:text-lg laptop:text-xl desktop:text-xl font-semibold text-codGray-900 dark:text-codGray-100 group-hover:text-algaeGreen-400 dark:group-hover:text-algaeGreen-400 transition-colors duration-300">
                 Beautiful Designs
               </h3>
             </div>
@@ -29,12 +29,12 @@ const InvoiceFeatures = () => {
             </p>
           </div>
 
-          <div className="group p-4 sm:p-6 rounded-2xl bg-codGray-50 dark:bg-background-dark transition-all duration-300 border border-codGray-100 dark:border-codGray-400 hover:border-emerald-100 dark:hover:border-emerald-600 hover:-translate-y-1">
+          <div className="group p-4 sm:p-6 rounded-2xl bg-codGray-50 dark:bg-background-dark transition-all duration-300 border border-codGray-100 dark:border-codGray-400 hover:border-algaeGreen-100 dark:hover:border-algaeGreen-100 hover:-translate-y-1">
             <div className="flex items-center gap-3 mb-2 sm:mb-3">
-              <div className="p-3 rounded-xl bg-emerald-50 dark:bg-gray-700 w-fit group-hover:bg-emerald-100 dark:group-hover:bg-gray-600/30 transition-colors duration-300">
+              <div className="p-3 rounded-xl bg-algaeGreen-50 dark:bg-codGray-600/30 w-fit group-hover:bg-algaeGreen-100 dark:group-hover:bg-codGray-600/300 transition-colors duration-300">
                 <ClockIcon className="icon-base" />
               </div>
-              <h3 className="text-xl phone:text-base tablet:text-lg laptop:text-xl desktop:text-xl font-semibold text-codGray-900 dark:text-codGray-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-600 transition-colors duration-300">
+              <h3 className="text-xl phone:text-base tablet:text-lg laptop:text-xl desktop:text-xl font-semibold text-codGray-900 dark:text-codGray-100 group-hover:text-algaeGreen-400 dark:group-hover:text-algaeGreen-400 transition-colors duration-300">
                 Time-Saving
               </h3>
             </div>
@@ -43,12 +43,12 @@ const InvoiceFeatures = () => {
             </p>
           </div>
 
-          <div className="group p-4 sm:p-6 rounded-2xl bg-codGray-50 dark:bg-background-dark transition-all duration-300 border border-codGray-100 dark:border-codGray-400 hover:border-emerald-100 dark:hover:border-emerald-600 hover:-translate-y-1">
+          <div className="group p-4 sm:p-6 rounded-2xl bg-codGray-50 dark:bg-background-dark transition-all duration-300 border border-codGray-100 dark:border-codGray-400 hover:border-algaeGreen-100 dark:hover:border-algaeGreen-100 hover:-translate-y-1">
             <div className="flex items-center gap-3 mb-2 sm:mb-3">
-              <div className="p-3 rounded-xl bg-emerald-50 dark:bg-gray-700 w-fit group-hover:bg-emerald-100 dark:group-hover:bg-gray-600/30 transition-colors duration-300">
+              <div className="p-3 rounded-xl bg-algaeGreen-50 dark:bg-codGray-600/30 w-fit group-hover:bg-algaeGreen-100 dark:group-hover:bg-codGray-600/300 transition-colors duration-300">
                 <CalculatorIcon className="icon-base" />
               </div>
-              <h3 className="text-xl phone:text-base tablet:text-lg laptop:text-xl desktop:text-xl font-semibold text-codGray-900 dark:text-codGray-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-600 transition-colors duration-300">
+              <h3 className="text-xl phone:text-base tablet:text-lg laptop:text-xl desktop:text-xl font-semibold text-codGray-900 dark:text-codGray-100 group-hover:text-algaeGreen-400 dark:group-hover:text-algaeGreen-400 transition-colors duration-300">
                 Smart Calculations
               </h3>
             </div>
