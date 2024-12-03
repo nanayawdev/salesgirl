@@ -35,7 +35,10 @@ export default {
           '900': '#3d3d3d',
           '950': '#121212',
         },
-
+        'background': {
+          light: '#fcfcfc',
+          dark: '#171717',
+        },
         fontSize: {
           'xs': '12px',     
           'sm': '14px',     
