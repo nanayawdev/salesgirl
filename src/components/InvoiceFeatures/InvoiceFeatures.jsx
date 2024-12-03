@@ -24,7 +24,7 @@ const InvoiceFeatures = () => {
                 Beautiful Designs
               </h3>
             </div>
-            <p className="description-text">
+            <p className="description-text-sm">
               Stand out with elegant, customizable invoice templates that reflect your brand
             </p>
           </div>
@@ -38,7 +38,7 @@ const InvoiceFeatures = () => {
                 Time-Saving
               </h3>
             </div>
-            <p className="description-text">
+            <p className="description-text-sm">
               Create and send professional invoices in just a few clicks
             </p>
           </div>
@@ -52,7 +52,7 @@ const InvoiceFeatures = () => {
                 Smart Calculations
               </h3>
             </div>
-            <p className="description-text">
+            <p className="description-text-sm">
               Focus on your work while we handle all the numbers and tax calculations
             </p>
           </div>
