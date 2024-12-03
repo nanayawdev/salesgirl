@@ -48,7 +48,7 @@ const Navbar = () => {
               {isMobileMenuOpen ? (
                 <X className="h-4 w-4 text-codGray-600 dark:text-codGray-400" />
               ) : (
-                <MenuIcon className="h-6 w-6 text-codGray-600 dark:text-codGray-400" />
+                <MenuIcon className="h-4 w-4 text-codGray-600 dark:text-codGray-400" />
               )}
             </button>
 
