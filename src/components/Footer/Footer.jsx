@@ -1,6 +1,6 @@
 import React from 'react';
 import { Twitter, Facebook, Instagram } from 'lucide-react';
-
+import logo from '@/assets/logo/salesgirl-logo.svg';
 const Footer = () => {
     return (
         <section className="py-8 md:py-12 bg-gradient-to-r from-gray-800 to-gray-900">
@@ -10,11 +10,11 @@ const Footer = () => {
                     <div className="flex flex-col items-center lg:flex-row lg:items-center space-y-4 lg:space-y-0">
                         <img 
                             className="h-6 w-auto md:h-7" 
-                            src="https://cdn.rareblocks.xyz/collection/celebration/images/logo-alt-2.svg" 
-                            alt="Logo" 
+                            src={logo} 
+                            alt="Sales Girl Logo" 
                         />
                         <p className="text-sm text-white lg:ml-6">
-                            © Copyright {new Date().getFullYear()} Postcraft
+                            © Copyright {new Date().getFullYear()}
                         </p>
                     </div>
 
@@ -23,7 +23,7 @@ const Footer = () => {
                         {/* Navigation Links */}
                         <nav>
                             <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3 md:gap-x-8">
-                                {['About', 'Services', 'Privacy Policy', 'Terms & Conditions', 'Support'].map((item) => (
+                                {['About', 'Privacy Policy', 'Terms & Conditions', 'Support'].map((item) => (
                                     <li key={item}>
                                         <a 
                                             href="#" 
