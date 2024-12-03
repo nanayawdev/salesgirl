@@ -13,7 +13,19 @@ const NoticeBar = () => {
       <span className="text-xs text-gray-600 dark:text-gray-400 whitespace-nowrap">
         Our new status reporting
       </span>
-      <span className="ml-2 text-gray-400">→</span>
+      <svg 
+        className="w-2.5 h-2.5 lg:w-3 lg:h-3 ml-1.5" 
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24"
+      >
+        <path 
+          strokeLinecap="round" 
+          strokeLinejoin="round" 
+        strokeWidth={2} 
+        d="M9 5l7 7-7 7"
+      />
+    </svg>
     </a>
   );
 };
