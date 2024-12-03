@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
-    // Check if user has already accepted cookies
     const hasConsent = localStorage.getItem('cookieConsent');
     if (!hasConsent) {
-      // Delay the appearance by 4 seconds
       setTimeout(() => {
-        setShouldRender(true);
         setIsVisible(true);
       }, 4000);
     }
@@ -26,30 +23,61 @@ const CookieConsent = () => {
     setIsVisible(false);
   };
 
-  if (!shouldRender) return null;
-
   return (
-    <div className={`fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 max-w-sm 
-      bg-codGray-800 dark:bg-codGray-800 rounded-lg shadow-lg p-4 text-codGray-50
-      transition-all duration-1000 ease-in-out ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}>
-      <p className="text-sm mb-4">
-        We use first-party cookies to improve our services.
-      </p>
-      <div className="flex gap-3">
-        <button
-          onClick={handleAccept}
-          className="btn-primary"
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ 
+            y: 0, 
+            opacity: 1,
+            transition: {
+              type: "spring",
+              stiffness: 100,
+              damping: 20
+            }
+          }}
+          exit={{ 
+            y: 100, 
+            opacity: 0,
+            transition: {
+              duration: 0.3,
+              ease: "easeOut"
+            }
+          }}
+          className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 max-w-sm 
+            bg-codGray-800 dark:bg-codGray-800 rounded-lg shadow-lg p-4 text-codGray-50"
         >
-          Accept
-        </button>
-        <button
-          onClick={handleOptOut}
-          className="btn-secondary"
-        >
-          Opt out
-        </button>
-      </div>
-    </div>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-sm mb-4"
+          >
+            We use first-party cookies to improve our services.
+          </motion.p>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="flex gap-3"
+          >
+            <button
+              onClick={handleAccept}
+              className="btn-primary"
+            >
+              Accept
+            </button>
+            <button
+              onClick={handleOptOut}
+              className="btn-secondary"
+            >
+              Opt out
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
