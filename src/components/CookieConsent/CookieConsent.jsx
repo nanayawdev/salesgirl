@@ -24,7 +24,7 @@ const CookieConsent = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 max-w-sm bg-codGray-800 dark:bg-codGray-800 rounded-lg shadow-lg p-4 text-codGray-50">
+    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 max-w-sm bg-codGray-800 dark:bg-codGray-800 rounded-lg shadow-lg p-4 text-codGray-50">
       <p className="text-sm mb-4">
         We use first-party cookies to improve our services.
       </p>
