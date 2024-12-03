@@ -16,7 +16,7 @@ html, body {
 
 /* Reusable Component Styles */
 .btn-primary {
-  @apply w-36 sm:w-36 lg:w-36 flex items-center justify-center
+  @apply w-36 sm:w-36 lg:w-36 inline-flex items-center justify-center
    bg-algaeGreen-300 dark:bg-algaeGreen-600 text-codGray-800 dark:text-codGray-50 text-sm
     border border-algaeGreen-500 dark:border-algaeGreen-500
     hover:bg-algaeGreen-400 dark:hover:bg-algaeGreen-700
@@ -36,7 +36,7 @@ html, body {
 }
 
 .btn-secondary {
-  @apply w-36 sm:w-36 lg:w-40 flex items-center justify-center
+  @apply w-36 sm:w-36 lg:w-40 inline-flex items-center justify-center
    bg-codGray-50 dark:bg-codGray-800 text-codGray-900 dark:text-codGray-50 text-sm
     hover:bg-codGray-100 dark:hover:bg-codGray-700
     border border-codGray-300 dark:border-codGray-400

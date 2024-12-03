@@ -29,16 +29,16 @@ const InvoiceSteps = () => {
   ];
 
   return (
-    <div id="invoice-steps" className="py-8 sm:py-12 lg:py-16 bg-emerald-900">
+    <div id="invoice-steps" className="py-8 sm:py-12 lg:py-16 bg-background-light dark:bg-background-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-500 text-xs sm:text-sm font-medium tracking-wider uppercase mb-2 block">
-            Easy Steps
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-algaeGreen-400 to-algaeGreen-600 text-xs sm:text-sm font-medium tracking-wider uppercase mb-2 block">
+              Easy Steps
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-7xl font-bold text-white mb-3 sm:mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-7xl font-bold text-codGray-950 dark:text-codGray-50 mb-3 sm:mb-4">
             Create Your Invoice in Minutes
           </h2>
-          <p className="text-emerald-200 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">
+          <p className="description-text-sm">
             Follow these quick steps to generate a professional invoice
           </p>
         </div>
@@ -48,9 +48,9 @@ const InvoiceSteps = () => {
             <div 
               key={step.number}
               className={`relative p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl transition-all duration-300 group
-                bg-emerald-800/30
-                hover:bg-gradient-to-br hover:from-emerald-800/40 hover:to-emerald-900/40
-                border border-emerald-700/30 hover:border-emerald-600/50`}
+                bg-background-dark
+                hover:bg-gradient-to-br hover:from-background-dark hover:to-background-dark
+                border border-codGray-400 hover:border-codGray-300`}
             >
               <div className="absolute -top-2 sm:-top-3 left-4 sm:left-6 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full px-2 sm:px-3 py-0.5 sm:py-1">
                 <span className="text-xs sm:text-sm font-semibold text-white">
@@ -81,9 +81,9 @@ const InvoiceSteps = () => {
         <div className="mt-8 sm:mt-12 text-center">
           <Link 
             to="/create-invoice"
-            className="inline-flex items-center px-4 py-2 sm:px-5 sm:py-3 rounded-md font-medium text-sm sm:text-base bg-emerald-100 text-emerald-900 hover:bg-emerald-200 transition-colors"
+            className="btn-secondary"
           >
-            Create Your Invoice
+            Create Now
             <svg 
               className="w-3 h-3 sm:w-4 sm:h-4 ml-2" 
               fill="none" 
