@@ -26,14 +26,25 @@ const HeroSection = () => {
       description: 'Calculate project costs and generate accurate quotes',
       link: '/quote',
       icon: Calculator
+    },
+    {
+      title: 'Time Tracker',
+      description: 'Track time spent on projects and tasks with ease',
+      link: '/time-tracker',
+      icon: FileText
+    },
+    {
+      title: 'Expense Manager',
+      description: 'Manage and categorize your expenses efficiently',
+      link: '/expenses',
+      icon: BarChart2
+    },
+    {
+      title: 'Project Planner',
+      description: 'Plan and organize your projects with our intuitive planner',
+      link: '/project-planner',
+      icon: Calculator
     }
-  ];
-
-  const stats = [
-    { number: "10K+", label: "Active Users" },
-    { number: "50+", label: "Countries" },
-    { number: "1M+", label: "Invoices Generated" },
-    { number: "99.9%", label: "Uptime" }
   ];
 
   const scrollToSteps = () => {
@@ -51,10 +62,48 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="bg-background-light dark:bg-background-dark min-h-[400px] sm:min-h-[500px] lg:min-h-[600px] flex items-center justify-center py-12 sm:py-16 lg:py-20 relative">
+    <div className="bg-background-light dark:bg-background-dark h-screen sm:min-h-screen lg:min-h-screen flex items-center justify-center py-12 sm:py-16 lg:py-20 relative">
       <div className="text-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Hero Content */}
+        <h1 className="main-heading">
+          Build Sleek <span className="span-text">Invoices</span> Instantly
+        </h1>
+        
+        <p className="description-text">
+          Streamline your billing process with our simple, yet powerful invoice generator.
+        </p>
+        
+        <div className="flex flex-col sm:flex-row gap-2 justify-center items-center mb-12">
+          <button 
+            onClick={handleStartBuilding}
+            className="btn-primary"
+          >
+            Start Building
+            <svg 
+              className="w-2.5 h-2.5 lg:w-3 lg:h-3 ml-1.5" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+          
+          <button 
+            onClick={scrollToSteps}
+            className="btn-secondary"
+          >
+            Explore Features
+          </button>
+        </div>
+
         {/* Tools Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {tools.map((tool) => {
             const IconComponent = tool.icon;
             return (
@@ -86,53 +135,6 @@ const HeroSection = () => {
               </Link>
             );
           })}
-        </div>
-
-        {/* Existing Hero Content */}
-        <h1 className="main-heading">
-          Build Sleek <span className="span-text">Invoices</span> Instantly
-        </h1>
-        
-        <p className="description-text">
-          Streamline your billing process with our simple, yet powerful invoice generator.
-        </p>
-        
-        <div className="flex flex-col sm:flex-row gap-2 justify-center items-center">
-          <button 
-            onClick={handleStartBuilding}
-            className="btn-primary"
-          >
-            Start Building
-            <svg 
-              className="w-2.5 h-2.5 lg:w-3 lg:h-3 ml-1.5" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </button>
-          
-          <button 
-            onClick={scrollToSteps}
-            className="btn-secondary"
-          >
-            Explore Features
-          </button>
-        </div>
-
-        <div className="mt-12 grid grid-cols-1 phone:grid-cols-2 tablet:grid-cols-2 laptop:grid-cols-4 gap-4 phone:gap-6 tablet:gap-8">
-          {stats.map((stat, index) => (
-            <div key={index} className="group p-4 phone:p-5 tablet:p-6 rounded-2xl bg-white dark:bg-codGray-900 transition-all duration-300 border border-codGray-100 dark:border-codGray-800 hover:border-algaeGreen-100 dark:hover:border-algaeGreen-100">
-              <div className="text-2xl phone:text-2xl tablet:text-3xl laptop:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-algaeGreen-400 to-algaeGreen-600 mb-2">{stat.number}</div>
-              <div className="text-sm phone:text-xs tablet:text-sm laptop:text-base text-codGray-600 dark:text-codGray-300">{stat.label}</div>
-            </div>
-          ))}
         </div>
       </div>
       
