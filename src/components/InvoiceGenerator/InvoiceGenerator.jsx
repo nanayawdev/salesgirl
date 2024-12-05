@@ -468,7 +468,7 @@ const InvoiceGenerator = ({ view = false }) => {
           <div className="grid grid-cols-2 gap-8">
             {/* Business Logo */}
             <div>
-              <label className="block mb-2">Business Logo (optional)</label>
+              <label className="block mb-2 text-sm text-codGray-500 dark:text-codGray-400">Business Logo (optional)</label>
               <div className="border-2 border-dashed rounded-lg p-4 text-center">
                 <input
                   type="file"
@@ -499,7 +499,7 @@ const InvoiceGenerator = ({ view = false }) => {
 
             {/* Client Logo */}
             <div>
-              <label className="block mb-2">Client Logo (optional)</label>
+              <label className="block mb-2 text-sm text-codGray-500 dark:text-codGray-400">Client Logo (optional)</label>
               <div className="border-2 border-dashed rounded-lg p-4 text-center">
                 <input
                   type="file"
@@ -535,29 +535,29 @@ const InvoiceGenerator = ({ view = false }) => {
           <section className="space-y-4">
             <h2 className="text-xl font-semibold mb-4">Your Details</h2>
             <div>
-              <label className="block mb-1">Business Name</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Business Name</label>
               <input
                 type="text"
                 value={invoiceData.businessName || ''}
                 onChange={(e) => setInvoiceData({...invoiceData, businessName: e.target.value})}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
               />
             </div>
             <div>
-              <label className="block mb-1">Business Email</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Business Email</label>
               <input
                 type="email"
                 value={invoiceData.businessEmail}
                 onChange={(e) => setInvoiceData({...invoiceData, businessEmail: e.target.value})}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
               />
             </div>
             <div>
-              <label className="block mb-1">Business Address</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Business Address</label>
               <textarea
                 value={invoiceData.businessAddress}
                 onChange={(e) => setInvoiceData({...invoiceData, businessAddress: e.target.value})}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
                 rows="3"
               />
             </div>
@@ -567,29 +567,29 @@ const InvoiceGenerator = ({ view = false }) => {
           <section className="space-y-4">
             <h2 className="text-xl font-semibold mb-4">Client Details</h2>
             <div>
-              <label className="block mb-1">Client Name</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Client Name</label>
               <input
                 type="text"
                 value={invoiceData.clientName}
                 onChange={(e) => setInvoiceData({...invoiceData, clientName: e.target.value})}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
               />
             </div>
             <div>
-              <label className="block mb-1">Client Email</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Client Email</label>
               <input
                 type="email"
                 value={invoiceData.clientEmail}
                 onChange={(e) => setInvoiceData({...invoiceData, clientEmail: e.target.value})}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
               />
             </div>
             <div>
-              <label className="block mb-1">Client Address</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Client Address</label>
               <textarea
                 value={invoiceData.clientAddress}
                 onChange={(e) => setInvoiceData({...invoiceData, clientAddress: e.target.value})}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
                 rows="3"
               />
             </div>
@@ -601,17 +601,17 @@ const InvoiceGenerator = ({ view = false }) => {
           <h2 className="text-xl font-semibold mb-4">Invoice Details</h2>
           <div className="grid grid-cols-4 gap-4">
             <div>
-              <label className="block mb-1">Invoice Number</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Invoice Number</label>
               <input
                 type="text"
                 value={invoiceData.invoiceNumber}
                 onChange={(e) => setInvoiceData({...invoiceData, invoiceNumber: e.target.value})}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
                 placeholder="INV-001"
               />
             </div>
             <div className="mb-4">
-              <label className="block mb-1">Currency</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Currency</label>
               <Select
                 value={invoiceData.currency}
                 onValueChange={(value) => setInvoiceData({...invoiceData, currency: value})}
@@ -629,7 +629,7 @@ const InvoiceGenerator = ({ view = false }) => {
               </Select>
             </div>
             <div>
-              <label className="block mb-1">Date Issued</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Date Issued</label>
               <Popover>
                 <PopoverTrigger asChild>
                   <button
@@ -660,7 +660,7 @@ const InvoiceGenerator = ({ view = false }) => {
               </Popover>
             </div>
             <div>
-              <label className="block mb-1">Due Date</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Due Date</label>
               <Popover>
                 <PopoverTrigger asChild>
                   <button
