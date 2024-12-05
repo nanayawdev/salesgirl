@@ -18,6 +18,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { format } from "date-fns";
+import { CalendarIcon } from "@heroicons/react/24/outline";
 
 const Quote = () => {
   const { theme } = useTheme();
@@ -113,6 +117,73 @@ const Quote = () => {
           <p className="text-gray-500">Generate professional quotes in seconds</p>
         </div>
 
+        {/* Logos Section */}
+        <section className="mb-8 bg-white/10 p-6 rounded-lg shadow-sm">
+          <div className="grid grid-cols-2 gap-8">
+            {/* Business Logo */}
+            <div>
+              <label className="block mb-2">Business Logo (optional)</label>
+              <div className="border-2 border-dashed rounded-lg p-4 text-center">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleLogoUpload}
+                  className="hidden"
+                  id="business-logo-upload"
+                />
+                <label htmlFor="business-logo-upload" className="cursor-pointer">
+                  {quoteData.businessLogo ? (
+                    <div className="flex flex-col items-center">
+                      <img 
+                        src={URL.createObjectURL(quoteData.businessLogo)} 
+                        alt="Business Logo" 
+                        className="max-h-20 mb-2"
+                      />
+                      <span className="text-sm text-gray-500">Click to change logo</span>
+                    </div>
+                  ) : (
+                    <>
+                      <CloudArrowUpIcon className="w-8 h-8 mx-auto mb-2 text-gray-400" />
+                      <span className="text-sm text-gray-500">Upload logo (max 500KB)</span>
+                    </>
+                  )}
+                </label>
+              </div>
+            </div>
+
+            {/* Client Logo */}
+            <div>
+              <label className="block mb-2">Client Logo (optional)</label>
+              <div className="border-2 border-dashed rounded-lg p-4 text-center">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleClientLogoUpload}
+                  className="hidden"
+                  id="client-logo-upload"
+                />
+                <label htmlFor="client-logo-upload" className="cursor-pointer">
+                  {quoteData.clientLogo ? (
+                    <div className="flex flex-col items-center">
+                      <img 
+                        src={URL.createObjectURL(quoteData.clientLogo)} 
+                        alt="Client Logo" 
+                        className="max-h-20 mb-2"
+                      />
+                      <span className="text-sm text-gray-500">Click to change logo</span>
+                    </div>
+                  ) : (
+                    <>
+                      <CloudArrowUpIcon className="w-8 h-8 mx-auto mb-2 text-gray-400" />
+                      <span className="text-sm text-gray-500">Upload logo (max 500KB)</span>
+                    </>
+                  )}
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Business and Client Details */}
         <div className="grid grid-cols-2 gap-8 mb-8">
           {/* Your Details */}
@@ -195,21 +266,65 @@ const Quote = () => {
             </div>
             <div>
               <label className="block mb-1">Date Created</label>
-              <Input
-                type="date"
-                value={quoteData.dateCreated || new Date().toISOString().split('T')[0]}
-                onChange={(e) => setQuoteData({ ...quoteData, dateCreated: e.target.value })}
-                className="w-full p-2 border rounded bg-white/5"
-              />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button
+                    className={`w-full p-2 border rounded bg-white/5 text-left flex items-center justify-between`}
+                  >
+                    {quoteData.dateCreated ? (
+                      format(new Date(quoteData.dateCreated), "PPP")
+                    ) : (
+                      <span>Pick a date</span>
+                    )}
+                    <CalendarIcon className="h-4 w-4 opacity-50" />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0 bg-white dark:bg-gray-800" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={new Date(quoteData.dateCreated)}
+                    onSelect={(date) => 
+                      setQuoteData({
+                        ...quoteData, 
+                        dateCreated: date ? format(date, 'yyyy-MM-dd') : ''
+                      })
+                    }
+                    initialFocus
+                    className="rounded-md border"
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
             <div>
               <label className="block mb-1">Valid Until</label>
-              <Input
-                type="date"
-                value={quoteData.validUntil}
-                onChange={(e) => setQuoteData({ ...quoteData, validUntil: e.target.value })}
-                className="w-full p-2 border rounded bg-white/5"
-              />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button
+                    className={`w-full p-2 border rounded bg-white/5 text-left flex items-center justify-between`}
+                  >
+                    {quoteData.validUntil ? (
+                      format(new Date(quoteData.validUntil), "PPP")
+                    ) : (
+                      <span>Pick a date</span>
+                    )}
+                    <CalendarIcon className="h-4 w-4 opacity-50" />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0 bg-white dark:bg-gray-800" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={quoteData.validUntil ? new Date(quoteData.validUntil) : undefined}
+                    onSelect={(date) => 
+                      setQuoteData({
+                        ...quoteData, 
+                        validUntil: date ? format(date, 'yyyy-MM-dd') : ''
+                      })
+                    }
+                    initialFocus
+                    className="rounded-md border"
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
           </div>
         </section>
