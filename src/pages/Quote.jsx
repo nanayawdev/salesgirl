@@ -107,7 +107,7 @@ const Quote = () => {
 
         {/* Logos Section */}
         <section className="mb-8 bg-white/10 dark:bg-white/5 p-6 rounded-lg shadow-sm">
-          <div className="grid grid-cols-1 phone:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
             {/* Business Logo */}
             <div>
               <label className="block mb-2 text-sm text-codGray-500 dark:text-codGray-400">Business Logo (optional)</label>
@@ -173,7 +173,7 @@ const Quote = () => {
         </section>
 
         {/* Business and Client Details */}
-        <div className="grid grid-cols-1 phone:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8 mb-8">
           {/* Your Details */}
           <section className="space-y-4">
             <h2 className="text-xl text-codGray-900 dark:text-codGray-100 font-semibold mb-4">Your Details</h2>
@@ -242,7 +242,7 @@ const Quote = () => {
         {/* Quote Details */}
         <section className="mb-8 bg-white/10 p-6 rounded-lg shadow-sm">
           <h2 className="text-xl text-codGray-900 dark:text-codGray-100 font-semibold mb-4">Quote Details</h2>
-          <div className="grid grid-cols-1 phone:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 tablet:grid-cols-3 gap-4">
             <div>
               <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Quote Number</label>
               <Input
@@ -420,7 +420,7 @@ const Quote = () => {
 
         {/* Additional Details */}
         <section className="mt-8 mb-8">
-          <div className="grid grid-cols-1 phone:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6">
             <div>
               <label className="block mb-1">Notes</label>
               <textarea

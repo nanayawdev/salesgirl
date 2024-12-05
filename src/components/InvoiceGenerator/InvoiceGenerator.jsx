@@ -465,7 +465,7 @@ const InvoiceGenerator = ({ view = false }) => {
         </div>
 
         <section className="mb-8 bg-white/10 dark:bg-white/5 p-6 rounded-lg shadow-sm">
-          <div className="grid grid-cols-1 phone:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
             {/* Business Logo */}
             <div>
               <label className="block mb-2 text-sm text-codGray-500 dark:text-codGray-400">Business Logo (optional)</label>
@@ -530,7 +530,7 @@ const InvoiceGenerator = ({ view = false }) => {
           </div>
         </section>
 
-        <div className="grid grid-cols-1 phone:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8 mb-8">
           {/* Your Details */}
           <section className="space-y-4">
             <h2 className="text-xl font-semibold mb-4">Your Details</h2>
@@ -599,7 +599,7 @@ const InvoiceGenerator = ({ view = false }) => {
         {/* Invoice Details */}
         <section className="mb-8 bg-white/10 p-6 rounded-lg shadow-sm">
           <h2 className="text-xl font-semibold mb-4">Invoice Details</h2>
-          <div className="grid grid-cols-1 phone:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 tablet:grid-cols-4 gap-4">
             <div>
               <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Invoice Number</label>
               <input
@@ -693,7 +693,7 @@ const InvoiceGenerator = ({ view = false }) => {
           </div>
         </section>
 
-        <section className="mb-8">
+        <section className="mt-8 mb-8">
           <h2 className="text-xl font-semibold mb-4">Items</h2>
           
           <button
@@ -768,7 +768,7 @@ const InvoiceGenerator = ({ view = false }) => {
           {/* Discount and Tax Section */}
           <section className="mb-8 bg-white/10 p-6 rounded-lg shadow-sm">
             <h2 className="text-xl font-semibold mb-4">Additional Charges</h2>
-            <div className="grid grid-cols-1 phone:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6">
               {/* Discount Controls */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -866,7 +866,7 @@ const InvoiceGenerator = ({ view = false }) => {
 
         {/* Notes and Terms Section - now side by side */}
         <section className="mt-8 mb-8">
-          <div className="grid grid-cols-1 phone:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6">
             <div>
               <label className="block mb-1">Notes</label>
               <textarea
