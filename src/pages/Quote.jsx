@@ -86,7 +86,7 @@ const Quote = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
+    <div className="min-h-screen bg-background-light dark:bg-background-dark dark:text-foreground-dark">
       <div className="max-w-4xl mx-auto p-6">
         {/* Header Section */}
         <div className="flex items-center mb-8">
