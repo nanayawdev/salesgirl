@@ -45,10 +45,21 @@ const SignUp = () => {
         }
       });
 
-      if (error) throw error;
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
 
-      toast.success('Registration successful! Please check your email to verify your account.');
-      navigate('/signin');
+      if (data?.user) {
+        toast.success('Registration successful! Please check your email to verify your account.', {
+          duration: 5000,
+          position: 'top-center',
+        });
+        
+        setTimeout(() => {
+          navigate('/signin');
+        }, 2000);
+      }
       
     } catch (error) {
       toast.error(error.message);
@@ -57,7 +68,7 @@ const SignUp = () => {
 
   return (
     <div className="h-screen auth-page flex items-center justify-center bg-codGray-50 dark:bg-background-dark px-4 sm:px-6 lg:px-8">
-      <Toaster position="top-center" richColors />
+      <Toaster richColors position="top-center" />
       <Card className="w-full max-w-md border-0 shadow-none dark:bg-background-dark">
         <CardHeader className="space-y-1">
           <CardTitle className="text-xl phone:text-xl tablet:text-xl laptop:text-xl desktop:text-xl text-codGray-900 dark:text-codGray-50 font-bold text-center">Create an account</CardTitle>

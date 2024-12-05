@@ -8,10 +8,12 @@ import {
   PlusIcon,
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
+import NoData from '@/components/ui/NoData';
 
 const InvoiceList = () => {
   const [invoices, setInvoices] = useState([]);
   const { fetchUserInvoices } = useInvoices();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadInvoices = async () => {
@@ -20,18 +22,24 @@ const InvoiceList = () => {
         setInvoices(data);
       } catch (error) {
         console.error('Error loading invoices:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
     loadInvoices();
   }, []);
 
-  if (invoices.length === 0) {
+  if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
       </div>
     );
+  }
+
+  if (invoices.length === 0) {
+    return <NoData message="No Invoices Created" />;
   }
 
   const handleDelete = async (id) => {

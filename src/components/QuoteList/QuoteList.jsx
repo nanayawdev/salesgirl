@@ -8,6 +8,7 @@ import {
   PlusIcon,
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
+import NoData from '@/components/ui/NoData';
 
 const QuoteList = () => {
   const { quotes, loading, fetchQuotes } = useQuotes();
@@ -22,6 +23,10 @@ const QuoteList = () => {
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
       </div>
     );
+  }
+
+  if (quotes.length === 0) {
+    return <NoData message="No Quotes Created" />;
   }
 
   return (
