@@ -86,13 +86,13 @@ const Navbar = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to="/invoices"
+                            to="/dashboard"
                             className={`${
                               active ? 'bg-gray-100 dark:bg-gray-800' : ''
                             } w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 rounded-t-lg flex items-center`}
                           >
                             <FileText className="w-4 h-4 mr-2" />
-                            My Invoices
+                            Dashboard
                           </Link>
                         )}
                       </Menu.Item>
