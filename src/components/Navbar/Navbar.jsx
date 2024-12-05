@@ -141,7 +141,7 @@ const Navbar = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <div className="lg:hidden absolute top-full left-0 w-full bg-background-light dark:bg-background-dark border-b border-codGray-100 dark:border-codGray-800">
+          <div className="lg:hidden absolute top-full left-0 w-full bg-background-light dark:bg-background-dark border-b border-codGray-100 dark:border-codGray-800 z-50">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => (
                 <Link
