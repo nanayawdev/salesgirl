@@ -7,15 +7,38 @@ import {
   DocumentTextIcon,
   PlusIcon,
 } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import NoData from '@/components/ui/NoData';
+import { toast } from 'sonner';
 
 const QuoteList = () => {
-  const { quotes, loading, fetchQuotes } = useQuotes();
+  const { quotes, loading, fetchQuotes, deleteQuote } = useQuotes();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchQuotes();
   }, []);
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this quote?')) {
+      try {
+        await deleteQuote(id);
+        toast.success('Quote deleted successfully');
+        fetchQuotes(); // Refresh the list
+      } catch (error) {
+        console.error('Error deleting quote:', error);
+        toast.error('Failed to delete quote');
+      }
+    }
+  };
+
+  const handleView = (id) => {
+    navigate(`/quote/view/${id}`);
+  };
+
+  const handleEdit = (id) => {
+    navigate(`/quote/edit/${id}`);
+  };
 
   if (loading) {
     return (
@@ -92,20 +115,20 @@ const QuoteList = () => {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <div className="flex justify-end space-x-2">
-                    <Link
-                      to={`/quote/view/${quote.id}`}
+                    <button
+                      onClick={() => handleView(quote.id)}
                       className="text-gray-400 hover:text-gray-500"
                       title="View"
                     >
                       <DocumentTextIcon className="w-5 h-5" />
-                    </Link>
-                    <Link
-                      to={`/quote/edit/${quote.id}`}
+                    </button>
+                    <button
+                      onClick={() => handleEdit(quote.id)}
                       className="text-blue-400 hover:text-blue-500"
                       title="Edit"
                     >
                       <PencilIcon className="w-5 h-5" />
-                    </Link>
+                    </button>
                     <button
                       onClick={() => handleDelete(quote.id)}
                       className="text-red-400 hover:text-red-500"
