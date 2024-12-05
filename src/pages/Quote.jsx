@@ -176,7 +176,7 @@ const Quote = () => {
         <div className="grid grid-cols-2 gap-8 mb-8">
           {/* Your Details */}
           <section className="space-y-4">
-            <h2 className="text-xl font-semibold mb-4">Your Details</h2>
+            <h2 className="text-xl text-codGray-900 dark:text-codGray-100 font-semibold mb-4">Your Details</h2>
             <div>
               <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Business Name</label>
               <Input
@@ -208,7 +208,7 @@ const Quote = () => {
 
           {/* Client Details */}
           <section className="space-y-4">
-            <h2 className="text-xl font-semibold mb-4">Client Details</h2>
+            <h2 className="text-xl text-codGray-900 dark:text-codGray-100 font-semibold mb-4">Client Details</h2>
             <div>
               <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Client Name</label>
               <Input
@@ -241,7 +241,7 @@ const Quote = () => {
 
         {/* Quote Details */}
         <section className="mb-8 bg-white/10 p-6 rounded-lg shadow-sm">
-          <h2 className="text-xl font-semibold mb-4">Quote Details</h2>
+          <h2 className="text-xl text-codGray-900 dark:text-codGray-100 font-semibold mb-4">Quote Details</h2>
           <div className="grid grid-cols-3 gap-4">
             <div>
               <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Quote Number</label>
@@ -319,7 +319,7 @@ const Quote = () => {
 
         {/* Project Details */}
         <section className="mb-8 bg-white/10 p-6 rounded-lg shadow-sm">
-          <h2 className="text-xl font-semibold mb-4">Project Details</h2>
+          <h2 className="text-xl text-codGray-900 dark:text-codGray-100 font-semibold mb-4">Project Details</h2>
           <div className="space-y-4">
             <div>
               <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Project Title</label>
@@ -346,7 +346,7 @@ const Quote = () => {
 
         {/* Items Section */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-4">Items</h2>
+          <h2 className="text-xl text-codGray-900 dark:text-codGray-100 font-semibold mb-4">Items</h2>
           
           <button
             onClick={addItem}
