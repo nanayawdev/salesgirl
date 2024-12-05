@@ -8,7 +8,6 @@ import {
   EyeIcon,
   DocumentArrowDownIcon
 } from '@heroicons/react/24/outline';
-import { useTheme } from '../contexts/ThemeContext';
 import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -16,9 +15,6 @@ import { format } from "date-fns";
 import { CalendarIcon } from "@heroicons/react/24/outline";
 
 const Quote = () => {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-
   const [quoteData, setQuoteData] = useState({
     // Your Details
     businessLogo: null,
