@@ -698,7 +698,7 @@ const InvoiceGenerator = ({ view = false }) => {
           
           <button
             onClick={addItem}
-            className="mb-4 inline-flex items-center bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700"
+            className="mb-4 inline-flex items-center bg-algaeGreen-600 text-white px-4 py-2 rounded hover:bg-algaeGreen-700"
           >
             <PlusCircleIcon className="w-5 h-5 mr-2" />
             Add Item
@@ -722,7 +722,7 @@ const InvoiceGenerator = ({ view = false }) => {
                   placeholder="Description"
                   value={item.description}
                   onChange={(e) => updateItem(index, 'description', e.target.value)}
-                  className="bg-white/5"
+                  className="bg-white/5 text-codGray-900 dark:text-codGray-100"
                 />
               </div>
               <div className="col-span-2">
@@ -731,7 +731,7 @@ const InvoiceGenerator = ({ view = false }) => {
                   placeholder="Qty"
                   value={item.quantity}
                   onChange={(e) => updateItem(index, 'quantity', parseFloat(e.target.value) || 0)}
-                  className="bg-white/5 text-right"
+                  className="bg-white/5 text-right text-codGray-900 dark:text-codGray-100"
                   min="0"
                 />
               </div>
@@ -741,7 +741,7 @@ const InvoiceGenerator = ({ view = false }) => {
                   placeholder="Rate"
                   value={item.rate}
                   onChange={(e) => updateItem(index, 'rate', parseFloat(e.target.value) || 0)}
-                  className="bg-white/5 text-right"
+                  className="bg-white/5 text-right text-codGray-900 dark:text-codGray-100"
                   min="0"
                 />
               </div>
@@ -787,7 +787,7 @@ const InvoiceGenerator = ({ view = false }) => {
                         type="number"
                         value={invoiceData.discountRate}
                         onChange={(e) => setInvoiceData({...invoiceData, discountRate: parseFloat(e.target.value) || 0})}
-                        className="w-24 text-right bg-white/5"
+                        className="w-24 text-right bg-white/5 text-codGray-900 dark:text-codGray-100"
                         min="0"
                         max="100"
                         placeholder="0"
@@ -816,7 +816,7 @@ const InvoiceGenerator = ({ view = false }) => {
                         type="number"
                         value={invoiceData.taxRate}
                         onChange={(e) => setInvoiceData({...invoiceData, taxRate: parseFloat(e.target.value) || 0})}
-                        className="w-24 text-right bg-white/5"
+                        className="w-24 text-right bg-white/5 text-codGray-900 dark:text-codGray-100"
                         min="0"
                         max="100"
                         placeholder="0"
@@ -872,7 +872,7 @@ const InvoiceGenerator = ({ view = false }) => {
               <textarea
                 value={invoiceData.notes}
                 onChange={(e) => setInvoiceData({...invoiceData, notes: e.target.value})}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
                 rows="4"
                 placeholder="Any additional notes for the client..."
               />
@@ -882,7 +882,7 @@ const InvoiceGenerator = ({ view = false }) => {
               <textarea
                 value={invoiceData.terms}
                 onChange={(e) => setInvoiceData({...invoiceData, terms: e.target.value})}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
                 rows="4"
                 placeholder="Payment terms and conditions..."
               />
