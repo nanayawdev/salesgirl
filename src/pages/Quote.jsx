@@ -13,8 +13,16 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { CalendarIcon } from "@heroicons/react/24/outline";
+import { useQuotes } from '@/hooks/useQuotes';
+import { toast } from 'sonner';
+import { useAuth } from '@/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Quote = () => {
+  const { user } = useAuth();
+  const { createQuote } = useQuotes();
+  const navigate = useNavigate();
+
   const [quoteData, setQuoteData] = useState({
     // Your Details
     businessLogo: null,
@@ -45,6 +53,9 @@ const Quote = () => {
   const [items, setItems] = useState([
     { description: '', quantity: 1, rate: 0 }
   ]);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
 
   // Logo upload handlers
   const handleLogoUpload = (e) => {
@@ -83,6 +94,26 @@ const Quote = () => {
 
   const calculateTotal = () => {
     return items.reduce((sum, item) => sum + (item.quantity * item.rate), 0).toFixed(2);
+  };
+
+  // Add submit handler
+  const handleSubmit = async () => {
+    if (!user) {
+      toast.error('Please login to create a quote');
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      await createQuote(quoteData, items);
+      toast.success('Quote created successfully!');
+      navigate('/quotes'); // Redirect to quotes list
+    } catch (error) {
+      toast.error('Failed to create quote');
+      console.error('Error creating quote:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -447,18 +478,18 @@ const Quote = () => {
         {/* Action Buttons */}
         <div className="flex justify-end space-x-4">
           <button
-            onClick={() => alert('Preview functionality not implemented yet')}
+            onClick={() => setShowPreview(true)}
             className="inline-flex items-center px-6 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
           >
             <EyeIcon className="w-5 h-5 mr-2" />
             Preview Quote
           </button>
           <button
-            onClick={() => alert('Download functionality not implemented yet')}
-            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+            className="inline-flex items-center px-6 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 disabled:opacity-50"
           >
-            <DocumentArrowDownIcon className="w-4 h-4 mr-2" />
-            Download PDF
+            {isSubmitting ? 'Creating...' : 'Create Quote'}
           </button>
         </div>
       </div>
