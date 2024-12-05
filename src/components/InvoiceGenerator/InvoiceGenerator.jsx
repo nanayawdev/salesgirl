@@ -447,7 +447,7 @@ const InvoiceGenerator = ({ view = false }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
+    <div className="min-h-screen bg-background-light dark:bg-background-dark">
       <div className="max-w-4xl mx-auto p-6">
         <div className="flex items-center mb-8">
           <a href="/" className="flex items-center text-sm text-gray-500 hover:text-gray-700">
