@@ -26,7 +26,7 @@ const QuoteList = () => {
   }
 
   if (quotes.length === 0) {
-    return <NoData message="No Quotes Created" />;
+    return <NoData message="No Quotes Created" createLink="/quote/new" createText="Create Quote" />;
   }
 
   return (

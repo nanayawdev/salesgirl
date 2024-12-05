@@ -39,7 +39,7 @@ const InvoiceList = () => {
   }
 
   if (invoices.length === 0) {
-    return <NoData message="No Invoices Created" />;
+    return <NoData message="No Invoices Created" createLink="/invoice/new" createText="Create Invoice" />;
   }
 
   const handleDelete = async (id) => {
