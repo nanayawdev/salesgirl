@@ -450,15 +450,15 @@ const InvoiceGenerator = ({ view = false }) => {
     <div className="min-h-screen bg-background-light dark:bg-background-dark">
       <div className="max-w-4xl mx-auto p-6">
         <div className="flex items-center mb-8">
-          <a href="/" className="flex items-center text-sm text-gray-500 hover:text-gray-700">
+          <a href="/" className="flex items-center text-sm text-codGray-500 dark:text-codGray-400 hover:text-codGray-100 dark:hover:text-codGray-300">
             <ArrowLeftIcon className="w-4 h-4 mr-1" />
             Back to Home
           </a>
         </div>
 
         <div className="text-center mb-12">
-          <div className="inline-block p-3 bg-emerald-100 rounded-full mb-4">
-            <DocumentTextIcon className="w-8 h-8 text-emerald-600" />
+          <div className="inline-block p-3 bg-algaeGreen-100 rounded-full mb-4">
+            <DocumentTextIcon className="w-8 h-8 text-algaeGreen-500" />
           </div>
           <h1 className="text-3xl font-bold">Invoice Generator</h1>
           <p className="text-gray-500">Generate professional invoices in seconds</p>
