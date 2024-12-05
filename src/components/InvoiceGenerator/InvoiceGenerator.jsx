@@ -460,11 +460,11 @@ const InvoiceGenerator = ({ view = false }) => {
           <div className="inline-block p-3 bg-algaeGreen-100 rounded-full mb-4">
             <DocumentTextIcon className="w-8 h-8 text-algaeGreen-500" />
           </div>
-          <h1 className="text-3xl font-bold">Invoice Generator</h1>
-          <p className="text-gray-500">Generate professional invoices in seconds</p>
+          <h1 className="text-3xl text-codGray-900 dark:text-codGray-100 font-bold">Invoice Generator</h1>
+          <p className="text-codGray-500 dark:text-codGray-400">Generate professional invoices in seconds</p>
         </div>
 
-        <section className="mb-8 bg-white/10 p-6 rounded-lg shadow-sm">
+        <section className="mb-8 bg-white/10 dark:bg-white/5 p-6 rounded-lg shadow-sm">
           <div className="grid grid-cols-2 gap-8">
             {/* Business Logo */}
             <div>
