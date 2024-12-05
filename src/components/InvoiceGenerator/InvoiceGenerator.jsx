@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import { supabase } from '@/lib/supabase';
 import { 
   ArrowLeftIcon,
@@ -32,9 +31,6 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable'; // Import jsPDF autotable plugin
 
 const InvoiceGenerator = ({ view = false }) => {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-
   const { id } = useParams();
   const navigate = useNavigate();
   const { createInvoice, updateInvoice } = useInvoices();
