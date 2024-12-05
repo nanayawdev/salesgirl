@@ -90,7 +90,7 @@ const Quote = () => {
       <div className="max-w-4xl mx-auto p-6">
         {/* Header Section */}
         <div className="flex items-center mb-8">
-          <a href="/" className="flex items-center text-sm text-gray-500 hover:text-gray-700">
+          <a href="/" className="flex items-center text-sm text-codGray-500 dark:text-codGray-400 hover:text-codGray-100 dark:hover:text-codGray-300">
             <ArrowLeftIcon className="w-4 h-4 mr-1" />
             Back to Home
           </a>
@@ -98,19 +98,19 @@ const Quote = () => {
 
         {/* Title Section */}
         <div className="text-center mb-12">
-          <div className="inline-block p-3 bg-emerald-100 rounded-full mb-4">
-            <DocumentTextIcon className="w-8 h-8 text-emerald-600" />
+          <div className="inline-block p-3 bg-algaeGreen-100 rounded-full mb-4">
+            <DocumentTextIcon className="w-8 h-8 text-algaeGreen-500" />
           </div>
-          <h1 className="text-3xl font-bold">Quote Generator</h1>
-          <p className="text-gray-500">Generate professional quotes in seconds</p>
+          <h1 className="text-3xl text-codGray-900 dark:text-codGray-100 font-bold">Quote Generator</h1>
+          <p className="text-codGray-500 dark:text-codGray-400">Generate professional quotes in seconds</p>
         </div>
 
         {/* Logos Section */}
-        <section className="mb-8 bg-white/10 p-6 rounded-lg shadow-sm">
+        <section className="mb-8 bg-white/10 dark:bg-white/5 p-6 rounded-lg shadow-sm">
           <div className="grid grid-cols-2 gap-8">
             {/* Business Logo */}
             <div>
-              <label className="block mb-2">Business Logo (optional)</label>
+              <label className="block mb-2 text-sm text-codGray-500 dark:text-codGray-400">Business Logo (optional)</label>
               <div className="border-2 border-dashed rounded-lg p-4 text-center">
                 <input
                   type="file"
@@ -127,12 +127,12 @@ const Quote = () => {
                         alt="Business Logo" 
                         className="max-h-20 mb-2"
                       />
-                      <span className="text-sm text-gray-500">Click to change logo</span>
+                      <span className="text-sm text-codGray-500 dark:text-codGray-400">Click to change logo</span>
                     </div>
                   ) : (
                     <>
-                      <CloudArrowUpIcon className="w-8 h-8 mx-auto mb-2 text-gray-400" />
-                      <span className="text-sm text-gray-500">Upload logo (max 500KB)</span>
+                      <CloudArrowUpIcon className="w-8 h-8 mx-auto mb-2 text-codGray-400 dark:text-codGray-300" />
+                      <span className="text-sm text-codGray-500 dark:text-codGray-400">Upload logo (max 500KB)</span>
                     </>
                   )}
                 </label>
@@ -141,7 +141,7 @@ const Quote = () => {
 
             {/* Client Logo */}
             <div>
-              <label className="block mb-2">Client Logo (optional)</label>
+              <label className="block mb-2 text-sm text-codGray-500 dark:text-codGray-400">Client Logo (optional)</label>
               <div className="border-2 border-dashed rounded-lg p-4 text-center">
                 <input
                   type="file"
@@ -158,12 +158,12 @@ const Quote = () => {
                         alt="Client Logo" 
                         className="max-h-20 mb-2"
                       />
-                      <span className="text-sm text-gray-500">Click to change logo</span>
+                      <span className="text-sm text-codGray-500 dark:text-codGray-400">Click to change logo</span>
                     </div>
                   ) : (
                     <>
-                      <CloudArrowUpIcon className="w-8 h-8 mx-auto mb-2 text-gray-400" />
-                      <span className="text-sm text-gray-500">Upload logo (max 500KB)</span>
+                      <CloudArrowUpIcon className="w-8 h-8 mx-auto mb-2 text-codGray-400 dark:text-codGray-300" />
+                      <span className="text-sm text-codGray-500 dark:text-codGray-400">Upload logo (max 500KB)</span>
                     </>
                   )}
                 </label>
@@ -178,7 +178,7 @@ const Quote = () => {
           <section className="space-y-4">
             <h2 className="text-xl font-semibold mb-4">Your Details</h2>
             <div>
-              <label className="block mb-1">Business Name</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Business Name</label>
               <Input
                 type="text"
                 value={quoteData.businessName}
@@ -187,7 +187,7 @@ const Quote = () => {
               />
             </div>
             <div>
-              <label className="block mb-1">Business Email</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Business Email</label>
               <Input
                 type="email"
                 value={quoteData.businessEmail}
@@ -196,7 +196,7 @@ const Quote = () => {
               />
             </div>
             <div>
-              <label className="block mb-1">Business Address</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Business Address</label>
               <textarea
                 value={quoteData.businessAddress}
                 onChange={(e) => setQuoteData({ ...quoteData, businessAddress: e.target.value })}
@@ -210,7 +210,7 @@ const Quote = () => {
           <section className="space-y-4">
             <h2 className="text-xl font-semibold mb-4">Client Details</h2>
             <div>
-              <label className="block mb-1">Client Name</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Client Name</label>
               <Input
                 type="text"
                 value={quoteData.clientName}
@@ -219,7 +219,7 @@ const Quote = () => {
               />
             </div>
             <div>
-              <label className="block mb-1">Client Email</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Client Email</label>
               <Input
                 type="email"
                 value={quoteData.clientEmail}
@@ -228,7 +228,7 @@ const Quote = () => {
               />
             </div>
             <div>
-              <label className="block mb-1">Client Address</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Client Address</label>
               <textarea
                 value={quoteData.clientAddress}
                 onChange={(e) => setQuoteData({ ...quoteData, clientAddress: e.target.value })}
@@ -244,7 +244,7 @@ const Quote = () => {
           <h2 className="text-xl font-semibold mb-4">Quote Details</h2>
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block mb-1">Quote Number</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Quote Number</label>
               <Input
                 type="text"
                 value={quoteData.quoteNumber}
@@ -253,7 +253,7 @@ const Quote = () => {
               />
             </div>
             <div>
-              <label className="block mb-1">Date Created</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Date Created</label>
               <Popover>
                 <PopoverTrigger asChild>
                   <button
@@ -284,7 +284,7 @@ const Quote = () => {
               </Popover>
             </div>
             <div>
-              <label className="block mb-1">Valid Until</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Valid Until</label>
               <Popover>
                 <PopoverTrigger asChild>
                   <button
@@ -322,7 +322,7 @@ const Quote = () => {
           <h2 className="text-xl font-semibold mb-4">Project Details</h2>
           <div className="space-y-4">
             <div>
-              <label className="block mb-1">Project Title</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Project Title</label>
               <Input
                 type="text"
                 value={quoteData.projectTitle}
@@ -332,7 +332,7 @@ const Quote = () => {
               />
             </div>
             <div>
-              <label className="block mb-1">Project Description</label>
+              <label className="block mb-1 text-sm text-codGray-500 dark:text-codGray-400">Project Description</label>
               <textarea
                 value={quoteData.projectDescription}
                 onChange={(e) => setQuoteData({ ...quoteData, projectDescription: e.target.value })}
