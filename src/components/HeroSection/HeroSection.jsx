@@ -62,7 +62,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="bg-background-light dark:bg-background-dark h-screen phone:min-h-screen tablet:min-h-screen laptop:min-h-screen desktop:min-h-screen flex items-center justify-center py-12 sm:py-16 lg:py-20 relative">
+    <div className="bg-background-light dark:bg-background-dark min-h-[400px] sm:min-h-[500px] lg:min-h-[600px] flex items-center justify-center py-12 sm:py-16 lg:py-20 relative">
       <div className="text-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Content */}
         <h1 className="main-heading">
