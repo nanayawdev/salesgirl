@@ -183,7 +183,7 @@ const Quote = () => {
                 type="text"
                 value={quoteData.businessName}
                 onChange={(e) => setQuoteData({ ...quoteData, businessName: e.target.value })}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
               />
             </div>
             <div>
@@ -192,7 +192,7 @@ const Quote = () => {
                 type="email"
                 value={quoteData.businessEmail}
                 onChange={(e) => setQuoteData({ ...quoteData, businessEmail: e.target.value })}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
               />
             </div>
             <div>
@@ -200,7 +200,7 @@ const Quote = () => {
               <textarea
                 value={quoteData.businessAddress}
                 onChange={(e) => setQuoteData({ ...quoteData, businessAddress: e.target.value })}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
                 rows="3"
               />
             </div>
@@ -215,7 +215,7 @@ const Quote = () => {
                 type="text"
                 value={quoteData.clientName}
                 onChange={(e) => setQuoteData({ ...quoteData, clientName: e.target.value })}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
               />
             </div>
             <div>
@@ -224,7 +224,7 @@ const Quote = () => {
                 type="email"
                 value={quoteData.clientEmail}
                 onChange={(e) => setQuoteData({ ...quoteData, clientEmail: e.target.value })}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
               />
             </div>
             <div>
@@ -232,7 +232,7 @@ const Quote = () => {
               <textarea
                 value={quoteData.clientAddress}
                 onChange={(e) => setQuoteData({ ...quoteData, clientAddress: e.target.value })}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
                 rows="3"
               />
             </div>
@@ -249,7 +249,7 @@ const Quote = () => {
                 type="text"
                 value={quoteData.quoteNumber}
                 onChange={(e) => setQuoteData({ ...quoteData, quoteNumber: e.target.value })}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
               />
             </div>
             <div>
@@ -257,7 +257,7 @@ const Quote = () => {
               <Popover>
                 <PopoverTrigger asChild>
                   <button
-                    className={`w-full p-2 border rounded bg-white/5 text-left flex items-center justify-between`}
+                    className={`w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5 text-left flex items-center justify-between`}
                   >
                     {quoteData.dateCreated ? (
                       format(new Date(quoteData.dateCreated), "PPP")
@@ -288,7 +288,7 @@ const Quote = () => {
               <Popover>
                 <PopoverTrigger asChild>
                   <button
-                    className={`w-full p-2 border rounded bg-white/5 text-left flex items-center justify-between`}
+                    className={`w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5 text-left flex items-center justify-between`}
                   >
                     {quoteData.validUntil ? (
                       format(new Date(quoteData.validUntil), "PPP")
@@ -327,7 +327,7 @@ const Quote = () => {
                 type="text"
                 value={quoteData.projectTitle}
                 onChange={(e) => setQuoteData({ ...quoteData, projectTitle: e.target.value })}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
                 placeholder="Enter project title"
               />
             </div>
@@ -336,7 +336,7 @@ const Quote = () => {
               <textarea
                 value={quoteData.projectDescription}
                 onChange={(e) => setQuoteData({ ...quoteData, projectDescription: e.target.value })}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
                 rows="3"
                 placeholder="Enter project description"
               />
@@ -374,7 +374,7 @@ const Quote = () => {
                   placeholder="Description"
                   value={item.description}
                   onChange={(e) => updateItem(index, 'description', e.target.value)}
-                  className="bg-white/5"
+                  className="bg-white/5 text-codGray-900 dark:text-codGray-100"
                 />
               </div>
               <div className="col-span-2">
@@ -383,7 +383,7 @@ const Quote = () => {
                   placeholder="Qty"
                   value={item.quantity}
                   onChange={(e) => updateItem(index, 'quantity', parseFloat(e.target.value) || 0)}
-                  className="bg-white/5 text-right"
+                  className="bg-white/5 text-right text-codGray-900 dark:text-codGray-100"
                   min="0"
                 />
               </div>
@@ -393,7 +393,7 @@ const Quote = () => {
                   placeholder="Rate"
                   value={item.rate}
                   onChange={(e) => updateItem(index, 'rate', parseFloat(e.target.value) || 0)}
-                  className="bg-white/5 text-right"
+                  className="bg-white/5 text-right text-codGray-900 dark:text-codGray-100"
                   min="0"
                 />
               </div>
@@ -426,7 +426,7 @@ const Quote = () => {
               <textarea
                 value={quoteData.notes}
                 onChange={(e) => setQuoteData({ ...quoteData, notes: e.target.value })}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
                 rows="4"
                 placeholder="Any additional notes for the client..."
               />
@@ -436,7 +436,7 @@ const Quote = () => {
               <textarea
                 value={quoteData.terms}
                 onChange={(e) => setQuoteData({ ...quoteData, terms: e.target.value })}
-                className="w-full p-2 border rounded bg-white/5"
+                className="w-full p-2 border text-codGray-900 dark:text-codGray-100 rounded bg-white/5"
                 rows="4"
                 placeholder="Terms and conditions..."
               />
