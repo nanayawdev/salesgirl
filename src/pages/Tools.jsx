@@ -22,15 +22,15 @@ const Tools = () => {
       badge: 'Popular'
     },
     {
-      title: 'Status Dashboard',
-      description: 'Monitor system performance and service availability in real-time',
-      link: '/status',
+      title: 'Quote Generator',
+      description: 'Create and manage professional quotes with customizable templates',
+      link: '/quote',
       icon: BarChart2
     },
     {
       title: 'Price Calculator',
       description: 'Calculate project costs and generate accurate quotes',
-      link: '/quote',
+      link: '/price',
       icon: Calculator
     },
     {

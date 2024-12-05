@@ -18,6 +18,7 @@ import CookieConsent from './components/CookieConsent/CookieConsent';
 import Company from './pages/Company';
 import Tools from './pages/Tools';
 import Quote from './pages/Quote';
+import PriceCalculator from './pages/PriceCalculator';
 
 function App() {
   return (
@@ -75,6 +76,13 @@ function App() {
           <Route path="/company" element={<Company />} />
           <Route path="/tools" element={<Tools />} />
           <Route path="/quote" element={<Quote />} />
+          <Route path="/price" element={<PriceCalculator />} />
+          <Route path="/expenses" element={<div>Expense Tracker - Coming Soon</div>} />
+          <Route path="/payments" element={<div>Payment Processing - Coming Soon</div>} />
+          <Route path="/receipts" element={<div>Receipt Scanner - Coming Soon</div>} />
+          <Route path="/reports" element={<div>Financial Reports - Coming Soon</div>} />
+          <Route path="/tax" element={<div>Tax Calculator - Coming Soon</div>} />
+          <Route path="/registry" element={<div>Business Registry - Coming Soon</div>} />
         </Routes>
         <CookieConsent />
       </Router>
