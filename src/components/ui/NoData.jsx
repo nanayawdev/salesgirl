@@ -7,7 +7,7 @@ const NoData = ({ message, createLink, createText }) => {
       <p className="text-gray-500 mb-4">{message}</p>
       <Link
         to={createLink}
-        className="inline-flex items-center px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700"
+        className="btn-primary"
       >
         {createText}
       </Link>
