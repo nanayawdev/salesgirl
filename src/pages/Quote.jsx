@@ -358,10 +358,10 @@ const Quote = () => {
 
           {/* Items Header */}
           <div className="grid grid-cols-12 gap-4 mb-2 font-semibold">
-            <div className="col-span-4">Description</div>
-            <div className="col-span-2 text-right">Quantity</div>
-            <div className="col-span-2 text-right">Rate</div>
-            <div className="col-span-3 text-right">Amount</div>
+            <div className="col-span-4 text-codGray-500 dark:text-codGray-400">Description</div>
+            <div className="col-span-2 text-right text-codGray-500 dark:text-codGray-400">Quantity</div>
+            <div className="col-span-2 text-right text-codGray-500 dark:text-codGray-400">Rate</div>
+            <div className="col-span-3 text-right text-codGray-500 dark:text-codGray-400">Amount</div>
             <div className="col-span-1"></div> {/* Space for delete button */}
           </div>
 
@@ -397,7 +397,7 @@ const Quote = () => {
                   min="0"
                 />
               </div>
-              <div className="col-span-3 text-right">
+              <div className="col-span-3 text-codGray-900 dark:text-codGray-100 text-right">
                 <p className="p-2 overflow-x-auto whitespace-nowrap" 
                    title={`${quoteData.currency}${calculateItemAmount(item)}`}>
                   {quoteData.currency}{calculateItemAmount(item)}
