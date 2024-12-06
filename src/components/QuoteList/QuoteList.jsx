@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useQuotes } from '@/hooks/useQuotes';
 import { format } from 'date-fns';
-import {
-  PencilIcon,
-  TrashIcon,
-  DocumentTextIcon,
-  PlusIcon,
-} from '@heroicons/react/24/outline';
+import { PencilIcon, TrashIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { Link, useNavigate } from 'react-router-dom';
 import NoData from '@/components/ui/NoData';
 import { toast } from 'sonner';
@@ -24,7 +19,7 @@ const QuoteList = () => {
       try {
         await deleteQuote(id);
         toast.success('Quote deleted successfully');
-        fetchQuotes(); // Refresh the list
+        fetchQuotes();
       } catch (error) {
         console.error('Error deleting quote:', error);
         toast.error('Failed to delete quote');
@@ -56,10 +51,7 @@ const QuoteList = () => {
     <>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold">My Quotes</h1>
-        <Link
-          to="/quote/new"
-          className="btn-primary"
-        >
+        <Link to="/quote/new" className="btn-primary">
           <PlusIcon className="w-5 h-5 mr-2" />
           New Quote
         </Link>

@@ -17,7 +17,7 @@ import About from './pages/About';
 import CookieConsent from './components/CookieConsent/CookieConsent';
 import Company from './pages/Company';
 import Tools from './pages/Tools';
-import Quote from './pages/Quote';
+import Quote from '@/pages/Quote';
 import QuoteList from './components/QuoteList/QuoteList';
 import Dashboard from './pages/Dashboard';
 
@@ -74,21 +74,9 @@ function App() {
           <Route path="/tools" element={<Tools />} />
           <Route path="/quote" element={<Navigate to="/quotes" replace />} />
           <Route path="/quotes" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/quote/new" element={
-            <ProtectedRoute>
-              <Quote />
-            </ProtectedRoute>
-          } />
-          <Route path="/quote/edit/:id" element={
-            <ProtectedRoute>
-              <Quote />
-            </ProtectedRoute>
-          } />
-          <Route path="/quote/view/:id" element={
-            <ProtectedRoute>
-              <Quote view={true} />
-            </ProtectedRoute>
-          } />
+          <Route path="/quote/new" element={<Quote />} />
+          <Route path="/quote/edit/:id" element={<Quote />} />
+          <Route path="/quote/view/:id" element={<Quote />} />
           <Route path="/dashboard" element={
             <ProtectedRoute>
               <Dashboard />
