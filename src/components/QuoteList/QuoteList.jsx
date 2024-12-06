@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useQuotes } from '@/hooks/useQuotes';
 import { format } from 'date-fns';
-import { PencilIcon, TrashIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
+import { PencilIcon, TrashIcon, DocumentTextIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { Link, useNavigate } from 'react-router-dom';
 import NoData from '@/components/ui/NoData';
 import { toast } from 'sonner';

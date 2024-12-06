@@ -49,9 +49,9 @@ const QuoteForm = ({ mode = 'create', initialData = null }) => {
     terms: 'This quote is valid for 30 days from the date of issue.'
   });
 
-  const [items, setItems] = useState([
-    { description: '', quantity: 1, rate: 0 }
-  ]);
+  const [items, setItems] = useState(
+    initialData?.items || [{ description: '', quantity: 1, rate: 0 }]
+  );
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
@@ -102,13 +102,19 @@ const QuoteForm = ({ mode = 'create', initialData = null }) => {
       return;
     }
 
+    // Create a complete data object combining quoteData and items
+    const completeQuoteData = {
+      ...quoteData,
+      items: items // Include items in the quote data
+    };
+
     try {
       setIsSubmitting(true);
       if (mode === 'edit') {
-        await updateQuote(initialData.id, quoteData, items);
+        await updateQuote(initialData.id, completeQuoteData);
         toast.success('Quote updated successfully!');
       } else {
-        await createQuote(quoteData, items);
+        await createQuote(completeQuoteData);
         toast.success('Quote created successfully!');
       }
       navigate('/quotes');
