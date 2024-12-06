@@ -102,10 +102,13 @@ const QuoteForm = ({ mode = 'create', initialData = null }) => {
       return;
     }
 
-    // Create a complete data object combining quoteData and items
+    // Add this console.log
+    console.log('Quote ID:', initialData?.id);
+    console.log('Complete Quote Data:', completeQuoteData);
+
     const completeQuoteData = {
       ...quoteData,
-      items: items // Include items in the quote data
+      items: items
     };
 
     try {

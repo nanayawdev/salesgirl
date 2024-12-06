@@ -213,6 +213,9 @@ export const useQuotes = () => {
   // Update the updateQuote function
   const updateQuote = async (id, completeQuoteData) => {
     try {
+      console.log('Updating quote with ID:', id);
+      console.log('Update data:', completeQuoteData);
+
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('Not authenticated');
 
@@ -252,6 +255,8 @@ export const useQuotes = () => {
         .eq('id', id)
         .eq('user_id', user.id);
 
+      console.log('Update result:', { data: updateData, error: quoteError });
+
       if (quoteError) throw quoteError;
 
       // Delete existing items
@@ -283,8 +288,7 @@ export const useQuotes = () => {
       
       toast.success('Quote updated successfully!');
     } catch (error) {
-      console.error('Error updating quote:', error);
-      toast.error(error.message);
+      console.error('Detailed update error:', error);
       throw error;
     }
   };
