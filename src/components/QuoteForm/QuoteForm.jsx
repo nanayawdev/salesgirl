@@ -102,31 +102,29 @@ const QuoteForm = ({ mode = 'create', initialData = null }) => {
       return;
     }
 
-    // First log the ID
-    console.log('Quote ID:', initialData?.id);
-
-    // Then create the complete data object
     const completeQuoteData = {
       ...quoteData,
-      items: items // Include items in the quote data
+      items: items
     };
-
-    // Now log the complete data
-    console.log('Complete Quote Data:', completeQuoteData);
 
     try {
       setIsSubmitting(true);
-      if (mode === 'edit') {
-        await updateQuote(initialData.id, completeQuoteData);
+      if (mode === 'edit' && initialData?.id) {
+        console.log('Updating quote:', initialData.id, completeQuoteData);
+        const updatedQuote = await updateQuote(initialData.id, completeQuoteData);
+        console.log('Update successful:', updatedQuote);
         toast.success('Quote updated successfully!');
-      } else {
+        navigate('/quotes');
+      } else if (mode === 'create') {
         await createQuote(completeQuoteData);
         toast.success('Quote created successfully!');
+        navigate('/quotes');
+      } else {
+        toast.error('Invalid operation');
       }
-      navigate('/quotes');
     } catch (error) {
-      toast.error(`Failed to ${mode} quote`);
       console.error(`Error ${mode}ing quote:`, error);
+      toast.error(`Failed to ${mode} quote: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }

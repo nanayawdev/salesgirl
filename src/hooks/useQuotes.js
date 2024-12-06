@@ -180,8 +180,9 @@ export const useQuotes = () => {
         throw new Error('Quote not found');
       }
 
-      // Transform the data to match the form structure
+      // Transform the data to match the form structure AND include the id
       return {
+        id: data.id,
         businessName: data.business_name,
         businessEmail: data.business_email,
         businessAddress: data.business_address,
@@ -210,7 +211,7 @@ export const useQuotes = () => {
     }
   };
 
-  // Update the updateQuote function
+  // Update the updateQuote function to return the updated data
   const updateQuote = async (id, completeQuoteData) => {
     try {
       console.log('Starting quote update:', { id, completeQuoteData });
@@ -231,7 +232,7 @@ export const useQuotes = () => {
       }
 
       // Update the quote
-      const { error: quoteError } = await supabase
+      const { data: updatedQuote, error: quoteError } = await supabase
         .from('quotes')
         .update({
           business_name: completeQuoteData.businessName,
@@ -252,7 +253,9 @@ export const useQuotes = () => {
           updated_at: new Date().toISOString()
         })
         .eq('id', id)
-        .eq('user_id', user.id);
+        .eq('user_id', user.id)
+        .select()
+        .single();
 
       if (quoteError) {
         console.error('Error updating quote:', quoteError);
@@ -292,6 +295,7 @@ export const useQuotes = () => {
       // Refresh quotes list
       await fetchQuotes();
       
+      return updatedQuote;
     } catch (error) {
       console.error('Error in updateQuote:', error);
       throw error;
