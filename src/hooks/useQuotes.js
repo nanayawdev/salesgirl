@@ -213,9 +213,8 @@ export const useQuotes = () => {
   // Update the updateQuote function
   const updateQuote = async (id, completeQuoteData) => {
     try {
-      console.log('Updating quote with ID:', id);
-      console.log('Update data:', completeQuoteData);
-
+      console.log('Starting quote update:', { id, completeQuoteData });
+      
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('Not authenticated');
 
@@ -231,7 +230,7 @@ export const useQuotes = () => {
         clientLogoUrl = await uploadLogo(completeQuoteData.clientLogo, 'client');
       }
 
-      // Transform the data to match the database structure
+      // Update the quote
       const { error: quoteError } = await supabase
         .from('quotes')
         .update({
@@ -255,9 +254,10 @@ export const useQuotes = () => {
         .eq('id', id)
         .eq('user_id', user.id);
 
-      console.log('Update result:', { data: updateData, error: quoteError });
-
-      if (quoteError) throw quoteError;
+      if (quoteError) {
+        console.error('Error updating quote:', quoteError);
+        throw quoteError;
+      }
 
       // Delete existing items
       const { error: deleteError } = await supabase
@@ -265,7 +265,10 @@ export const useQuotes = () => {
         .delete()
         .eq('quote_id', id);
 
-      if (deleteError) throw deleteError;
+      if (deleteError) {
+        console.error('Error deleting quote items:', deleteError);
+        throw deleteError;
+      }
 
       // Insert new items
       if (completeQuoteData.items && completeQuoteData.items.length > 0) {
@@ -280,15 +283,17 @@ export const useQuotes = () => {
             }))
           );
 
-        if (itemsError) throw itemsError;
+        if (itemsError) {
+          console.error('Error inserting quote items:', itemsError);
+          throw itemsError;
+        }
       }
 
       // Refresh quotes list
       await fetchQuotes();
       
-      toast.success('Quote updated successfully!');
     } catch (error) {
-      console.error('Detailed update error:', error);
+      console.error('Error in updateQuote:', error);
       throw error;
     }
   };
