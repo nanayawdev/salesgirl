@@ -102,14 +102,17 @@ const QuoteForm = ({ mode = 'create', initialData = null }) => {
       return;
     }
 
-    // Add this console.log
+    // First log the ID
     console.log('Quote ID:', initialData?.id);
-    console.log('Complete Quote Data:', completeQuoteData);
 
+    // Then create the complete data object
     const completeQuoteData = {
       ...quoteData,
-      items: items
+      items: items // Include items in the quote data
     };
+
+    // Now log the complete data
+    console.log('Complete Quote Data:', completeQuoteData);
 
     try {
       setIsSubmitting(true);
