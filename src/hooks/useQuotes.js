@@ -209,43 +209,43 @@ export const useQuotes = () => {
     }
   };
 
-  // Add updateQuote function
-  const updateQuote = async (id, quoteData, items) => {
+  // Update the updateQuote function
+  const updateQuote = async (id, completeQuoteData) => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('Not authenticated');
 
       // Handle logo uploads if new files are provided
-      let businessLogoUrl = quoteData.businessLogoUrl;
-      let clientLogoUrl = quoteData.clientLogoUrl;
+      let businessLogoUrl = completeQuoteData.businessLogoUrl;
+      let clientLogoUrl = completeQuoteData.clientLogoUrl;
 
-      if (quoteData.businessLogo instanceof File) {
-        businessLogoUrl = await uploadLogo(quoteData.businessLogo, 'business');
+      if (completeQuoteData.businessLogo instanceof File) {
+        businessLogoUrl = await uploadLogo(completeQuoteData.businessLogo, 'business');
       }
 
-      if (quoteData.clientLogo instanceof File) {
-        clientLogoUrl = await uploadLogo(quoteData.clientLogo, 'client');
+      if (completeQuoteData.clientLogo instanceof File) {
+        clientLogoUrl = await uploadLogo(completeQuoteData.clientLogo, 'client');
       }
 
       // Update the quote
       const { error: quoteError } = await supabase
         .from('quotes')
         .update({
-          business_name: quoteData.businessName,
-          business_email: quoteData.businessEmail,
-          business_address: quoteData.businessAddress,
+          business_name: completeQuoteData.businessName,
+          business_email: completeQuoteData.businessEmail,
+          business_address: completeQuoteData.businessAddress,
           business_logo_url: businessLogoUrl,
-          client_name: quoteData.clientName,
-          client_email: quoteData.clientEmail,
-          client_address: quoteData.clientAddress,
+          client_name: completeQuoteData.clientName,
+          client_email: completeQuoteData.clientEmail,
+          client_address: completeQuoteData.clientAddress,
           client_logo_url: clientLogoUrl,
-          project_title: quoteData.projectTitle,
-          project_description: quoteData.projectDescription,
-          currency: quoteData.currency,
-          date_created: quoteData.dateCreated,
-          valid_until: quoteData.validUntil,
-          notes: quoteData.notes,
-          terms: quoteData.terms
+          project_title: completeQuoteData.projectTitle,
+          project_description: completeQuoteData.projectDescription,
+          currency: completeQuoteData.currency,
+          date_created: completeQuoteData.dateCreated,
+          valid_until: completeQuoteData.validUntil,
+          notes: completeQuoteData.notes,
+          terms: completeQuoteData.terms
         })
         .eq('id', id)
         .eq('user_id', user.id);
@@ -261,11 +261,11 @@ export const useQuotes = () => {
       if (deleteError) throw deleteError;
 
       // Insert new items
-      if (items && items.length > 0) {
+      if (completeQuoteData.items && completeQuoteData.items.length > 0) {
         const { error: itemsError } = await supabase
           .from('quote_items')
           .insert(
-            items.map(item => ({
+            completeQuoteData.items.map(item => ({
               quote_id: id,
               description: item.description,
               quantity: item.quantity,
@@ -276,6 +276,9 @@ export const useQuotes = () => {
         if (itemsError) throw itemsError;
       }
 
+      // Refresh quotes list
+      await fetchQuotes();
+      
       toast.success('Quote updated successfully!');
     } catch (error) {
       console.error('Error updating quote:', error);
