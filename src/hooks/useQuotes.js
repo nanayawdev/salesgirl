@@ -180,6 +180,7 @@ export const useQuotes = () => {
         throw new Error('Quote not found');
       }
 
+      // Transform the data to match the form structure
       return {
         businessName: data.business_name,
         businessEmail: data.business_email,
@@ -227,7 +228,7 @@ export const useQuotes = () => {
         clientLogoUrl = await uploadLogo(completeQuoteData.clientLogo, 'client');
       }
 
-      // Update the quote
+      // Transform the data to match the database structure
       const { error: quoteError } = await supabase
         .from('quotes')
         .update({
@@ -245,7 +246,8 @@ export const useQuotes = () => {
           date_created: completeQuoteData.dateCreated,
           valid_until: completeQuoteData.validUntil,
           notes: completeQuoteData.notes,
-          terms: completeQuoteData.terms
+          terms: completeQuoteData.terms,
+          updated_at: new Date().toISOString()
         })
         .eq('id', id)
         .eq('user_id', user.id);
